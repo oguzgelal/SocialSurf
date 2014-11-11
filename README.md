@@ -17,15 +17,13 @@ This application is built with Meteor.JS so you should have Meteor installed. Th
 ```sh
 $ meteor
 ```
-If you are having trouble running the app, click [here] for more information.
-
-[here]:https://www.meteor.com/install
+If you are having trouble running the app, click [here](https://www.meteor.com/install) for more information.
 
 
 ### Run Tests
 
-The tests run on a testing framework for Meteor called Laika. You have to complete the setup of Laika. You can find the introductions [here].
-[here]:http://arunoda.github.io/laika/
+The tests run on a testing framework for Meteor called Laika. You have to complete the setup of Laika. You can find the introductions [here](http://arunoda.github.io/laika/).
+
 In order to run tests, you should have have typed the following command and started a MongoDB server.
 ```sh
 $ meteor
