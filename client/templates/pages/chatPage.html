@@ -2,4 +2,9 @@
   <h1>Chat - {{getUrl}}</h1>
   <textarea name="Name"></textarea><br>
   <input type="button" value="Send">
+  <ul>
+    {{#each urls}}
+    <li>{{url}}</li>
+    {{/each}}
+  </ul>
 </template>
