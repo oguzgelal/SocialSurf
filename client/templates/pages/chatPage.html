@@ -1,7 +1,16 @@
 <template name="chatPage">
-  <h1>Chat - {{getUrl}}</h1>
-  <textarea name="Name"></textarea><br>
-  <input type="button" value="Send">
+  <h1>Chat - {{url}} - {{_id}}</h1>
+  <textarea name="message" class="message"></textarea><br>
+  <input type="button" class="sendMessage" value="Send">
+
+  <h3>Messages</h3>
+  <ul>
+    {{#each messages}}
+    <li><b>{{userid}}</b> : {{message}}</li>
+    {{/each}}
+  </ul>
+
+  <h3>URL's</h3>
   <ul>
     {{#each urls}}
     <li>{{url}}</li>
