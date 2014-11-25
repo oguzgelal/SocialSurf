@@ -5,11 +5,12 @@ Meteor.methods({
       Rooms.insert({url: url});
     }
   },
-  addMessage: function(roomid, userid, message){
+  addMessage: function(roomid, nick, message){
     Messages.insert({
       roomid: roomid,
-      userid: userid,
-      message: message
+      nick: nick,
+      message: message,
+      date: new Date()
     });
   }
 });

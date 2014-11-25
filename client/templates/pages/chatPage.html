@@ -1,14 +1,18 @@
 <template name="chatPage">
-  <h1>Chat - {{url}} - {{_id}}</h1>
+  <h3>Chat <br> {{url}} <br> {{_id}}</h3>
   <textarea name="message" class="message"></textarea><br>
   <input type="button" class="sendMessage" value="Send">
+
+  <hr>
 
   <h3>Messages</h3>
   <ul>
     {{#each messages}}
-    <li><b>{{userid}}</b> : {{message}}</li>
+    <li><b>{{nick}}</b> : {{message}}</li>
     {{/each}}
   </ul>
+
+  <hr>
 
   <h3>URL's</h3>
   <ul>
@@ -16,4 +20,8 @@
     <li>{{url}}</li>
     {{/each}}
   </ul>
+
+  <hr>
+
+  <footer>Nickname - <u>{{nickname}}</u></footer>
 </template>
