@@ -25,5 +25,10 @@ Meteor.methods({
   leaveRoom: function(urlVar){
     urlVar = decodeURIComponent(urlVar);
     Rooms.update({url: urlVar}, {$inc: {online: -1}});
+  },
+  getOnlineCount: function(urlVar){
+    // TODO : Cannot read property 'online' of undefined
+    var found = Rooms.findOne({url: urlVar});
+    return found.online;
   }
 });
