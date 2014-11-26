@@ -1,0 +1,3 @@
+Change localhost URL's:
+/public/popup/popup.js
+/public/background/bg.js
