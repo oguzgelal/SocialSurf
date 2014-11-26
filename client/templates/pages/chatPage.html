@@ -1,23 +1,14 @@
 <template name="chatPage">
-  <h3>Chat <br> {{url}} <br> {{_id}}</h3>
+  <h3>Chat <br> {{_id}}</h3>
   <textarea name="message" class="message"></textarea><br>
   <input type="button" class="sendMessage" value="Send">
 
   <hr>
 
-  <h3>Messages</h3>
+  <h3>Messages ({{online}} users online)</h3>
   <ul>
     {{#each messages}}
     <li><b>{{nick}}</b> : {{message}}</li>
-    {{/each}}
-  </ul>
-
-  <hr>
-
-  <h3>URL's</h3>
-  <ul>
-    {{#each urls}}
-    <li>{{url}}</li>
     {{/each}}
   </ul>
 

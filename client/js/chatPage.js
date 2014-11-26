@@ -1,16 +1,15 @@
 Meteor.startup(function(){
-
 });
 
 Template.chatPage.helpers({
-  urls: function(){
-    return Rooms.find({});
-  },
   messages: function(){
     return Messages.find({});
   },
   nickname: function(){
     return amplify.store("nickname");
+  },
+  online: function(){
+    return Rooms.findOne({url: this.url}).online;
   }
 });
 

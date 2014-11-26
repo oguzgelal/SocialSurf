@@ -9,6 +9,9 @@
     "48": "icon.png",
     "128": "icon.png"
   },
+  "background": {
+    "scripts": ["public/thirdParty/jquery/jquery.min.js", "public/thirdParty/ddp/ddp.js", "public/background/bg.js"]
+  },
   "browser_action": {
     "default_icon" : "icon.png",
     "default_popup": "public/popup/popup.html"
