@@ -18,7 +18,14 @@
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "web_accessible_resources": [
-    "assets/img/icon.png"
+    "assets/img/icon.png",
+    "assets/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "inject/inject.js"]
+    }
   ],
   "permissions": [
     "tabs"
