@@ -1,7 +1,7 @@
 Array.prototype.clone = function() {
   return this.slice(0);
 };
-
+/*
 var options = {
   endpoint: "ws://localhost:3000/websocket",
   SocketConstructor: WebSocket
@@ -122,3 +122,4 @@ function handleTab(url, callback){
     });
   });
 }
+*/

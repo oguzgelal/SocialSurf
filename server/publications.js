@@ -9,7 +9,11 @@ Meteor.publish('messages', function(roomid){
 Meteor.onConnection(function(conn){
   console.log("Client ["+conn.id+"] Connected...");
   conn.onClose(function(){
+    Meteor.call("clientDisconnect", conn.id, function(){
+      console.log("Client ["+conn.id+"] Leaved...");
+    });
     console.log("Client ["+conn.id+"] Disconnected...");
     conn.close();
   });
+
 });

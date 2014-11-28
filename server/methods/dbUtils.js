@@ -27,12 +27,17 @@ Meteor.methods({
     Rooms.update({url: urlVar}, {$inc: {online: -1}});
   },
   getOnlineCount: function(urlVar){
-    // TODO : Cannot read property 'online' of undefined
     var found = Rooms.findOne({url: urlVar});
     if (found){
       return found.online;
     }
     return -1;
-
+  },
+  // TODO : new collection for handle online counts
+  clientConnected: function(clientID, urlVar){
+    console.log("joining ["+clientID+"] to "+urlVar+"...");
+  },
+  clientDisconnect: function(clientID){
+    console.log("["+clientID+"] leaving...");
   }
 });
