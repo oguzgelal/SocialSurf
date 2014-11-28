@@ -32,12 +32,5 @@ Meteor.methods({
       return found.online;
     }
     return -1;
-  },
-  // TODO : new collection for handle online counts
-  clientConnected: function(clientID, urlVar){
-    console.log("joining ["+clientID+"] to "+urlVar+"...");
-  },
-  clientDisconnect: function(clientID){
-    console.log("["+clientID+"] leaving...");
   }
 });
