@@ -10,23 +10,23 @@
     "128": "assets/img/icon.png"
   },
   "background": {
-    "scripts": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "background/bg.js"]
+    "scripts": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "background/background.js"]
   },
   "browser_action": {
     "default_icon" : "assets/img/icon.png",
     "default_popup": "popup/popup.html"
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "web_accessible_resources": [
-    "assets/img/icon.png",
-    "assets/*"
-  ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "run_at": "document_start",
       "js": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "inject/inject.js"]
     }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "web_accessible_resources": [
+    "assets/img/icon.png",
+    "assets/*"
   ],
   "permissions": [
     "tabs"

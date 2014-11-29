@@ -1,3 +1,14 @@
+/*
+ * Author : Oguz Gelal
+ * This script is injected into every single tab. It opens
+ * a socket connection between the server and each tab. The purpose is
+ * to monitor the online count to the url. A socket connection is
+ * more reliable than listening to tab action because the online count
+ * should also be decreased when a tab or chrome itself
+ * terminates unexpectedly. When that happens, connection closes
+ * and the server decreases the online count of the url which the
+ * closed tab(s) was/were connected to.
+ */
 var options = {
 
   /*
@@ -18,17 +29,23 @@ var ddp = new DDP(options);
 
 ddp.on("connected", function (res) {
 
-  // Alert the background script so that it could update the app badge
-  chrome.runtime.sendMessage({connection: "connectedToServer"}, function(response) {
-    console.log(response.farewell);
-  });
-
   var url = window.location.href;
   var sessionID = res.session;
   console.log("Connected ["+res.session+"]...");
+
+  // Alert the background script so that it could update the app badge
+  chrome.runtime.sendMessage({connection: "connectedToServer"}, function(response) {
+    console.log(response);
+  });
+
+  // Send request to the server containing the sessionID and the url
+  // The purpose of this is when client is connected, the server
+  // doesn't know what the url is. Client uses this request to make
+  // the server match the sessionID and current URL
   ddp.method("clientJoin", [sessionID, url], function(err, res){
     console.log("Join Request ["+sessionID+"]...");
   });
+
 });
 
 ddp.on("error", function(){

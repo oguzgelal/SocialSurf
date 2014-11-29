@@ -1,11 +1,12 @@
-Array.prototype.clone = function() {
-  return this.slice(0);
-};
-
 /*
-* After client content script connects to the server, it alerts the
-* background page to update the app badge
-*/
+ * Author : Oguz Gelal
+ * This script works on the background and it monitors the
+ * chrome tab and windows actions to set the chrome application
+ * badge to the online count of the current tabs url.
+ */
+
+// After client content script connects to the server, it alerts the
+// background page to update the app badge
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
   if (message.connection == "connectedToServer"){
     setActiveToBadge();
