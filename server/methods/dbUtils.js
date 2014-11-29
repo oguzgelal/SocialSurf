@@ -16,21 +16,5 @@ Meteor.methods({
       message: message,
       date: new Date()
     });
-  },
-  joinRoom: function(urlVar){
-    urlVar = decodeURIComponent(urlVar);
-    Rooms.update({url: urlVar}, {$inc: {online: 1}}
-    );
-  },
-  leaveRoom: function(urlVar){
-    urlVar = decodeURIComponent(urlVar);
-    Rooms.update({url: urlVar}, {$inc: {online: -1}});
-  },
-  getOnlineCount: function(urlVar){
-    var found = Rooms.findOne({url: urlVar});
-    if (found){
-      return found.online;
-    }
-    return -1;
   }
 });

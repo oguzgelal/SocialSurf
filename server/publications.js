@@ -6,14 +6,6 @@ Meteor.publish('messages', function(roomid){
   return Messages.find({roomid: roomid});
 });
 
-Meteor.onConnection(function(conn){
-  console.log("Client ["+conn.id+"] Connected...");
-  conn.onClose(function(){
-    Meteor.call("clientDisconnect", conn.id, function(){
-      console.log("Client ["+conn.id+"] Leaved...");
-    });
-    console.log("Client ["+conn.id+"] Disconnected...");
-    conn.close();
-  });
-
-});
+Meteor.publish('online', function(urlVar){
+  return Online.find({url: urlVar});
+})

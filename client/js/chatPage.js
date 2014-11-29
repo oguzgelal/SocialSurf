@@ -1,4 +1,5 @@
 Meteor.startup(function(){
+  
 });
 
 Template.chatPage.helpers({
@@ -9,7 +10,7 @@ Template.chatPage.helpers({
     return amplify.store("nickname");
   },
   online: function(){
-    return Rooms.findOne({url: this.url}).online;
+    return Online.find().count();
   }
 });
 
