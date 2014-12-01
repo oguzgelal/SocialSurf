@@ -1,4 +1,4 @@
-<template name="chatPage">
+<template id="chatPage" name="chatPage">
   <!--
   <h3>Chat - {{_id}}</h3> {{url}} <br>
   <textarea name="message" class="message"></textarea><br>
@@ -19,8 +19,12 @@
 -->
 
 <div class="settingsBar">
-
+  <div class="">
+    <input type="text" placeholder="Nickname...">
+    <button class="btn btn-default">Set</button>
+  </div>
 </div>
+<div class="settingsBarLine"></div>
 <div class="settingsBarToggle">
   <i class="settingsIcon fa fa-cog"></i>
   <i class="closeIcon fa fa-times"></i>
