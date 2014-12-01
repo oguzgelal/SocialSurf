@@ -15,7 +15,7 @@ After you install, the application will inject a script to every open tab which 
 
 In the background, background.js connects to the server as well. It listens to tab and windows actions to set the application badge to the online count of the currently active tab. It receives the data directly from the server.
 
-The popup contains an iframe to the server. The current url data is passed to the server through the URL. The url that the iframe loads is (replace domain with localhost:3000 when testing locally) :
+The popup contains an iframe. The current url data is passed to the server through the URL. The url that the iframe loads is (replace domain with localhost:3000 when testing locally) :
 ```javascript
 http://chromely.meteor.com/chat/[current_url_encoded]
 ```
