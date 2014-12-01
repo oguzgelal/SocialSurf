@@ -1,4 +1,5 @@
 <template name="chatPage">
+  <!--
   <h3>Chat - {{_id}}</h3> {{url}} <br>
   <textarea name="message" class="message"></textarea><br>
   <input type="button" class="sendMessage" value="Send">
@@ -7,12 +8,23 @@
 
   <h3>Messages ({{online}} users online)</h3>
   <ul>
-    {{#each messages}}
-    <li><b>{{nick}}</b> : {{message}}</li>
-    {{/each}}
-  </ul>
+  {{#each messages}}
+  <li><b>{{nick}}</b> : {{message}}</li>
+  {{/each}}
+</ul>
 
-  <hr>
+<hr>
 
-  <footer>Nickname - <u>{{nickname}}</u></footer>
+<footer>Nickname - <u>{{nickname}}</u></footer>
+-->
+
+<div class="settingsBar">
+
+</div>
+<div class="settingsBarToggle">
+  <i class="settingsIcon fa fa-cog"></i>
+  <i class="closeIcon fa fa-times"></i>
+</div>
+
+
 </template>

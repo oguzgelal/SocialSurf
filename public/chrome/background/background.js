@@ -82,11 +82,7 @@ function setActiveToBadge(){
 function setBadgeToOnlineCount(url){
   ddp.method("getOnlineCount", [url], function (err, res) {
     if (err) throw err;
-    if (res){
-      chrome.browserAction.setBadgeText({text: String(res)});
-    }
-    else{
-      chrome.browserAction.setBadgeText({text: "X"});
-    }
+    if (res){ chrome.browserAction.setBadgeText({text: String(res)}); }
+    else{ chrome.browserAction.setBadgeText({text: "X"}); }
   });
 }

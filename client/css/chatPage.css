@@ -1,1 +1,58 @@
+/*Color Codes Light to Dark
+1 - #FBFDFE
+2 - #9875D1
+3 - #6938A8
+4 - #402060
+5 - #1D1132
+*/
 
+body {
+  background-color: #FBFDFE;
+}
+
+.settingsBar {
+  position: absolute;
+  top: -44%;
+  left: 0px;
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  background-color: #402060;
+
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.settingsBarToggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 30px;
+  padding: 10px;
+  padding-left: 12px;
+
+  background-color: #402060;
+  font-size: 30px;
+  color: white;
+
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+.settingsBarToggle:hover {
+
+  cursor: pointer;
+
+}
+.settingsBarToggle .closeIcon {
+  display: none;
+}
