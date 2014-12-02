@@ -18,16 +18,36 @@
 <footer>Nickname - <u>{{nickname}}</u></footer>
 -->
 
+<!-- Settings Bar -->
 <div class="settingsBar">
-  <div class="">
-    <input type="text" placeholder="Nickname...">
-    <button class="btn btn-default">Set</button>
+  <div class="settingsRow">
+    <div class="settingsSubRow settingsLabel">Nickname</div>
+    <div class="settingsSubRow">
+      <input type="text" class="settingsNick" value="{{nickname}}">
+      <button class="btn btn-lg setNick"><i class="fa fa-check"></i></button>
+    </div>
   </div>
 </div>
 <div class="settingsBarLine"></div>
 <div class="settingsBarToggle">
   <i class="settingsIcon fa fa-cog"></i>
   <i class="closeIcon fa fa-times"></i>
+</div>
+
+<!-- Messages -->
+<div class="messageArea">
+  <h3>Messages ({{online}} users online)</h3>
+  <ul>
+    {{#each messages}}
+    <li><b>{{nick}}</b> : {{message}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<!-- Message Input -->
+<div class="onlineData"><i class="onlineIcon fa fa-user"></i>{{online}} User Online</div>
+<div class="messageInput">
+  <textarea class="messageInputText" placeholder="Enter message..."></textarea>
 </div>
 
 

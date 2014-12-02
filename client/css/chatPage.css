@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,700,300&subset=latin,cyrillic-ext,latin-ext);
+
 /*Color Codes Light to Dark
 1 - #FBFDFE
 2 - #9875D1
@@ -6,17 +8,22 @@
 5 - #1D1132
 */
 
-body {
+/* GENERAL */
+* {
+  font-family: 'Roboto', sans-serif;
+}
+body, html {
   background-color: #FBFDFE;
   margin: 0px;
   padding: 0px;
+  height: 100%;
 }
 
+/* SETTINGS BAR */
 .settingsBar {
   position: relative;
   margin-top: -99999px;
   width: 100%;
-  min-height: 200px;
   background-color: #402060;
 
   -webkit-transition: all 0.2s ease;
@@ -30,7 +37,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 7px;
+  height: 10px;
   background-color: #402060;
 
   -webkit-transition: all 0.2s ease;
@@ -46,10 +53,10 @@ body {
   width: 25px;
   height: 30px;
   padding: 10px;
-  padding-left: 12px;
+  padding-left: 13px;
   background-color: #402060;
   font-size: 30px;
-  color: white;
+  color: #FBFDFE;
 
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-bottom-left-radius: 5px;
@@ -61,10 +68,111 @@ body {
   transition: all 0.2s ease;
 }
 .settingsBarToggle:hover {
-
   cursor: pointer;
-
 }
 .settingsBarToggle .closeIcon {
   display: none;
+}
+.settingsRow {
+  padding-top: 20px;
+  margin-left: 20px;
+}
+.settingsRow:last-of-type {
+  padding-bottom: 40px;
+}
+.settingsLabel {
+  color: #FBFDFE;
+  font-size: 13px;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+.settingsNick {
+  margin-bottom: 0 !important;
+  background-color: rgba(255,255,255,0.2) !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  widt: auto !important;
+  min-width: 1px !important;
+  color: white !important;
+}
+.setNick {
+  background-image: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  margin-left: 3px;
+}
+
+/* MESSAGES INPUT */
+.onlineData {
+  position: absolute;
+  width: 100%;
+  height: 23px;
+  background-color: whitesmoke;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  padding-left: 15px;
+  bottom: 80px;
+  font-size: 12px;
+  color: lightgray;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.onlineIcon {
+  margin-right: 7px;
+  color: gray;
+}
+.messageInput {
+  position: absolute;
+  width: 100%;
+  height: 80px;
+  bottom: 0;
+  left: 0;
+  background-color: red;
+}
+.messageInputText {
+  font-family: 'Roboto', sans-serif;
+  outline: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  line-height: 22px !important;
+  padding: 10px !important;
+  margin: 0px !important;
+  border: none !important;
+  font-weight: 100;
+  font-size: 16px !important;
+  background-color: #402060 !important;
+  color: #FBFDFE !important;
+
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.messageInputText:focus {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.messageInputText::-webkit-input-placeholder {
+  color: #FBFDFE;
+}
+.messageInputText:-moz-placeholder {
+  color: #FBFDFE;
+}
+.messageInputText::-moz-placeholder {
+  color: #FBFDFE;
+}
+.messageInputText:-ms-input-placeholder {
+  color: #FBFDFE;
+}
+
+/* MESSAGES */
+.messageArea {
+  margin-bottom: 93px;
+  margin-top: 10px;
+  overflow: scroll;
 }
