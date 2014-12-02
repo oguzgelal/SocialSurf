@@ -16,15 +16,20 @@ body, html {
   background-color: #FBFDFE;
   margin: 0px;
   padding: 0px;
+}
+body {
   height: 100%;
 }
 
 /* SETTINGS BAR */
 .settingsBar {
-  position: relative;
+  position: absolute;
   margin-top: -99999px;
+  top: 0px;
+  left: 0px;
   width: 100%;
   background-color: #402060;
+  z-index: 1999999998;
 
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
@@ -57,6 +62,7 @@ body, html {
   background-color: #402060;
   font-size: 30px;
   color: #FBFDFE;
+  z-index: 1999999999;
 
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-bottom-left-radius: 5px;
@@ -84,7 +90,7 @@ body, html {
   color: #FBFDFE;
   font-size: 13px;
   font-weight: 300;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 .settingsNick {
   margin-bottom: 0 !important;
@@ -92,15 +98,20 @@ body, html {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
-  border: 1px solid rgba(255,255,255,0.3) !important;
-  widt: auto !important;
+  border: none !important;
+  width: auto !important;
   min-width: 1px !important;
   color: white !important;
+  padding-left: 10px !important;
 }
 .setNick {
   background-image: none;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: none !important;
   margin-left: 3px;
+  color: #402060;
+}
+.setNick:hover {
+  color: #402060;
 }
 
 /* MESSAGES INPUT */
