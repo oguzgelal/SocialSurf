@@ -36,19 +36,23 @@
 
 <!-- Messages -->
 <div class="messageArea">
-  <h3>Messages ({{online}} users online)</h3>
-  <ul>
-    {{#each messages}}
-    <li><b>{{nick}}</b> : {{message}}</li>
-    {{/each}}
-  </ul>
+
+  {{#each messages}}
+  <div class="messageBox">
+    <div class="messageInline messageNick"><i class="fa fa-user"></i> {{nick}}</div>
+    <div class="messageInline messageTime">{{timePassed date}}</div>
+    <div class="messageTextCont"><span class="messageText">{{message}}</span></div>
+  </div>
+  {{/each}}
+
 </div>
 
 <!-- Message Input -->
-<div class="onlineData"><i class="onlineIcon fa fa-user"></i>{{online}} User Online</div>
+<div class="onlineData"><i class="onlineIcon fa fa-users"></i>{{online}} User Online</div>
 <div class="messageInput">
   <textarea class="messageInputText" placeholder="Enter message..."></textarea>
 </div>
+<button class="btn btn-lg sendButton"><i class="fa fa-check"></i></button>
 
 
 </template>
