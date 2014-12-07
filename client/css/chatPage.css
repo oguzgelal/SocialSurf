@@ -49,6 +49,7 @@ body {
   width: 100%;
   height: 10px;
   background-color: #402060;
+  z-index: 1999999997;
 
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
@@ -213,10 +214,12 @@ body {
 }
 
 /* MESSAGE AREA */
+.messageScrollable {
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .messageArea {
-  margin-bottom: 93px;
-  margin-top: 10px;
-  overflow: scroll;
 }
 
 /* MESSAGES */
@@ -225,7 +228,7 @@ body {
   margin-top: 10px;
 }
 .messageBox:last-of-type {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .messageNick {
   color: gray;

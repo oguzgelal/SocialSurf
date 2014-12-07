@@ -1,22 +1,4 @@
 <template id="chatPage" name="chatPage">
-  <!--
-  <h3>Chat - {{_id}}</h3> {{url}} <br>
-  <textarea name="message" class="message"></textarea><br>
-  <input type="button" class="sendMessage" value="Send">
-
-  <hr>
-
-  <h3>Messages ({{online}} users online)</h3>
-  <ul>
-  {{#each messages}}
-  <li><b>{{nick}}</b> : {{message}}</li>
-  {{/each}}
-</ul>
-
-<hr>
-
-<footer>Nickname - <u>{{nickname}}</u></footer>
--->
 
 <!-- Settings Bar -->
 <div class="settingsBar">
@@ -35,18 +17,13 @@
 </div>
 
 <!-- Messages -->
-<div class="messageArea">
-
-  {{#each messages}}
-  <div class="messageBox">
-    <div class="messageInline messageNick"><i class="fa fa-user"></i> {{nick}}</div>
-    <div class="messageInline messageTime">{{timePassed date}}</div>
-    <div class="messageTextCont"><span class="messageText">{{message}}</span></div>
+<div class="messageScrollable clearfix">
+  <div class="messageArea">
+    {{#each messages}}
+    {{>messageBox this}}
+    {{/each}}
   </div>
-  {{/each}}
-
 </div>
-
 <!-- Message Input -->
 <div class="onlineData"><i class="onlineIcon fa fa-users"></i>{{online}} User Online</div>
 <div class="messageInput">
@@ -54,5 +31,14 @@
 </div>
 <button class="btn btn-lg sendButton"><i class="fa fa-check"></i></button>
 
+</template>
 
+
+<!-- Message Box Template -->
+<template name="messageBox">
+  <div class="messageBox">
+    <div class="messageInline messageNick"><i class="fa fa-user"></i> {{nick}}</div>
+    <div class="messageInline messageTime">{{timePassed date}}</div>
+    <div class="messageTextCont"><span class="messageText">{{message}}</span></div>
+  </div>
 </template>

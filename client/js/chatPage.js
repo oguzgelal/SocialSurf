@@ -1,24 +1,38 @@
-Meteor.setInterval(function(){
-  Session.set('time', new Date);
-}, 1000);
 // TODO : timer starts with -1 year
-
 Meteor.startup(function() {
+
   $(window).resize(function(event) {
     setMessageAreaHeight();
   });
+
+  Meteor.setInterval(function(){
+    Session.set('time', new Date);
+  }, 1000);
+
+  /*
+  Messages.find().observeChanges({
+  added: function(id, row){
+  $('.messageArea').scrollTop($('.messageArea').prop("scrollHeight"));
+  console.log(row);
+}
+});
+*/
+
 });
 
 Template.chatPage.helpers({
   messages: function() {
-    return Messages.find({});
+    return Messages.find();
   },
   nickname: function() {
     return amplify.store("nickname");
   },
   online: function() {
     return Online.find().count();
-  },
+  }
+});
+
+Template.messageBox.helpers({
   timePassed: function(date){
     var now = Session.get('time') || new Date;
     // time passed in ms
@@ -27,12 +41,18 @@ Template.chatPage.helpers({
   }
 });
 
+Template.messageBox.rendered = function(){
+  $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
+}
+
 // Move the settings bar upside of the screen according to its height
 Template.chatPage.rendered = function() {
   var h = $('.settingsBar').height();
   $('.settingsBar').css("margin-top", -h + "px");
   setMessageAreaHeight();
-
+  $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
+  //console.log($('.messageArea'));
+  //$('.messageArea').jScrollPane();
 }
 
 Template.chatPage.events({
@@ -94,94 +114,96 @@ function settingsBarAnimate(str) {
 // Toggle settingsBar
 function settingsBarToggle() {
   if (isSettingBarOpen()) { setSettingsBarState("close"); }
-    else { setSettingsBarState("open"); }
-    }
+    else { setSettingsBarState("open");
+  }
+}
 
-    // Open or Close the settingsBar
-    function setSettingsBarState(str) {
-      if (str == "open" && !isSettingBarOpen()) {
-        toggleSettingsBarIconTo("close");
-        $('.settingsBar').addClass('active');
-        $('.settingsBarLine').fadeOut('fast');
-        $('.settingsBar').css("margin-top", "0px");
-      } else if (str == "close" && isSettingBarOpen()) {
-        toggleSettingsBarIconTo("settings");
-        $('.settingsBar').removeClass('active');
-        $('.settingsBarLine').show();
-        var h = $('.settingsBar').height();
-        $('.settingsBar').css("margin-top", -h + "px");
-      }
-    }
+// Open or Close the settingsBar
+function setSettingsBarState(str) {
+  if (str == "open" && !isSettingBarOpen()) {
+    toggleSettingsBarIconTo("close");
+    $('.settingsBar').addClass('active');
+    $('.settingsBarLine').fadeOut('fast');
+    $('.settingsBar').css("margin-top", "0px");
+  } else if (str == "close" && isSettingBarOpen()) {
+    toggleSettingsBarIconTo("settings");
+    $('.settingsBar').removeClass('active');
+    $('.settingsBarLine').show();
+    var h = $('.settingsBar').height();
+    $('.settingsBar').css("margin-top", -h + "px");
+  }
+}
 
-    // Returns true if settingsBar is open
-    function isSettingBarOpen() {
-      return $('.settingsBar').hasClass('active');
-    }
+// Returns true if settingsBar is open
+function isSettingBarOpen() {
+  return $('.settingsBar').hasClass('active');
+}
 
-    // Toggle the settingsBarToggle icon to settings or close icons
-    function toggleSettingsBarIconTo(str) {
-      if (str == "close") {
-        $('.settingsBarToggle .settingsIcon').hide(0, function() {
-          $('.settingsBarToggle .closeIcon').show('fast');
-          $('.settingsBarToggle').css('background-color', 'transparent');
-        });
-      } else if (str == "settings") {
-        $('.settingsBarToggle .closeIcon').hide(0, function() {
-          $('.settingsBarToggle .settingsIcon').show('fast');
-          $('.settingsBarToggle').css('background-color', '#402060');
-        });
-      }
-    }
+// Toggle the settingsBarToggle icon to settings or close icons
+function toggleSettingsBarIconTo(str) {
+  if (str == "close") {
+    $('.settingsBarToggle .settingsIcon').hide(0, function() {
+      $('.settingsBarToggle .closeIcon').show('fast');
+      $('.settingsBarToggle').css('background-color', 'transparent');
+    });
+  } else if (str == "settings") {
+    $('.settingsBarToggle .closeIcon').hide(0, function() {
+      $('.settingsBarToggle .settingsIcon').show('fast');
+      $('.settingsBarToggle').css('background-color', '#402060');
+    });
+  }
+}
 
-    // Set nickname and store it to persistent session var
-    function setNickname(str) {
-      amplify.store("nickname", str);
-      setSettingsBarState("close");
-    }
+// Set nickname and store it to persistent session var
+function setNickname(str) {
+  amplify.store("nickname", str);
+  setSettingsBarState("close");
+}
 
-    // Send the message
-    function sendMessage(ths, message) {
-      if (message.length > 0){
-        var nick = amplify.store("nickname");
-        Meteor.call("addMessage", ths._id, nick, message, function() {
-          console.log("message [" + message + "] is sent to room (" + ths._id + ")");
-        });
-        $('.messageInputText').val("");
-      }
-    }
+// Send the message
+function sendMessage(ths, message) {
+  if (message.length >= 3){
+    var nick = amplify.store("nickname");
+    Meteor.call("addMessage", ths._id, nick, message, function() {
+      console.log("message [" + message + "] is sent to room (" + ths._id + ")");
+    });
+    $('.messageInputText').val("");
+  }
+}
 
-    // Sets the message area to fill the available height
-    function setMessageAreaHeight() {
-      var height = $(window).height();
-      $('.messageArea').height(height - 113); // height of bottom elements
-    }
+// Sets the message area to fill the available height
+function setMessageAreaHeight() {
+  var height = $(window).height();
+  //$('.messageArea').height(height - 113);
+  $('.messageScrollable').height(height - 103);
+}
 
-    // Convert milliseconds to readable time passed
-    function millisecondsToStr (milliseconds) {
+// Convert milliseconds to readable time passed
+function millisecondsToStr (milliseconds) {
 
-      function numberEnding (number) {
-        return (number > 1) ? 's' : '';
-      }
-      var temp = Math.floor(milliseconds / 1000);
-      var years = Math.floor(temp / 31536000);
-      if (years) {
-        return years + ' year' + numberEnding(years) + ' ago';
-      }
-      var days = Math.floor((temp %= 31536000) / 86400);
-      if (days) {
-        return days + ' day' + numberEnding(days) + ' ago';
-      }
-      var hours = Math.floor((temp %= 86400) / 3600);
-      if (hours) {
-        return hours + ' hour' + numberEnding(hours) + ' ago';
-      }
-      var minutes = Math.floor((temp %= 3600) / 60);
-      if (minutes) {
-        return minutes + ' minute' + numberEnding(minutes) + ' ago';
-      }
-      var seconds = temp % 60;
-      if (seconds) {
-        return seconds + ' second' + numberEnding(seconds) + ' ago';
-      }
-      return 'just now';
-    }
+  function numberEnding (number) {
+    return (number > 1) ? 's' : '';
+  }
+  var temp = Math.floor(milliseconds / 1000);
+  var years = Math.floor(temp / 31536000);
+  if (years) {
+    return years + ' year' + numberEnding(years) + ' ago';
+  }
+  var days = Math.floor((temp %= 31536000) / 86400);
+  if (days) {
+    return days + ' day' + numberEnding(days) + ' ago';
+  }
+  var hours = Math.floor((temp %= 86400) / 3600);
+  if (hours) {
+    return hours + ' hour' + numberEnding(hours) + ' ago';
+  }
+  var minutes = Math.floor((temp %= 3600) / 60);
+  if (minutes) {
+    return minutes + ' minute' + numberEnding(minutes) + ' ago';
+  }
+  var seconds = temp % 60;
+  if (seconds) {
+    return seconds + ' second' + numberEnding(seconds) + ' ago';
+  }
+  return 'just now';
+}

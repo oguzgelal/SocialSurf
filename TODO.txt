@@ -3,3 +3,7 @@ Change localhost URL's:
 /chrome/background/bg.js
 
 DDP : https://github.com/mondora/ddp.js
+
+TODO : Custom chat room idea ?
+
+TODO : Use content-length header for backcheck algorithm
