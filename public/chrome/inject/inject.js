@@ -38,11 +38,18 @@ ddp.on("connected", function (res) {
     console.log(response);
   });
 
+  chrome.runtime.onMessage.addListener(function(message, sender, response){
+    if (message.action == "getSessionID"){
+      response({sessionID: res.session});
+    }
+  });
+
   // Send request to the server containing the sessionID and the url
   // The purpose of this is when client is connected, the server
   // doesn't know what the url is. Client uses this request to make
-  // the server match the sessionID and current URL
-  ddp.method("clientJoin", [sessionID, url], function(err, res){
+  // the server match the sessionID and current URL. Also the idle
+  // variable is set to true that means the user is idle not online.
+  ddp.method("clientJoin", [sessionID, url, true], function(err, res){
     console.log("Join Request ["+sessionID+"]...");
   });
 

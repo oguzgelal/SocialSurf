@@ -1,4 +1,3 @@
-// TODO : timer starts with -1 year
 Meteor.startup(function() {
 
   $(window).resize(function(event) {
@@ -9,26 +8,21 @@ Meteor.startup(function() {
     Session.set('time', new Date);
   }, 1000);
 
-  /*
-  Messages.find().observeChanges({
-  added: function(id, row){
-  $('.messageArea').scrollTop($('.messageArea').prop("scrollHeight"));
-  console.log(row);
-}
-});
-*/
 
 });
 
 Template.chatPage.helpers({
   messages: function() {
-    return Messages.find();
+    return Messages.find({},{sort:{date:1}});
   },
   nickname: function() {
     return amplify.store("nickname");
   },
   online: function() {
-    return Online.find().count();
+    return Online.find({idle: false}).count();
+  },
+  idle: function(){
+    return Online.find({idle: true}).count();
   }
 });
 
@@ -51,8 +45,6 @@ Template.chatPage.rendered = function() {
   $('.settingsBar').css("margin-top", -h + "px");
   setMessageAreaHeight();
   $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
-  //console.log($('.messageArea'));
-  //$('.messageArea').jScrollPane();
 }
 
 Template.chatPage.events({
@@ -186,23 +178,23 @@ function millisecondsToStr (milliseconds) {
   }
   var temp = Math.floor(milliseconds / 1000);
   var years = Math.floor(temp / 31536000);
-  if (years) {
+  if (years && years>=0) {
     return years + ' year' + numberEnding(years) + ' ago';
   }
   var days = Math.floor((temp %= 31536000) / 86400);
-  if (days) {
+  if (days && days>=0) {
     return days + ' day' + numberEnding(days) + ' ago';
   }
   var hours = Math.floor((temp %= 86400) / 3600);
-  if (hours) {
+  if (hours && hours>=0) {
     return hours + ' hour' + numberEnding(hours) + ' ago';
   }
   var minutes = Math.floor((temp %= 3600) / 60);
-  if (minutes) {
+  if (minutes && minutes>=0) {
     return minutes + ' minute' + numberEnding(minutes) + ' ago';
   }
   var seconds = temp % 60;
-  if (seconds) {
+  if (seconds && seconds>=0) {
     return seconds + ' second' + numberEnding(seconds) + ' ago';
   }
   return 'just now';

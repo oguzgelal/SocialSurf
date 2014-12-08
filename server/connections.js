@@ -11,5 +11,3 @@ Meteor.onConnection(function(conn){
   });
 
 });
-
-// TODO : store client id to unpersistent session

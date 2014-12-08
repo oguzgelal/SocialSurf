@@ -1,12 +1,19 @@
 Meteor.methods({
-  // Add connected client to the Online collection
-  clientJoin: function(clientID, urlVar){
+
+  // Add connected client to the Online collection.
+  // idle : if idle is set to true, the connection is being made
+  // from an injected script working on the background. The actual
+  // chat page is not being viewed. If idle is set to false (means online)
+  // the chat page is being viewed.
+
+  clientJoin: function(clientID, urlVar, idle){
     // prevent duplicate
     var occurance = Online.find({client: clientID}).count();
     if (occurance == 0){
       Online.insert({
         client: clientID,
-        url: urlVar
+        url: urlVar,
+        idle: true
       }, function(err){
         if (err) throw err;
         console.log("client joined...");

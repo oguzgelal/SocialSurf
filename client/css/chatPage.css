@@ -137,7 +137,7 @@ body {
   box-sizing: border-box;
 }
 .onlineIcon {
-  margin-right: 7px;
+  margin-right: 3px;
   color: gray;
 }
 .messageInput {
@@ -220,6 +220,7 @@ body {
   overflow-x: hidden;
 }
 .messageArea {
+  padding-top: 15px;
 }
 
 /* MESSAGES */
