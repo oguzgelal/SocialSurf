@@ -12,20 +12,36 @@ Meteor.methods({
     if (occurance == 0){
       Online.insert({
         client: clientID,
+        popup: "",
         url: urlVar,
-        idle: true
+        idle: idle
       }, function(err){
         if (err) throw err;
-        console.log("client joined...");
+        console.log("Client joined...");
       });
     }
   },
   // Remove disconnected client from the Online collection
   clientLeave: function(clientID){
-    Online.remove({client: clientID}, function(err){
-      if (err) throw err;
-      console.log("client removed from online...");
-    });
+    var isPopup = Online.find({popup: clientID}).count();
+    if (isPopup > 0){
+      Online.update({popup: clientID}, {$set : {idle: true, popup: ""}});
+      console.log("Popup closed. State changed...");
+    }
+    else{
+      Online.remove({client: clientID}, function(err){
+        if (err) throw err;
+        console.log("Client removed from online...");
+      });
+    }
+  },
+  // Updates the online status from idle to online
+  // Popup ID is the id of the popup  window that the window is being
+  // viewed from. The purpose of keeping this is to detect when
+  // the popup window closes so that status could be switched from
+  // online to idle
+  changeStateToOnline: function(urlVar, sessionID, popupID){
+    Online.update({url: urlVar, client: sessionID}, {$set : {idle: false, popup: popupID}});
   },
   // Get how many clients are connected to an URL
   getOnlineCount: function(urlVar){

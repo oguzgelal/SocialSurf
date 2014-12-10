@@ -6,16 +6,14 @@ $(document).ready(function(){
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
     passUrl = tabs[0].url;
     passUrl = encodeURIComponent(passUrl);
-    console.log(passUrl);
 
     // Check the sessionID from the content script of the active tab
     chrome.tabs.sendMessage(tabs[0].id, {action: "getSessionID"}, function(response){
-      console.log(response.sessionID);
       passSession = response.sessionID;
-    });
+      var url = baseUrl+'/'+passUrl+'/'+passSession;
+      $('iframe').prop('src', url);
 
-    var url = baseUrl+'/'+passUrl+'/'+passSession;
-    $('iframe').prop('src', url);
+    });
   });
 
 });

@@ -5,5 +5,4 @@ Change localhost URL's:
 DDP : https://github.com/mondora/ddp.js
 
 TODO : Custom chat room idea ?
-
 TODO : Use content-length header for backcheck algorithm

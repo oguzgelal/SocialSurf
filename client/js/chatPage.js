@@ -8,7 +8,6 @@ Meteor.startup(function() {
     Session.set('time', new Date);
   }, 1000);
 
-
 });
 
 Template.chatPage.helpers({
@@ -39,8 +38,8 @@ Template.messageBox.rendered = function(){
   $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
 }
 
-// Move the settings bar upside of the screen according to its height
 Template.chatPage.rendered = function() {
+  // Move the settings bar upside of the screen according to its height
   var h = $('.settingsBar').height();
   $('.settingsBar').css("margin-top", -h + "px");
   setMessageAreaHeight();
