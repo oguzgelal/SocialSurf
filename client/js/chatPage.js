@@ -40,6 +40,7 @@ Template.messageBox.rendered = function(){
 
 Template.chatPage.rendered = function() {
   // Move the settings bar upside of the screen according to its height
+  arrangeOnlineCounts(this);
   var h = $('.settingsBar').height();
   $('.settingsBar').css("margin-top", -h + "px");
   setMessageAreaHeight();
@@ -105,8 +106,8 @@ function settingsBarAnimate(str) {
 // Toggle settingsBar
 function settingsBarToggle() {
   if (isSettingBarOpen()) { setSettingsBarState("close"); }
-    else { setSettingsBarState("open");
-  }
+  else { setSettingsBarState("open");
+}
 }
 
 // Open or Close the settingsBar
@@ -167,6 +168,23 @@ function setMessageAreaHeight() {
   var height = $(window).height();
   //$('.messageArea').height(height - 113);
   $('.messageScrollable').height(height - 103);
+}
+
+function arrangeOnlineCounts(template){
+  // This page is opened through the popup - change idle to online
+  var sessionID = Session.get("sessionID");
+  var url = template.data.url;
+  if (sessionID){
+    var popupID = Meteor.connection._lastSessionId;
+    console.log("Session ID (From Extension) : "+sessionID);
+    console.log("Popup ID (From Extension) : "+popupID);
+    Meteor.call("changeStateToOnline", url, sessionID, popupID);
+  }
+  // This page is opened directly from browser - add new online
+  else {
+    console.log("Standalone Page : "+Meteor.connection._lastSessionId);
+    Meteor.call("clientJoin", Meteor.connection._lastSessionId, url, false);
+  }
 }
 
 // Convert milliseconds to readable time passed

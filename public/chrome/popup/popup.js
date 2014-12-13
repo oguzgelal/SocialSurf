@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  //var baseUrl = "http://chromely.meteor.com/chat/";
+  //var baseUrl = "http://chromely.meteor.com/chat";
   var baseUrl = "http://localhost:3000/chat";
   var passUrl = "";
   var passSession = "";

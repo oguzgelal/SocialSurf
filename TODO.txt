@@ -1,6 +1,7 @@
 Change localhost URL's:
 /chrome/popup/popup.js
 /chrome/background/bg.js
+/chrome/inject/inject.js
 
 DDP : https://github.com/mondora/ddp.js
 
