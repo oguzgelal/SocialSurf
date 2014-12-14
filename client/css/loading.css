@@ -19,6 +19,10 @@
 
 	font-size: 10px;
 	color: gray;
+	font-weight: bolder;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 
 }
 .loadingSpinner {
