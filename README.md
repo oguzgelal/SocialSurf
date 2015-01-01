@@ -1,4 +1,4 @@
-Chromely
+SocialWeb
 ========
 
 ### Browse web socially!
@@ -8,10 +8,10 @@ This app lets you to have instant chat with people that are browsing the same pa
  - Reading an article ? Discuss it with others reading it at the same time
  - Someone is browsing your Facebook page ? Say hi to them :)
  - Watching a video ? Talk about it with others.
- - Do you own a website ? Ask your visitors about the experience (Chromely for web developers will come some time in the future)
+ - Do you own a website ? Ask your visitors about the experience (SocialWeb for web developers will come some time in the future)
 
 
-### Run Chromely
+### Run SocialWeb
 
 This application is built with Meteor.JS so you should have Meteor installed. Then, run the following command:
 ```sh

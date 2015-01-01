@@ -1,7 +1,7 @@
-Chromely - Chrome application
+SocialWeb - Chrome application
 =============
 
-This is the source codes of the Chrome application of Chromely.
+This is the source codes of the Chrome application of SocialWeb.
 
 #### How to run
 
