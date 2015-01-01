@@ -39,8 +39,9 @@ Template.messageBox.rendered = function(){
 }
 
 Template.chatPage.rendered = function() {
-  // Move the settings bar upside of the screen according to its height
+  // Modify online counts
   arrangeOnlineCounts(this);
+  // Move the settings bar upside of the screen according to its height
   var h = $('.settingsBar').height();
   $('.settingsBar').css("margin-top", -h + "px");
   setMessageAreaHeight();
