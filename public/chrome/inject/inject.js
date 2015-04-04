@@ -20,7 +20,7 @@ var options = {
   */
 
   endpoint: "ws://localhost:3000/websocket",
-  //endpoint: "wss://chromely.meteor.com/websocket",
+  //endpoint: "wss://socialweb.meteor.com/websocket",
   SocketConstructor: WebSocket,
   do_not_autoreconnect: true
 };

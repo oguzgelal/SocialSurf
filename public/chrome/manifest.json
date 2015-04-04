@@ -1,34 +1,28 @@
 {
   "manifest_version": 2,
 
-  "name": "Chromely",
+  "name": "Social Web",
   "description": "This extension allows you to chat with people that are browsing the same page.",
   "version": "1.0",
   "icons": {
     "16": "assets/img/icon.png",
     "48": "assets/img/icon.png",
     "128": "assets/img/icon.png"
-  },
-  "background": {
-    "scripts": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "background/background.js"]
-  },
-  "browser_action": {
-    "default_icon" : "assets/img/icon.png",
-    "default_popup": "popup/popup.html"
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "run_at": "document_start",
-      "js": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "inject/inject.js"]
+    },
+    "browser_action": {
+      "default_icon" : "assets/img/icon.png"
+      },
+      "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "run_at": "document_start",
+        "css": ["inject/tp/animate.css", "inject/injectFrame.css"],
+        "js": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "inject/injectFrame.js"]
+      }
+      ],
+      "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+      "web_accessible_resources": [
+      "assets/img/icon.png",
+      "assets/*"
+      ]
     }
-  ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "web_accessible_resources": [
-    "assets/img/icon.png",
-    "assets/*"
-  ],
-  "permissions": [
-    "tabs"
-  ]
-}

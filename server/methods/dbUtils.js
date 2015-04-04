@@ -1,6 +1,5 @@
 Meteor.methods({
   addCheckRoom: function(url){
-    url = decodeURIComponent(url);
     var rec = Rooms.find({url: url});
     if (rec.count() == 0){
       Rooms.insert({

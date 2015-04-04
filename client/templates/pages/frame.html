@@ -1,4 +1,4 @@
-<template id="chatPage" name="chatPage">
+<template id="frame" name="frame">
 
   <!-- Settings Bar -->
   <div class="settingsBar">
@@ -25,7 +25,7 @@
     </div>
   </div>
   <!-- Message Input -->
-  <div class="onlineData"><i class="onlineIcon fa fa-users" style='color: green;'></i>{{online}} Online <i class="onlineIcon fa fa-users" style='margin-left: 15px; color: darkorange;'></i>{{idle}} Idle</div>
+  <div class="onlineData"><i class="onlineIcon fa fa-users" style='color: green;'></i>{{online}} Online</div>
   <div class="messageInput">
     <textarea class="messageInputText" placeholder="Enter message..."></textarea>
   </div>
@@ -34,7 +34,7 @@
 </template>
 
 
-<!-- Message Box Template
+<!-- Message Box Template -->
 <template name="messageBox">
   <div class="messageBox">
     <div class="messageInline messageNick"><i class="fa fa-user"></i> {{nick}}</div>
@@ -42,4 +42,3 @@
     <div class="messageTextCont"><span class="messageText">{{message}}</span></div>
   </div>
 </template>
--->
