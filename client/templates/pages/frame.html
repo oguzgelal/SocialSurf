@@ -2,13 +2,32 @@
 
   <!-- Settings Bar -->
   <div class="settingsBar">
+
+    {{#if currentUser}}
+    <div class="settingsRow">
+      <div class="settingsSubRow settingsLabel">Hello, <b>{{getFirstName}}</b></div>
+      <div class="settingsSubRow"><a href="#" class="btn-logout"><i class="fa fa-sign-out"></i> Logout</a></div>
+    </div>
+    {{else}}
     <div class="settingsRow">
       <div class="settingsSubRow settingsLabel">Nickname</div>
       <div class="settingsSubRow">
         <input type="text" class="settingsNick" value="{{nickname}}">
-        <button class="btn btn-lg setNick"><i class="fa fa-check"></i></button>
+        <button class="btn btn-lg setNick btn-setnick"><i class="fa fa-check"></i></button>
       </div>
     </div>
+    <div class="settingsRow">
+      <div class="settingsSubRow settingsLabel">Login <!--{{> loginButtons}}--></div>
+      <div class="settingsSubRow">
+        <div class="btn btn-lg setNick btn-social btn-facebook"><i class="fa fa-facebook"></i></div>
+        <div class="btn btn-lg setNick btn-social btn-twitter"><i class="fa fa-twitter"></i></div>
+        <div class="btn btn-lg setNick btn-social btn-google"><i class="fa fa-google-plus"></i></div>
+        <div class="btn btn-lg setNick btn-social btn-github"><i class="fa fa-github"></i></div>
+      </div>
+    </div>
+    {{/if}}
+
+    
   </div>
   <div class="settingsBarLine"></div>
   <div class="settingsBarToggle">

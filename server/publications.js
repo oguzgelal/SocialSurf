@@ -9,3 +9,7 @@ Meteor.publish('messages', function(roomid){
 Meteor.publish('online', function(urlVar){
 	return Online.find({url: urlVar});
 });
+
+Meteor.publish("userData", function(userid) {
+	return Meteor.users.find({_id: userid});
+});

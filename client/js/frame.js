@@ -19,6 +19,11 @@ Template.frame.helpers({
   },
   online: function() {
     return Online.find().count();
+  },
+  getFirstName: function(){
+    if (Meteor.user() && Meteor.user().services){
+      if (Meteor.user().services.facebook){ return Meteor.user().services.facebook.name; }  
+    }
   }
 });
 
@@ -36,24 +41,49 @@ Template.messageBox.rendered = function(){
 }
 
 Template.frame.rendered = function() {
-  // Modify online counts
-  //arrangeOnlineCounts(this);
   // Move the settings bar upside of the screen according to its height
   var h = $('.settingsBar').height();
   $('.settingsBar').css("margin-top", -h + "px");
   setMessageAreaHeight();
   $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
+
+  if (Meteor.user()){
+    Meteor.subscribe('userData', Meteor.user()._id, function(data){
+      console.log(data);
+    });
+  }
 }
 
 Template.frame.events({
   // SETTINGS BAR EVENTS ------------------------------------
+  "mouseenter .btn-social": function(event, template){
+    var target = event.currentTarget;
+    var currectContent = $(target).html();
+    $(target).html(currectContent+" Login");
+  },
+  "mouseleave .btn-facebook": function(event, template){ $(event.currentTarget).html("<i class='fa fa-facebook'></i>"); },
+  "mouseleave .btn-twitter": function(event, template){ $(event.currentTarget).html("<i class='fa fa-twitter'></i>"); },
+  "mouseleave .btn-google": function(event, template){ $(event.currentTarget).html("<i class='fa fa-google-plus'></i>"); },
+  "mouseleave .btn-github": function(event, template){ $(event.currentTarget).html("<i class='fa fa-github'></i>"); },
   "focus .settingsNick": function(event, template) {
     $(".settingsNick").select();
+  },
+  "click .btn-logout": function(event, template){
+    Meteor.logout();
+  },
+  "click .btn-facebook": function(event, template){
+    Meteor.loginWithFacebook({
+      loginStyle: "popup",
+      requestPermissions: ['public_profile', 'email', 'user_friends']
+    }, function(error){
+      if(error){ alert("error: "+error); }
+      else{ console.log("Logged in:"); console.log(Meteor.user()); }
+    });
   },
   "mouseup .settingsNick": function(event, template) {
     event.preventDefault();
   },
-  "click .setNick": function(event, template) {
+  "click .btn-setnick": function(event, template) {
     var nick = $('.settingsNick').val();
     setNickname(nick);
   },
@@ -101,11 +131,11 @@ function settingsBarAnimate(str) {
   }
 }
 
+
 // Toggle settingsBar
 function settingsBarToggle() {
   if (isSettingBarOpen()) { setSettingsBarState("close"); }
-  else { setSettingsBarState("open");
-}
+  else { setSettingsBarState("open"); }
 }
 
 // Open or Close the settingsBar

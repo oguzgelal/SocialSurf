@@ -12,3 +12,8 @@ ddp
 linto:fontawesome
 http
 
+accounts-ui
+accounts-facebook
+accounts-twitter
+accounts-google
+accounts-github
