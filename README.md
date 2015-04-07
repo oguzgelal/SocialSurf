@@ -1,7 +1,7 @@
 SocialWeb
 ========
 
-<img src="http://i.imgur.com/K1dutOf.gif" alt="Preview">
+<img src="http://i.imgur.com/NJpU4xE.gif" alt="Preview">
 
 ### Browse web socially!
 
