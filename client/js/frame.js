@@ -40,6 +40,9 @@ Template.messageBox.helpers({
     // time passed in ms
     var diff = now.getTime() - date.getTime();
     return millisecondsToStr(diff);
+  },
+  hasUser: function(){
+    return this.user;
   }
 });
 
@@ -186,7 +189,9 @@ function setNickname(str) {
 function sendMessage(ths, message) {
   if (message.length > 0){
     var nick = amplify.store("nickname");
-    Meteor.call("addMessage", ths._id, nick, message, function() {
+    var userSent = null;
+    if (Meteor.user()){ userSent = Members.findOne({_id: Meteor.user()._id}); }
+    Meteor.call("addMessage", ths._id, message, nick, userSent, function() {
       console.log("message [" + message + "] is sent to room (" + ths._id + ")");
     });
     $('.messageInputText').val("");
@@ -199,14 +204,6 @@ function setMessageAreaHeight() {
   //$('.messageArea').height(height - 113);
   $('.messageScrollable').height(height - 103);
 }
-
-/*
-function arrangeOnlineCounts(template){
-  var sessionID = Session.get("sessionID");
-  var url = template.data.url;
-  Meteor.call("clientJoin", url, false);
-}
-*/
 
 // Convert milliseconds to readable time passed
 function millisecondsToStr (milliseconds) {

@@ -8,10 +8,11 @@ Meteor.methods({
       });
     }
   },
-  addMessage: function(roomid, nick, message){
+  addMessage: function(roomid, message, nick, user){
     Messages.insert({
       roomid: roomid,
       nick: nick,
+      user: user,
       message: message,
       date: new Date()
     });

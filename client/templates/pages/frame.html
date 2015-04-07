@@ -64,9 +64,18 @@
 
 <!-- Message Box Template -->
 <template name="messageBox">
-  <div class="messageBox">
-    <div class="messageInline messageNick"><i class="fa fa-user"></i> {{nick}}</div>
-    <div class="messageInline messageTime">{{timePassed date}}</div>
-    <div class="messageTextCont"><span class="messageText">{{message}}</span></div>
+  <div class="messageBox clearfix">
+
+    <div style="position: relative;">{{#if hasUser}}<img class="messageAvatar" src="{{hasUser.avatar}}" alt="Avatar of {{hasUser.name}}">{{else}}<img class="messageAvatar" src="/assets/anon.png" alt="Avatar of anon user {{nick}}">{{/if}}</div>
+
+    <div class="messageBoxArea">
+      <div class="messageInline messageNick">
+        {{#if hasUser}} {{hasUser.name}} {{else}}
+        <i class="fa fa-user"></i> {{nick}}
+        {{/if}}
+      </div>
+      <div class="messageInline messageTime">{{timePassed date}}</div>
+      <div class="messageTextCont"><span class="messageText">{{message}}</span></div>
+    </div>
   </div>
 </template>

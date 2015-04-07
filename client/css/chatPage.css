@@ -304,6 +304,9 @@ a:hover {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  margin-left: 3px;
+  line-height: 19px;
+  vertical-align: bottom;
 }
 .messageTextCont {
   margin-left: 5px;
@@ -330,6 +333,22 @@ a:hover {
   -webkit-box-decoration-break: clone;
   -o-box-decoration-break: clone;
   box-decoration-break: clone;
+}
+.messageAvatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  -o-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.messageBoxArea {
+  padding: 0;
+  margin-left: 45px;
 }
 .messageInline {
   display: inline;
