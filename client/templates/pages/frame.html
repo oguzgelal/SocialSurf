@@ -5,8 +5,17 @@
 
     {{#if currentUser}}
     <div class="settingsRow">
-      <div class="settingsSubRow settingsLabel">Hello, <b>{{getFirstName}}</b></div>
-      <div class="settingsSubRow"><a href="#" class="btn-logout"><i class="fa fa-sign-out"></i> Logout</a></div>
+      <div class="settingsSubRow clearfix">
+        <div class="userDataCont">
+          <img class="avatar-sm" src="{{getAvatar}}" alt="Profile picture of {{getName}}">
+        </div>
+        <div class="userDataCont userDataTxt">
+          <div class="settingsSubRow settingsLabel userDataTxtHello">Hello,</div>
+          <div class="settingsSubRow settingsLabel userDataTxtName"><b>{{getName}}</b></div>
+        </div>
+      </div>
+      <div class="settingsSubRow" style="margin-top: 15px;"><a href="#" class="btn-logout"><i class="fa fa-sign-out"></i> Logout</a></div>
+      
     </div>
     {{else}}
     <div class="settingsRow">

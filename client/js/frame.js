@@ -20,9 +20,16 @@ Template.frame.helpers({
   online: function() {
     return Online.find().count();
   },
-  getFirstName: function(){
-    if (Meteor.user() && Meteor.user().services){
-      if (Meteor.user().services.facebook){ return Meteor.user().services.facebook.name; }  
+  getName: function(){
+    if (Meteor.user()){
+      var userCurrent = Members.findOne({_id: Meteor.user()._id});
+      return userCurrent.name;
+    }
+  },
+  getAvatar: function(){
+    if (Meteor.user()){
+      var userCurrent = Members.findOne({_id: Meteor.user()._id});
+      return userCurrent.avatar;
     }
   }
 });
@@ -47,11 +54,6 @@ Template.frame.rendered = function() {
   setMessageAreaHeight();
   $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
 
-  if (Meteor.user()){
-    Meteor.subscribe('userData', Meteor.user()._id, function(data){
-      console.log(data);
-    });
-  }
 }
 
 Template.frame.events({

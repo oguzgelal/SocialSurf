@@ -29,6 +29,15 @@ a:hover {
   text-shadow: 0 0 2px black;
 }
 
+.avatar-sm {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+}
+
 /* SETTINGS BAR */
 .settingsBar.active {
   -webkit-box-shadow: 0 0 2em black;
@@ -98,7 +107,7 @@ a:hover {
   margin-left: 20px;
 }
 .settingsRow:last-of-type {
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 .settingsLabel {
   color: #FBFDFE;
@@ -139,6 +148,22 @@ a:hover {
 }
 .btn-social {
   margin: 0;
+}
+.userDataCont {
+  float: left;
+  display: inline-block;
+  width: auto;
+}
+.userDataTxt {
+  margin-left: 5px;
+}
+.userDataTxtHello {
+  font-size: 9px;
+  line-height: 10px;
+}
+.userDataTxtName {
+  font-size: 15px;
+  line-height: 20px;
 }
 
 /* MESSAGES INPUT */
