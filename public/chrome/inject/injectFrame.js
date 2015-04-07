@@ -12,60 +12,56 @@ var url = window.location.href;
 var local = true; // Change to false before deploying to server
 var domain = "socialweb.meteor.com";
 
+
 var baseUrl = "";
 if (local){ baseUrl = "http://localhost:3000/frame"; }
 else{ baseUrl = "https://"+domain+"/frame"; }
 
-var options = {
-	SocketConstructor: WebSocket,
-	do_not_autoreconnect: true
-};
 
 /* WARNING
 * wss:// only works on servers with HTTPS. If testing locally or on a server without
 * HTTPS certificate, ws:// will be used. In that case, injections to HTTPS sites
 * will not work. */
-if (local){ options["endpoint"]="ws://localhost:3000/websocket"; }
-else{ options["endpoint"]="wss://"+domain+"/websocket"; }
+var endpoint = "";
+if (local){ endpoint="ws://localhost:3000/websocket"; }
+else{ endpoint="wss://"+domain+"/websocket"; }
 
-var ddp = new DDP(options);
 
-ddp.on("connected", function (res) {
+var ddp = new MeteorDdp(endpoint);
+ddp.connect().done(function(res) {
 	var clientID = res.session;
 	console.log("Connected ["+clientID+"]...");
-	ddp.method("cleanURL", [url], function(err, url){
+
+	// Get the URL cleaned
+	ddp.call('cleanURL', [url]).done(function(urlRes){
+		url = urlRes;
 		init(url);
-		/* Send request to the server containing the clientID and the url
-		* The purpose of this is when client is connected, the server
-		* doesn't know what the url is. Client uses this request to make
-		* the server match the clientID and current URL. Also the idle
-		* variable is set to true that means the user is idle not online. */
-		ddp.method("clientJoin", [clientID, url], function(err, res){
+		console.log("Cleaned: "+url);
+
+		// Join request to the server
+		ddp.call('clientJoin', [clientID, url]).done(function(){
 			console.log("Join Request Sent ["+clientID+"]...");
-			onlineCountChecker(url);
-			//ddp.method("getOnlineCount", [url], function(err, res){ setOnlineCount(res); });
+
+			$(document).ready(function(){ updateOnlineBadge(ddp,url); });
+
+			// Subscripbe to online collection and listen changes
+			ddp.subscribe('online', [url]).done(function(){
+				ddp.watch('online', function(changedDoc, message) {
+					updateOnlineBadge(ddp,url);
+				});
+			});
+
 		});
+	});	
+});
+
+function updateOnlineBadge(ddp, url){
+	ddp.call('getOnlineCount', [url]).done(function(onlineres){
+		$('.activateFrameButton').html(onlineres);
 	});
-});
-ddp.on("error", function(e){
-	console.log("error...");
-	console.log(e);
-});
-ddp.on("failed", function(e){
-	console.log("failed...");
-	console.log(e);
-});
-ddp.on("socket_close", function(e){
-	console.log("socket_close...");
-	console.log(e);
-});
-ddp.on("socket_error", function(e){
-	console.log("socket_error...");
-	console.log(e);
-});
+}
 
 /****** Injection control ******/
-
 function init(url){
 	$(document).ready(function(){
 
@@ -102,12 +98,4 @@ function init(url){
 			});
 		});
 	});
-}
-
-// TODO : refresh every 3 secs ?! what year are we in ? do something about this !
-function onlineCountChecker(url){
-	ddp.method("getOnlineCount", [url], function(err, res){ $('.activateFrameButton').html(res); });
-	setInterval(function(){
-		ddp.method("getOnlineCount", [url], function(err, res){ $('.activateFrameButton').html(res); });
-	},3000);
 }

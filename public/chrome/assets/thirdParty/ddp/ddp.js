@@ -1,332 +1,231 @@
-(function (root, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(factory);
-  } else if (typeof exports === "object") {
-    module.exports = factory();
-  } else {
-    root.DDP = factory();
+/* MeteorDdp - a client for DDP version pre1 */
+
+var MeteorDdp = function(wsUri) {
+  this.VERSIONS = ["pre1"];
+
+  this.wsUri = wsUri;
+  this.sock;
+  this.defs = {};         // { deferred_id => deferred_object }
+  this.subs = {};         // { pub_name => deferred_id }
+  this.watchers = {};     // { coll_name => [cb1, cb2, ...] }
+  this.collections = {};  // { coll_name => {docId => {doc}, docId => {doc}, ...} }
+};
+
+MeteorDdp.prototype._Ids = function() {
+  var count = 0;
+  return {
+    next: function() {
+      return ++count + '';
+    }
   }
-}(this, function () {
+}();
 
-  "use strict";
+MeteorDdp.prototype.connect = function() {
+  var self = this;
+  var conn = new $.Deferred();
 
-  var uniqueId = (function () {
-    var i = 0;
-    return function () {
-      return (i++).toString();
-    };
-  })();
+  self.sock = new WebSocket(self.wsUri);
 
-  var INIT_DDP_MESSAGE = "{\"server_id\":\"0\"}";
-  // After hitting the plateau, it'll try to reconnect
-  // every 16.5 seconds
-  var RECONNECT_ATTEMPTS_BEFORE_PLATEAU = 10;
-  var TIMER_INCREMENT = 300;
-  var DEFAULT_PING_INTERVAL = 10000;
-  var DDP_SERVER_MESSAGES = [
-  "added", "changed", "connected", "error", "failed",
-  "nosub", "ready", "removed", "result", "updated",
-  "ping", "pong"
-  ];
-  var DDP_VERSION = "1";
+  self.sock.onopen = function() {
+    self.send({
+      msg: 'connect',
+      version: self.VERSIONS[0],
+      support: self.VERSIONS
+    });
+  };
 
-  var DDP = function (options) {
-    // Configuration
-    this._endpoint = options.endpoint;
-    this._SocketConstructor = options.SocketConstructor;
-    this._autoreconnect = !options.do_not_autoreconnect;
-    this._ping_interval = options._ping_interval || DEFAULT_PING_INTERVAL;
-    this._socketInterceptFunction = options.socketInterceptFunction;
-    // Subscriptions callbacks
-    this._onReadyCallbacks   = {};
-    this._onStopCallbacks   = {};
-    this._onErrorCallbacks   = {};
-    // Methods callbacks
-    this._onResultCallbacks  = {};
-    this._onUpdatedCallbacks = {};
-    this._events = {};
-    this._queue = [];
-    // Setup
-    this.readyState = -1;
-    this._reconnect_count = 0;
-    this._reconnect_incremental_timer = 0;
-    // Init
-    if (!options.do_not_autoconnect) {
-      this.connect();
+  self.sock.onerror = function(err) {
+    conn.reject(err);
+  };
+
+  self.sock.onmessage = function(msg) {
+    var data = JSON.parse(msg.data);
+
+    switch (data.msg) {
+      case 'connected':
+        conn.resolve(data);
+        break;
+      case 'result':
+        self._resolveCall(data);
+        break;
+      case 'updated':
+        // TODO method call was acked
+        break;
+      case 'changed':
+        self._changeDoc(data);
+        break;
+      case 'added':
+        self._addDoc(data);
+        break;
+      case 'removed':
+        self._removeDoc(data);
+        break;
+      case 'ready':
+        self._resolveSubs(data);
+        break;
+      case 'nosub':
+        self._resolveNoSub(data);
+        break;
+      case 'addedBefore':
+        self._addDoc(data);
+        break;
+      case 'movedBefore':
+        // TODO
+        break;
     }
   };
-  DDP.prototype.constructor = DDP;
+  return conn.promise();
+};
 
-  DDP.prototype.connect = function () {
-    this.readyState = 0;
-    this._socket = new this._SocketConstructor(this._endpoint);
-    this._socket.onopen = this._on_socket_open.bind(this);
-    this._socket.onmessage = this._on_socket_message.bind(this);
-    this._socket.onerror = this._on_socket_error.bind(this);
-    this._socket.onclose = this._on_socket_close.bind(this);
+MeteorDdp.prototype._resolveNoSub = function(data) {
+  if (data.error) {
+    var error = data.error;
+    this.defs[data.id].reject(error.reason || 'Subscription not found');
+  } else {
+    this.defs[data.id].resolve();
+  }
+};
+
+MeteorDdp.prototype._resolveCall = function(data) {
+  if (data.error) {
+    this.defs[data.id].reject(data.error.reason);
+  } else if (typeof data.result !== 'undefined') {
+    this.defs[data.id].resolve(data.result);
+  }
+};
+
+MeteorDdp.prototype._resolveSubs = function(data) {
+  var subIds = data.subs;
+  for (var i = 0; i < subIds.length; i++) {
+    this.defs[subIds[i]].resolve();
+  }
+};
+
+MeteorDdp.prototype._changeDoc = function(msg) {
+  var collName = msg.collection;
+  var id = msg.id;
+  var fields = msg.fields;
+  var cleared = msg.cleared;
+  var coll = this.collections[collName];
+
+  if (fields) {
+    for (var k in fields) {
+      coll[id][k] = fields[k];
+    }
+  } else if (cleared) {
+    for (var i = 0; i < cleared.length; i++) {
+      var fieldName = cleared[i];
+      delete coll[id][fieldName];
+    }
+  }
+
+  var changedDoc = coll[id];
+  this._notifyWatchers(collName, changedDoc, id, msg.msg);
+};
+
+MeteorDdp.prototype._addDoc = function(msg) {
+  var collName = msg.collection;
+  var id = msg.id;
+  if (!this.collections[collName]) {
+    this.collections[collName] = {};
+  }
+  /* NOTE: Ordered docs will have a 'before' field containing the id of
+   * the doc after it. If it is the last doc, it will be null.
+   */
+  this.collections[collName][id] = msg.fields;
+
+  var changedDoc = this.collections[collName][id];
+  this._notifyWatchers(collName, changedDoc, id, msg.msg);
+};
+
+MeteorDdp.prototype._removeDoc = function(msg) {
+  var collName = msg.collection;
+  var id = msg.id;
+  var doc = this.collections[collName][id];
+
+  var docCopy = JSON.parse(JSON.stringify(doc));
+  delete this.collections[collName][id];
+  this._notifyWatchers(collName, docCopy, id, msg.msg);
+};
+
+MeteorDdp.prototype._notifyWatchers = function(collName, changedDoc, docId, message) {
+  changedDoc = JSON.parse(JSON.stringify(changedDoc)); // make a copy
+  changedDoc._id = docId; // id might be useful to watchers, attach it.
+
+  if (!this.watchers[collName]) {
+    this.watchers[collName] = [];
+  } else {
+    for (var i = 0; i < this.watchers[collName].length; i++) {
+      this.watchers[collName][i](changedDoc, message);
+    }
+  }
+};
+
+MeteorDdp.prototype._deferredSend = function(actionType, name, params) {
+  var id = this._Ids.next();
+  this.defs[id] = new $.Deferred();
+
+  var args = params || [];
+
+  var o = {
+    msg: actionType,
+    params: args,
+    id: id
   };
 
-  DDP.prototype.method = function (name, params, onResult, onUpdated) {
-    var id = uniqueId();
-    this._onResultCallbacks[id] = onResult;
-    this._onUpdatedCallbacks[id] = onUpdated;
-    this._send({
-      msg: "method",
-      id: id,
-      method: name,
-      params: params
-    });
-    return id;
-  };
+  if (actionType === 'method') {
+    o.method = name;
+  } else if (actionType === 'sub') {
+    o.name = name;
+    this.subs[name] = id;
+  }
 
-  DDP.prototype.sub = function (name, params, onReady, onStop, onError) {
-    var id = uniqueId();
-    this._onReadyCallbacks[id] = onReady;
-    this._onStopCallbacks[id] = onStop;
-    this._onErrorCallbacks[id] = onError;
-    this._send({
-      msg: "sub",
-      id: id,
-      name: name,
-      params: params
-    });
-    return id;
-  };
+  this.send(o);
+  return this.defs[id].promise();
+};
 
-  DDP.prototype.unsub = function (id) {
-    this._send({
-      msg: "unsub",
+MeteorDdp.prototype.call = function(methodName, params) {
+  return this._deferredSend('method', methodName, params);
+};
+
+MeteorDdp.prototype.subscribe = function(pubName, params) {
+  return this._deferredSend('sub', pubName, params);
+};
+
+MeteorDdp.prototype.unsubscribe = function(pubName) {
+  this.defs[id] = new $.Deferred();
+  if (!this.subs[pubName]) {
+    this.defs[id].reject(pubName + " was never subscribed");
+  } else {
+    var id = this.subs[pubName];
+    var o = {
+      msg: 'unsub',
       id: id
-    });
-    return id;
-  };
+    };
+    this.send(o);
+  }
+  return this.defs[id].promise();
+};
 
-  DDP.prototype.on = function (name, handler) {
-    this._events[name] = this._events[name] || [];
-    this._events[name].push(handler);
-  };
+MeteorDdp.prototype.watch = function(collectionName, cb) {
+  if (!this.watchers[collectionName]) {
+    this.watchers[collectionName] = [];
+  }
+  this.watchers[collectionName].push(cb);
+};
 
-  DDP.prototype.off = function (name, handler) {
-    if (!this._events[name]) {
-      return;
-    }
-    var index = this._events[name].indexOf(handler);
-    if (index !== -1) {
-      this._events[name].splice(index, 1);
-    }
-  };
+MeteorDdp.prototype.getCollection = function(collectionName) {
+  return this.collections[collectionName] || null;
+}
 
-  DDP.prototype._emit = function (name /* , arguments */) {
-    if (!this._events[name]) {
-      return;
-    }
-    var args = arguments;
-    var self = this;
-    this._events[name].forEach(function (handler) {
-      handler.apply(self, Array.prototype.slice.call(args, 1));
-    });
-  };
+MeteorDdp.prototype.getDocument = function(collectionName, docId) {
+  return this.collections[collectionName][docId] || null;
+}
 
-  DDP.prototype._send = function (object) {
-    if (this.readyState !== 1 && object.msg !== "connect") {
-      this._queue.push(object);
-      return;
-    }
-    var message;
-    if (typeof EJSON === "undefined") {
-      message = JSON.stringify(object);
-    } else {
-      message = EJSON.stringify(object);
-    }
-    if (this._socketInterceptFunction) {
-      this._socketInterceptFunction({
-        type: "socket_message_sent",
-        message: message,
-        timestamp: Date.now()
-      });
-    }
-    this._socket.send(message);
-  };
+MeteorDdp.prototype.send = function(msg) {
+  this.sock.send(JSON.stringify(msg));
+};
 
-  DDP.prototype._try_reconnect = function () {
-    if (this._reconnect_count < RECONNECT_ATTEMPTS_BEFORE_PLATEAU) {
-      setTimeout(this.connect.bind(this), this._reconnect_incremental_timer);
-      this._reconnect_count += 1;
-      this._reconnect_incremental_timer += TIMER_INCREMENT * this._reconnect_count;
-    } else {
-      setTimeout(this.connect.bind(this), this._reconnect_incremental_timer);
-    }
-  };
-
-  DDP.prototype._on_result = function (data) {
-    if (this._onResultCallbacks[data.id]) {
-      this._onResultCallbacks[data.id](data.error, data.result);
-      delete this._onResultCallbacks[data.id];
-      if (data.error) {
-        delete this._onUpdatedCallbacks[data.id];
-      }
-    } else {
-      if (data.error) {
-        delete this._onUpdatedCallbacks[data.id];
-        throw data.error;
-      }
-    }
-  };
-  DDP.prototype._on_updated = function (data) {
-    var self = this;
-    data.methods.forEach(function (id) {
-      if (self._onUpdatedCallbacks[id]) {
-        self._onUpdatedCallbacks[id]();
-        delete self._onUpdatedCallbacks[id];
-      }
-    });
-  };
-  DDP.prototype._on_nosub = function (data) {
-    if (data.error) {
-      if (!this._onErrorCallbacks[data.id]) {
-        delete this._onReadyCallbacks[data.id];
-        delete this._onStopCallbacks[data.id];
-        throw new Error(data.error);
-      }
-      this._onErrorCallbacks[data.id](data.error);
-      delete this._onReadyCallbacks[data.id];
-      delete this._onStopCallbacks[data.id];
-      delete this._onErrorCallbacks[data.id];
-      return;
-    }
-    if (this._onStopCallbacks[data.id]) {
-      this._onStopCallbacks[data.id]();
-    }
-    delete this._onReadyCallbacks[data.id];
-    delete this._onStopCallbacks[data.id];
-    delete this._onErrorCallbacks[data.id];
-  };
-  DDP.prototype._on_ready = function (data) {
-    var self = this;
-    data.subs.forEach(function (id) {
-      if (self._onReadyCallbacks[id]) {
-        self._onReadyCallbacks[id]();
-        delete self._onReadyCallbacks[id];
-      }
-    });
-  };
-
-  DDP.prototype._on_error = function (data) {
-    this._emit("error", data);
-  };
-  DDP.prototype._on_connected = function (data) {
-    var self = this;
-    var firstCon = self._reconnect_count === 0;
-    var eventName = firstCon ? "connected" : "reconnected";
-    self.readyState = 1;
-    self._reconnect_count = 0;
-    self._reconnect_incremental_timer = 0;
-    var length = self._queue.length;
-    for (var i=0; i<length; i++) {
-      self._send(self._queue.shift());
-    }
-    self._emit(eventName, data);
-    // Set up keepalive ping-s
-    self._ping_interval_handle = setInterval(function () {
-      var id = uniqueId();
-      self._send({
-        msg: "ping",
-        id: id
-      });
-    }, self._ping_interval);
-  };
-  DDP.prototype._on_failed = function (data) {
-    this.readyState = 4;
-    this._emit("failed", data);
-  };
-  DDP.prototype._on_added = function (data) {
-    this._emit("added", data);
-  };
-  DDP.prototype._on_removed = function (data) {
-    this._emit("removed", data);
-  };
-  DDP.prototype._on_changed = function (data) {
-    this._emit("changed", data);
-  };
-  DDP.prototype._on_ping = function (data) {
-    this._send({
-      msg: "pong",
-      id: data.id
-    });
-  };
-  DDP.prototype._on_pong = function (data) {
-    // For now, do nothing.
-    // In the future we might want to log latency or so.
-  };
-
-  DDP.prototype._on_socket_close = function () {
-    if (this._socketInterceptFunction) {
-      this._socketInterceptFunction({
-        type: "socket_close",
-        timestamp: Date.now()
-      });
-    }
-    clearInterval(this._ping_interval_handle);
-    this.readyState = 4;
-    this._emit("socket_close");
-    if (this._autoreconnect) {
-      this._try_reconnect();
-    }
-  };
-  DDP.prototype._on_socket_error = function (e) {
-    if (this._socketInterceptFunction) {
-      this._socketInterceptFunction({
-        type: "socket_error",
-        error: JSON.stringify(e),
-        timestamp: Date.now()
-      });
-    }
-    clearInterval(this._ping_interval_handle);
-    this.readyState = 4;
-    this._emit("socket_error", e);
-  };
-  DDP.prototype._on_socket_open = function () {
-    if (this._socketInterceptFunction) {
-      this._socketInterceptFunction({
-        type: "socket_open",
-        timestamp: Date.now()
-      });
-    }
-    this._send({
-      msg: "connect",
-      version: DDP_VERSION,
-      support: [DDP_VERSION]
-    });
-  };
-  DDP.prototype._on_socket_message = function (message) {
-    if (this._socketInterceptFunction) {
-      this._socketInterceptFunction({
-        type: "socket_message_received",
-        message: message.data,
-        timestamp: Date.now()
-      });
-    }
-    var data;
-    if (message.data === INIT_DDP_MESSAGE) {
-      return;
-    }
-    try {
-      if (typeof EJSON === "undefined") {
-        data = JSON.parse(message.data);
-      } else {
-        data = EJSON.parse(message.data);
-      }
-      if (DDP_SERVER_MESSAGES.indexOf(data.msg) === -1) {
-        throw new Error();
-      }
-    } catch (e) {
-      console.warn("Non DDP message received:");
-      console.warn(message.data);
-      return;
-    }
-    this["_on_" + data.msg](data);
-  };
-
-  return DDP;
-
-}));
+MeteorDdp.prototype.close = function() {
+  this.sock.close();
+};
