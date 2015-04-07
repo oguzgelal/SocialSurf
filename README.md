@@ -1,6 +1,8 @@
 SocialWeb
 ========
 
+<img src="http://i.imgur.com/K1dutOf.gif" alt="Preview">
+
 ### Browse web socially!
 
 This app lets you to have instant chat with people that are browsing the same page with you.
