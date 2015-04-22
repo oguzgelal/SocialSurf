@@ -61,15 +61,14 @@ Template.frame.rendered = function() {
 
 Template.frame.events({
   // SETTINGS BAR EVENTS ------------------------------------
-  "mouseenter .btn-social": function(event, template){
-    var target = event.currentTarget;
-    var currectContent = $(target).html();
-    $(target).html(currectContent+" Login");
-  },
-  "mouseleave .btn-facebook": function(event, template){ $(event.currentTarget).html("<i class='fa fa-facebook'></i>"); },
-  "mouseleave .btn-twitter": function(event, template){ $(event.currentTarget).html("<i class='fa fa-twitter'></i>"); },
-  "mouseleave .btn-google": function(event, template){ $(event.currentTarget).html("<i class='fa fa-google-plus'></i>"); },
-  "mouseleave .btn-github": function(event, template){ $(event.currentTarget).html("<i class='fa fa-github'></i>"); },
+  //"mouseenter .btn-social": function(event, template){
+  //  var target = event.currentTarget;
+  //  var currectContent = $(target).html();
+  //  $(target).html(currectContent+" Login");
+  //},
+  //"mouseleave .btn-facebook": function(event, template){ $(event.currentTarget).html("<i class='fa fa-facebook'></i>"); },
+  //"mouseleave .btn-twitter": function(event, template){ $(event.currentTarget).html("<i class='fa fa-twitter'></i>"); },
+  //"mouseleave .btn-google": function(event, template){ $(event.currentTarget).html("<i class='fa fa-google-plus'></i>"); },
   "focus .settingsNick": function(event, template) {
     $(".settingsNick").select();
   },
@@ -80,6 +79,23 @@ Template.frame.events({
     Meteor.loginWithFacebook({
       loginStyle: "popup",
       requestPermissions: ['public_profile', 'email', 'user_friends']
+    }, function(error){
+      if(error){ alert("error: "+error); }
+      else{ console.log("Logged in:"); console.log(Meteor.user()); }
+    });
+  },
+  "click .btn-twitter": function(event, template){
+    Meteor.loginWithTwitter({
+      loginStyle: "popup"
+    }, function(error){
+      if(error){ alert("error: "+error); }
+      else{ console.log("Logged in:"); console.log(Meteor.user()); }
+    });
+  },
+  "click .btn-google": function(event, template){
+    Meteor.loginWithGoogle({
+      loginStyle: "popup",
+      requestPermissions: ['openid', 'email', 'profile']
     }, function(error){
       if(error){ alert("error: "+error); }
       else{ console.log("Logged in:"); console.log(Meteor.user()); }
