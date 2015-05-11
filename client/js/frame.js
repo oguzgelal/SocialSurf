@@ -43,6 +43,31 @@ Template.messageBox.helpers({
   },
   hasUser: function(){
     return this.user;
+  },
+  // if the previous message belongs to the same user,
+  // merge the message with the line above
+  mergeLastMessage: function(){
+    var currentUser = this.user;
+    var currentNick = this.nick;
+    var messagesArray = Messages.find({}).fetch();
+    console.log("-");
+    console.log(messagesArray);
+    for(var i = 0; i < messagesArray.length; i++){
+      if (messagesArray[i]._id == this._id){
+        if (!messagesArray[i-1]){ return false; }
+        else{
+          if (messagesArray[i-1].user){
+            if (!currentUser){ return false; }
+            return messagesArray[i-1].user._id == currentUser._id;
+          }
+          else{
+            if (currentUser){ return false; }
+            return messagesArray[i-1].nick == currentNick;
+          }
+        }
+      }
+    }
+    return false;
   }
 });
 

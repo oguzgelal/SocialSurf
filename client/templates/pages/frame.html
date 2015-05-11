@@ -63,9 +63,21 @@
 
 <!-- Message Box Template -->
 <template name="messageBox">
-  <div class="messageBox clearfix">
-
-    <div style="position: relative;">{{#if hasUser}}<img class="messageAvatar" src="{{hasUser.avatar}}" alt="Avatar of {{hasUser.name}}">{{else}}<img class="messageAvatar" src="/assets/anon.png" alt="Avatar of anon user {{nick}}">{{/if}}</div>
+  <div class="messageBox clearfix" data-userid="{{#if hasUser}}{{hasUser._id}}{{/if}}" data-nickname="{{#unless hasUser}}{{nick}}{{/unless}}">
+    
+    <!-- Merged message cells -->
+    {{#if mergeLastMessage}}
+    <div class="messageTextCont" style='margin-top: -5px; margin-left: 50px;'><span class="messageText">{{message}}</span></div>
+    
+    <!-- Non-merged message cells -->
+    {{else}}
+    <div style="position: relative;">
+      {{#if hasUser}}
+      <img class="messageAvatar" src="{{hasUser.avatar}}" alt="Avatar of {{hasUser.name}}">
+      {{else}}
+      <img class="messageAvatar" src="/assets/anon.png" alt="Avatar of anon user {{nick}}">
+      {{/if}}
+    </div>
 
     <div class="messageBoxArea">
       <div class="messageInline messageNick">
@@ -74,7 +86,9 @@
         {{/if}}
       </div>
       <div class="messageInline messageTime">{{timePassed date}}</div>
+      <!-- Message text container -->
       <div class="messageTextCont"><span class="messageText">{{message}}</span></div>
     </div>
+    {{/if}}
   </div>
 </template>
