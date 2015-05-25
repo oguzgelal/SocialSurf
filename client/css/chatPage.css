@@ -353,3 +353,24 @@ a:hover {
 .messageInline {
   display: inline;
 }
+
+/* stars cont */
+.stars {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+.star {
+  color: #f1c40f !important;
+  display: inline-block;
+}
+.star:hover {
+  cursor: pointer;
+}
+.swpCont {
+  margin-left: 5px;
+  display: inline-block;
+  color: white;
+  font-weight: bolder;
+}

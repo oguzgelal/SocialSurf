@@ -50,8 +50,9 @@ Template.messageBox.helpers({
     var currentUser = this.user;
     var currentNick = this.nick;
     var messagesArray = Messages.find({}).fetch();
-    console.log("-");
-    console.log(messagesArray);
+    // !!!!!! TODO !!!!!!!
+    // Create a field in rooms table and store the latest id or nickname ???
+    // !!!!!! TODO !!!!!!!
     for(var i = 0; i < messagesArray.length; i++){
       if (messagesArray[i]._id == this._id){
         if (!messagesArray[i-1]){ return false; }
@@ -76,12 +77,40 @@ Template.messageBox.rendered = function(){
 }
 
 Template.frame.rendered = function() {
+  var ths = this;
   // Move the settings bar upside of the screen according to its height
   var h = $('.settingsBar').height();
   $('.settingsBar').css("margin-top", -h + "px");
   setMessageAreaHeight();
   $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
+  
+  // RATE EVENTS
+  $(document).on('mouseenter', '.star', function(){
+    var starID = parseInt($(this).attr('id'));
+    $('.swpCont').html(starID);
+    $('.star i').removeClass('fa-star');
+    $('.star i').addClass('fa-star-o');
+    for(var i=starID; i>=0; i--){
+      $('.star#'+i+' i').removeClass('fa-star-o');
+      $('.star#'+i+' i').addClass('fa-star');
+    }
+  });
+  $(document).on('mouseleave', '.stars', function(){
+    $('.star i').removeClass('fa-star');
+    $('.star i').addClass('fa-star-o');
+    $('.swpCont').html("4.7");
+  });
+  $(document).on('click', '.star', function(){
+    console.log("*");
+    var starID = parseInt($(this).attr('id'));
+    var currentRoomUrl = ths.data.url;
+    if (Meteor.user()==null){ alert("Only logged in users can vote"); }
+    else{
+      Meteor.call("addVoteRoom", starID, currentRoomUrl, Meteor.user()._id, function() {
 
+      });
+    }
+  });
 }
 
 Template.frame.events({

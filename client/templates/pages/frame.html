@@ -15,7 +15,19 @@
         </div>
       </div>
       <div class="settingsSubRow" style="margin-top: 15px;"><a href="#" class="btn-logout"><i class="fa fa-sign-out"></i> Logout</a></div>
-      
+    </div>
+    <div class="settingsRow">
+      <div class="settingsSubRow settingsLabel">Rate this page</div>
+      <div class="settingsSubRow">
+        <ul class="stars">
+          <li class="star" id="1"><i class="fa fa-star-o staricon"></i></li>
+          <li class="star" id="2"><i class="fa fa-star-o staricon"></i></li>
+          <li class="star" id="3"><i class="fa fa-star-o staricon"></i></li>
+          <li class="star" id="4"><i class="fa fa-star-o staricon"></i></li>
+          <li class="star" id="5"><i class="fa fa-star-o staricon"></i></li>
+          <li class="swpCont">4.7</li>
+        </ul>
+      </div>
     </div>
     {{else}}
     <div class="settingsRow">
@@ -64,7 +76,7 @@
 <!-- Message Box Template -->
 <template name="messageBox">
   <div class="messageBox clearfix" data-userid="{{#if hasUser}}{{hasUser._id}}{{/if}}" data-nickname="{{#unless hasUser}}{{nick}}{{/unless}}">
-    
+
     <!-- Merged message cells -->
     {{#if mergeLastMessage}}
     <div class="messageTextCont" style='margin-top: -5px; margin-left: 50px;'><span class="messageText">{{message}}</span></div>
