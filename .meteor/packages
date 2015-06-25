@@ -18,3 +18,4 @@ accounts-twitter
 accounts-google
 accounts-github
 service-configuration
+force-ssl

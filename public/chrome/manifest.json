@@ -3,7 +3,7 @@
 
   "name": "Social Web",
   "description": "This extension allows you to chat with people that are browsing the same page.",
-  "version": "1.0",
+  "version": "1.0.1",
   "icons": {
     "16": "assets/img/icon.png",
     "48": "assets/img/icon.png",

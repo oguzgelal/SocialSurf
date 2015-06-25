@@ -9,7 +9,7 @@
 * closed tab(s) was/were connected to. */
 
 var url = window.location.href;
-var local = true; // Change to false before deploying to server
+var local = false; // Change to false before deploying to server
 var domain = "socialweb.meteor.com";
 
 

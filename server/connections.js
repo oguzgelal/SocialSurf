@@ -1,3 +1,5 @@
+// TODO : visits from direct link doesn't increase the online count !!! 
+
 Meteor.onConnection(function(conn){
   console.log("Client ["+conn.id+"] Connected...");
 
