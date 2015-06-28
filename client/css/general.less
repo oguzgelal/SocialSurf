@@ -3,23 +3,27 @@
 
 /* GENERAL */
 * {
-  font-family: 'Open Sans', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 body, html {
-  background-color: @background;
-  margin: 0px;
-  padding: 0px;
+	background-color: @background;
+	margin: 0px;
+	padding: 0px;
+	color: @text-dark;
 }
 body {
-  height: 100%;
+	height: 100%;
 }
-a {
-  color: @link-color;
+a{	color: @link-color; }
+a:hover{
+	color: @link-color;
+	text-decoration: underline;
 }
-a:hover {
-  color: @link-color;
-  text-decoration: underline;
-  text-shadow: 0 0 2px black;
+
+a.dark { color: @text-med; }
+a.dark:hover{
+	color: @link-color;
+	text-decoration: none;
 }
 
 @import 'frames/frame.import.less';

@@ -1,4 +1,5 @@
 .universal-container.frame {
+
   .avatar-sm {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -54,7 +55,7 @@
     padding-left: 13px;
     background-color: @lightblue;
     font-size: 30px;
-    color: #FBFDFE;
+    color: white;
     z-index: 1999999999;
 
     -webkit-border-bottom-left-radius: 5px;
@@ -80,7 +81,7 @@
     padding-bottom: 30px;
   }
   .settingsLabel {
-    color: #FBFDFE;
+    color: white;
     font-size: 13px;
     font-weight: 300;
     margin-bottom: 2px;
@@ -101,7 +102,7 @@
     background-image: none;
     border: none !important;
     margin-left: 3px;
-    color: #402060;
+    color: @lightblue;
     -webkit-transition: all 0.4s ease;  
     -moz-transition:all 0.4s ease;  
     -o-transition: all 0.4s ease;  
@@ -109,7 +110,7 @@
     transition: all 0.4s ease;
   }
   .setNick:hover {
-    color: #402060;
+    color: @lightblue;
     -webkit-transition: all 0.4s ease;  
     -moz-transition:all 0.4s ease;  
     -o-transition: all 0.4s ease;  
@@ -136,74 +137,53 @@
     line-height: 20px;
   }
 
-  /* MESSAGES INPUT */
-  .onlineData {
-    position: absolute;
-    width: 100%;
-    height: 23px;
-    background-color: whitesmoke;
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
-    padding-left: 15px;
-    bottom: 80px;
-    font-size: 12px;
-    color: lightgray;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .onlineIcon {
-    margin-right: 3px;
-    color: gray;
-  }
-  .messageInput {
-    position: absolute;
-    width: 100%;
-    height: 80px;
+  /* MESSAGES INPUT */  
+  .messageInputArea {
+    position: fixed;
     bottom: 0;
     left: 0;
-    background-color: #402060;
+    width: 100%;
+    height: 70px;
   }
-
-  .sendButton {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    background-color: rgba(245,245,245,0.2);
-    background-image: none;
-    border: none !important;
-    margin-left: 3px;
-    color: #402060;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    transition: all 0.2s ease;
+  .onlineData {
+    background-color: @online-data-bg;
+    box-shadow: 0 -1px 1px rgba(119,119,119,.22); 
   }
-  .sendButton:hover {
-    color: #402060;
-    background-color: rgba(245,245,245,1);
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    transition: all 0.2s ease;
+  .onlineDataLeft {
+    float: left;
+    padding-left: 10px;
   }
-
+  .onlineIcon {
+    color: @online-color;
+  }
+  .onlineDataText {
+    font-size: 10px;
+    color: @text-med;
+  }
+  .onlineDataRight {
+    float: right;
+    padding-right: 10px;
+  }
+  .noticeLabel {
+    font-size: 11px;
+    color: @text-med;
+  }
+  .fix-messageInputCont {
+    height: 50px;
+  }
   .messageInputText {
-    font-family: 'Roboto', sans-serif;
     outline: none !important;
     width: 100% !important;
-    height: 100% !important;
-    line-height: 22px !important;
-    padding: 10px !important;
+    height: 50px !important;
+    line-height: 50px !important;
+    overflow: hidden;
+    padding: 0 10px !important;
     margin: 0px !important;
-    border: none !important;
-    font-weight: 100;
-    font-size: 16px !important;
-    background-color: #402060 !important;
+    border: none !important; 
+    font-size: 17px !important;
+    font-weight: 100 !important;
+    background-color: @lightblue !important;
     color: #FBFDFE !important;
-
     -webkit-border-radius: 0px !important;
     -moz-border-radius: 0px !important;
     border-radius: 0px !important;
@@ -216,28 +196,54 @@
     -moz-box-shadow: none !important;
     box-shadow: none !important;
   }
-  .messageInputText::-webkit-input-placeholder {
+  .messageInputText::-webkit-input-placeholder{
     color: #FBFDFE;
+    font-size: 14px !important;
   }
-  .messageInputText:-moz-placeholder {
+  .messageInputText:-moz-placeholder{
     color: #FBFDFE;
+    font-size: 14px !important;
   }
-  .messageInputText::-moz-placeholder {
+  .messageInputText::-moz-placeholder{
     color: #FBFDFE;
+    font-size: 14px !important;
   }
-  .messageInputText:-ms-input-placeholder {
+  .messageInputText:-ms-input-placeholder{
     color: #FBFDFE;
+    font-size: 14px !important;
+  }
+  .sendButton {
+    position: absolute;
+    right: 18px;
+    bottom: -3px;
+    font-size: 24px;
+    line-height: 50px;
+    color: white;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  .sendButton:hover {
+    text-shadow: 0 0 3px lightgray;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
   }
 
   /* MESSAGE AREA */
   .messageScrollable {
     position: relative;
+    height: 100%;
+    padding-bottom: 70px;
     overflow-y: scroll;
     overflow-x: hidden;
   }
-  .messageArea {
-    padding-top: 15px;
-  }
+  .messageArea { padding-top: 15px; }
 
   /* MESSAGES */
   .messageBox {
@@ -322,27 +328,6 @@
   }
   .messageInline {
     display: inline;
-  }
-
-  /* stars cont */
-  .stars {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-  }
-  .star {
-    color: #f1c40f !important;
-    display: inline-block;
-  }
-  .star:hover {
-    cursor: pointer;
-  }
-  .swpCont {
-    margin-left: 5px;
-    display: inline-block;
-    color: white;
-    font-weight: bolder;
   }
 
 }

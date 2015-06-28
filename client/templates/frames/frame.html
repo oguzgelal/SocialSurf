@@ -1,8 +1,8 @@
 <template id="frame" name="frame">
   <div class="universal-container frame">
+
     <!-- Settings Bar -->
     <div class="settingsBar">
-      
       {{#if currentUser}}
       <div class="settingsRow">
         <div class="settingsSubRow clearfix">
@@ -33,8 +33,6 @@
         </div>
       </div>
       {{/if}}
-
-
     </div>
     <div class="settingsBarLine"></div>
     <div class="settingsBarToggle">
@@ -50,14 +48,25 @@
         {{/each}}
       </div>
     </div>
+    
     <!-- Message Input -->
-    <div class="onlineData"><i class="onlineIcon fa fa-users" style='color: green;'></i>{{online}} Online</div>
-    <div class="messageInput">
-      <textarea class="messageInputText" placeholder="Enter message..."></textarea>
+    <div class="messageInputArea">
+      <div class="onlineData clearfix">
+        <div class="onlineDataLeft">
+          <i class="onlineIcon fa fa-user"></i>
+          <span class="onlineDataText"><a href="#" class="dark">{{online}} Online</a></span>  
+        </div>
+        <div class="onlineDataRight">
+          <span class="noticeLabel">powered by <b><a href="#">SocialSurf</a></b></span>
+        </div>
+      </div>
+      <div class="messageInputCont">
+        <input type="text" class="messageInputText" placeholder="Enter message...">
+        <i class="fa fa-send-o sendButton"></i>
+      </div>
     </div>
-    <button class="btn btn-lg sendButton"><i class="fa fa-check"></i></button>
 
-  </div>
+</div>
 </template>
 
 
