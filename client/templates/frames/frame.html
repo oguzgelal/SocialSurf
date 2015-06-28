@@ -14,7 +14,7 @@
             <div class="settingsSubRow settingsLabel userDataTxtName"><b>{{getName}}</b></div>
           </div>
         </div>
-        <div class="settingsSubRow" style="margin-top: 15px;"><a href="#" class="btn-logout"><i class="fa fa-sign-out"></i> Logout</a></div>
+        <div class="settingsSubRow" style="margin-top: 15px;"><a href="#" class="btn-logout link-light"><i class="fa fa-sign-out"></i> Logout</a></div>
       </div>
       {{else}}
       <div class="settingsRow">
@@ -54,7 +54,7 @@
       <div class="onlineData clearfix">
         <div class="onlineDataLeft">
           <i class="onlineIcon fa fa-user"></i>
-          <span class="onlineDataText"><a href="#" class="dark">{{online}} Online</a></span>  
+          <span class="onlineDataText"><a href="#" class="link-dark">{{online}} Online</a></span>  
         </div>
         <div class="onlineDataRight">
           <span class="noticeLabel">powered by <b><a href="#">SocialSurf</a></b></span>
@@ -66,41 +66,50 @@
       </div>
     </div>
 
-</div>
+  </div>
 </template>
 
 
 <!-- Message Box Template -->
 <template name="messageBox">
   <div class="universal-msgbox-container frame">
-
-    <div class="messageBox clearfix" data-userid="{{#if hasUser}}{{hasUser._id}}{{/if}}" data-nickname="{{#unless hasUser}}{{nick}}{{/unless}}">
-
-      <!-- Merged message cells -->
-      {{#if mergeLastMessage}}
-      <div class="messageTextCont" style='margin-top: -5px; margin-left: 50px;'><span class="messageText">{{message}}</span></div>
-
-      <!-- Non-merged message cells -->
-      {{else}}
-      <div style="position: relative;">
+    <div class="msgbox">
+      <!-- avatar -->
+      <div class="msgbox-avatar">
         {{#if hasUser}}
-        <img class="messageAvatar" src="{{hasUser.avatar}}" alt="Avatar of {{hasUser.name}}">
+        <img src="{{hasUser.avatar}}" alt="Avatar of {{hasUser.name}}">
         {{else}}
-        <img class="messageAvatar" src="/assets/anon.png" alt="Avatar of anon user {{nick}}">
+        <img src="/assets/anon.png" alt="Avatar of anon user {{nick}}">
         {{/if}}
       </div>
-
-      <div class="messageBoxArea">
-        <div class="messageInline messageNick">
-          {{#if hasUser}} {{hasUser.name}} {{else}}
-          <i class="fa fa-user"></i> {{nick}}
-          {{/if}}
+      <!-- bubble -->
+      <div class="msgbox-bubble-cont">
+        <div class="msgbox-bubble">
+          <div class="msgbox-arrow"></div>
+          <!-- bubble title -->
+          <div class="msgbox-title">
+            <div class="msgbox-title-left">
+              <span class="msgbox-username"> {{#if hasUser}} {{hasUser.name}} {{else}} {{nick}} {{/if}} </span>
+            </div>
+            <div class="msgbox-title-right">
+              <span class="msgbox-time">{{timePassed date}}</span>
+            </div>
+          </div>
+          <!-- bubble message -->
+          <div class="msgbox-text">
+            {{message}}  
+          </div>
         </div>
-        <div class="messageInline messageTime">{{timePassed date}}</div>
-        <!-- Message text container -->
-        <div class="messageTextCont"><span class="messageText">{{message}}</span></div>
       </div>
-      {{/if}}
-    </div>
+
+    </div>    
+
   </div>
 </template>
+
+
+
+
+
+
+

@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,cyrillic-ext,latin-ext);
+@import 'prefixer.import.less';
 @import 'config.import.less';
 
 /* GENERAL */
@@ -24,10 +25,26 @@ a:hover{
 	text-decoration: underline;
 }
 
-a.dark { color: @text-med; }
-a.dark:hover{
+a.link-dark { color: @text-med; }
+a.link-dark:hover{
 	color: @link-color;
 	text-decoration: none;
+}
+a.link-light { color: white; }
+a.link-light:hover{
+	color: white;
+	text-decoration: underline;
+}
+
+.clearfix() {
+	&:before,
+	&:after {
+    content: " "; // 1
+    display: table; // 2
+}
+&:after {
+	clear: both;
+}
 }
 
 @import 'frames/frame.import.less';
