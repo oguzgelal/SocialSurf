@@ -41,8 +41,8 @@
     </div>
 
     <!-- Messages -->
-    <div class="messageScrollable clearfix">
-      <div class="messageArea">
+    <div class="messageScrollable nano clearfix">
+      <div class="messageArea overthrow nano-content">
         {{#each messages}}
         {{>messageBox this}}
         {{/each}}
@@ -62,7 +62,7 @@
       </div>
       <div class="messageInputCont">
         <input type="text" class="messageInputText" placeholder="Enter message...">
-        <i class="fa fa-send-o sendButton"></i>
+        <i class="fa fa-send sendButton"></i>
       </div>
     </div>
 
@@ -72,7 +72,7 @@
 
 <!-- Message Box Template -->
 <template name="messageBox">
-  <div class="universal-container frame">
+  <div class="universal-msgbox-container frame">
 
     <div class="messageBox clearfix" data-userid="{{#if hasUser}}{{hasUser._id}}{{/if}}" data-nickname="{{#unless hasUser}}{{nick}}{{/unless}}">
 

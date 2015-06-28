@@ -1,4 +1,4 @@
-.universal-container.frame {
+.universal-container.frame, universal-msgbox-container.frame {
 
   .avatar-sm {
     -moz-border-radius: 5px;
@@ -180,8 +180,7 @@
     padding: 0 10px !important;
     margin: 0px !important;
     border: none !important; 
-    font-size: 17px !important;
-    font-weight: 100 !important;
+    font-size: 15px !important;
     background-color: @lightblue !important;
     color: #FBFDFE !important;
     -webkit-border-radius: 0px !important;
@@ -199,18 +198,22 @@
   .messageInputText::-webkit-input-placeholder{
     color: #FBFDFE;
     font-size: 14px !important;
+    font-weight: 100 !important;
   }
   .messageInputText:-moz-placeholder{
     color: #FBFDFE;
     font-size: 14px !important;
+    font-weight: 100 !important;
   }
   .messageInputText::-moz-placeholder{
     color: #FBFDFE;
     font-size: 14px !important;
+    font-weight: 100 !important;
   }
   .messageInputText:-ms-input-placeholder{
     color: #FBFDFE;
     font-size: 14px !important;
+    font-weight: 100 !important;
   }
   .sendButton {
     position: absolute;
@@ -238,12 +241,14 @@
   /* MESSAGE AREA */
   .messageScrollable {
     position: relative;
+    width: 100%;
     height: 100%;
-    padding-bottom: 70px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
   }
-  .messageArea { padding-top: 15px; }
+  .messageArea {
+    padding-top: 15px;
+    padding-bottom: 80px;
+  }
 
   /* MESSAGES */
   .messageBox {

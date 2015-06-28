@@ -59,7 +59,7 @@ Template.messageBox.helpers({
 });
 
 Template.messageBox.rendered = function(){
-  $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
+  $(".nano").nanoScroller({ scroll: 'bottom' });
 }
 
 Template.frame.rendered = function() {
@@ -68,7 +68,7 @@ Template.frame.rendered = function() {
   var h = $('.settingsBar').height();
   $('.settingsBar').css("margin-top", -h + "px");
   // scroll to the bottom
-  $('.messageScrollable').scrollTop($('.messageArea').prop("scrollHeight"));
+  $(".nano").nanoScroller({ scroll: 'bottom' });
 }
 
 Template.frame.events({
@@ -166,6 +166,8 @@ function setNickname(str) {
 function sendMessage(ths, message){
   if (message.length > 0){
     // animate send icon
+    var sendButtonBottom = $('.sendButton').css("bottom");
+    var sendButtonRight = $('.sendButton').css("right");
     $('.sendButton').css("bottom", "48px");
     $('.sendButton').css("right", "-23px");
     $('.sendButton').css("text-shadow", "0 5px 5px gray");
@@ -175,8 +177,8 @@ function sendMessage(ths, message){
       $('.sendButton').css("right", "50px");
       setTimeout(function(){
         $('.sendButton').css("visibility", "visible");
-        $('.sendButton').css("bottom", "-3px");
-        $('.sendButton').css("right", "18px");
+        $('.sendButton').css("bottom", sendButtonBottom);
+        $('.sendButton').css("right", sendButtonRight);
         $('.sendButton').css("text-shadow", "none");
       },200);
     },200);
