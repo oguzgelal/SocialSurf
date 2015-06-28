@@ -58,6 +58,8 @@ Template.messageBox.helpers({
   }
 });
 
+$(window).resize(function(event){ $(".nano").nanoScroller({ scroll: 'bottom' }); });
+
 Template.messageBox.rendered = function(){
   $(".nano").nanoScroller({ scroll: 'bottom' });
 }
