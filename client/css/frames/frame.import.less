@@ -1,0 +1,348 @@
+.universal-container.frame {
+  .avatar-sm {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+  }
+
+  /* SETTINGS BAR */
+  .settingsBar.active {
+    -webkit-box-shadow: 0 0 2em black;
+    -moz-box-shadow: 0 0 2em black;
+    box-shadow: 0 0 2em black;
+  }
+  .settingsBar {
+    position: absolute;
+    margin-top: -99999px;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: @lightblue;
+    z-index: 1999999998;
+
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  .settingsBarLine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: @lightblue;
+    z-index: 1999999997;
+
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  .settingsBarToggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 30px;
+    padding: 10px;
+    padding-left: 13px;
+    background-color: @lightblue;
+    font-size: 30px;
+    color: #FBFDFE;
+    z-index: 1999999999;
+
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  .settingsBarToggle:hover {
+    cursor: pointer;
+  }
+  .settingsBarToggle .closeIcon {
+    display: none;
+  }
+  .settingsRow {
+    padding-top: 20px;
+    margin-left: 20px;
+  }
+  .settingsRow:last-of-type {
+    padding-bottom: 30px;
+  }
+  .settingsLabel {
+    color: #FBFDFE;
+    font-size: 13px;
+    font-weight: 300;
+    margin-bottom: 2px;
+  }
+  .settingsNick {
+    margin-bottom: 0 !important;
+    background-color: rgba(255,255,255,0.2) !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    width: auto !important;
+    min-width: 1px !important;
+    color: white !important;
+    padding-left: 10px !important;
+  }
+  .setNick {
+    background-image: none;
+    border: none !important;
+    margin-left: 3px;
+    color: #402060;
+    -webkit-transition: all 0.4s ease;  
+    -moz-transition:all 0.4s ease;  
+    -o-transition: all 0.4s ease;  
+    -ms-transition: all 0.4s ease;  
+    transition: all 0.4s ease;
+  }
+  .setNick:hover {
+    color: #402060;
+    -webkit-transition: all 0.4s ease;  
+    -moz-transition:all 0.4s ease;  
+    -o-transition: all 0.4s ease;  
+    -ms-transition: all 0.4s ease;  
+    transition: all 0.4s ease;
+  }
+  .btn-social {
+    margin: 0;
+  }
+  .userDataCont {
+    float: left;
+    display: inline-block;
+    width: auto;
+  }
+  .userDataTxt {
+    margin-left: 5px;
+  }
+  .userDataTxtHello {
+    font-size: 9px;
+    line-height: 10px;
+  }
+  .userDataTxtName {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  /* MESSAGES INPUT */
+  .onlineData {
+    position: absolute;
+    width: 100%;
+    height: 23px;
+    background-color: whitesmoke;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    padding-left: 15px;
+    bottom: 80px;
+    font-size: 12px;
+    color: lightgray;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .onlineIcon {
+    margin-right: 3px;
+    color: gray;
+  }
+  .messageInput {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    bottom: 0;
+    left: 0;
+    background-color: #402060;
+  }
+
+  .sendButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: rgba(245,245,245,0.2);
+    background-image: none;
+    border: none !important;
+    margin-left: 3px;
+    color: #402060;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  .sendButton:hover {
+    color: #402060;
+    background-color: rgba(245,245,245,1);
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+
+  .messageInputText {
+    font-family: 'Roboto', sans-serif;
+    outline: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    line-height: 22px !important;
+    padding: 10px !important;
+    margin: 0px !important;
+    border: none !important;
+    font-weight: 100;
+    font-size: 16px !important;
+    background-color: #402060 !important;
+    color: #FBFDFE !important;
+
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .messageInputText:focus {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+  .messageInputText::-webkit-input-placeholder {
+    color: #FBFDFE;
+  }
+  .messageInputText:-moz-placeholder {
+    color: #FBFDFE;
+  }
+  .messageInputText::-moz-placeholder {
+    color: #FBFDFE;
+  }
+  .messageInputText:-ms-input-placeholder {
+    color: #FBFDFE;
+  }
+
+  /* MESSAGE AREA */
+  .messageScrollable {
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .messageArea {
+    padding-top: 15px;
+  }
+
+  /* MESSAGES */
+  .messageBox {
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  .messageBox:last-of-type {
+    margin-bottom: 15px;
+  }
+  .messageNick {
+    color: gray;
+    font-size: 10px;
+    font-weight: 300;
+    background-color: lightgray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 1px 4px;
+    -moz-border-top-left-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+  .messageTime {
+    color: lightgray;
+    font-size: 12px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    margin-left: 3px;
+    line-height: 19px;
+    vertical-align: bottom;
+  }
+  .messageTextCont {
+    margin-left: 5px;
+    margin-top: 1px;
+    word-break: break-word;
+  }
+  .messageText {
+    font-size: 17px;
+    font-weight: 300;
+    color: #FBFDFE;
+    background-color: #402060;
+    padding-top: 1px;
+    box-shadow: 5px 0 0 #402060, -5px 0 0 #402061, 5px 5px 0 #402060, -5px 5px #402060;
+    line-height: 23px;
+    -moz-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-box-decoration-break: clone;
+    -o-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .messageAvatar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    -o-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  .messageBoxArea {
+    padding: 0;
+    margin-left: 45px;
+  }
+  .messageInline {
+    display: inline;
+  }
+
+  /* stars cont */
+  .stars {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+  }
+  .star {
+    color: #f1c40f !important;
+    display: inline-block;
+  }
+  .star:hover {
+    cursor: pointer;
+  }
+  .swpCont {
+    margin-left: 5px;
+    display: inline-block;
+    color: white;
+    font-weight: bolder;
+  }
+
+}

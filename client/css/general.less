@@ -1,0 +1,25 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,cyrillic-ext,latin-ext);
+@import 'config.import.less';
+
+/* GENERAL */
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+body, html {
+  background-color: @background;
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  height: 100%;
+}
+a {
+  color: @link-color;
+}
+a:hover {
+  color: @link-color;
+  text-decoration: underline;
+  text-shadow: 0 0 2px black;
+}
+
+@import 'frames/frame.import.less';

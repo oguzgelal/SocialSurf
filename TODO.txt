@@ -7,3 +7,8 @@ DDP : https://github.com/eddflrs/meteor-ddp
 
 TODO : Custom chat room idea ?
 TODO : Use content-length header for backcheck algorithm
+
+
+@text-primary: rgb(90,103,114);
+@text-secondary: rgb(140,152,158);
+@text-third: rgb(193,215,220);
