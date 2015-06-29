@@ -23,12 +23,11 @@ Template.frame.helpers({
       return false;
     }
     else{
-      // TODO : set other rules for concatanation
+      // rules for concatanation
       var maxGapTime = 120000;
       var concatDisplayable = lastMsgDisplayable.curValue===MessageUtils.getDisplayable(msg);
       var concatTime = msg.date.getTime() - lastMsgTime.curValue <= maxGapTime;
       var concatResult = concatDisplayable & concatTime;
-
       lastMsgTime.set(msg.date.getTime());
       if (!concatResult){
         lastMsgDisplayable.set(MessageUtils.getDisplayable(msg));
