@@ -14,8 +14,8 @@ Accounts.onCreateUser(function (options, user){
         console.log(user.profile);
 
         if (user.services.facebook){
-          insertOpts.avatar = "http://graph.facebook.com/"+user.services.facebook.id+"/picture";
-          user.avatar = "http://graph.facebook.com/"+user.services.facebook.id+"/picture";
+          insertOpts.avatar = "https://graph.facebook.com/"+user.services.facebook.id+"/picture";
+          user.avatar = "https://graph.facebook.com/"+user.services.facebook.id+"/picture";
           insertOpts.email = user.services.facebook.email;
           user.email = user.services.facebook.email;
           insertOpts.profileLink = user.services.facebook.link;
@@ -27,8 +27,8 @@ Accounts.onCreateUser(function (options, user){
         else if (user.services.twitter){
           insertOpts.avatar = user.services.twitter.profile_image_url;
           user.avatar = user.services.twitter.profile_image_url;
-          insertOpts.profileLink = "http://twitter.com/"+user.services.twitter.screenName;
-          user.profileLink = "http://twitter.com/"+user.services.twitter.screenName;
+          insertOpts.profileLink = "https://twitter.com/"+user.services.twitter.screenName;
+          user.profileLink = "https://twitter.com/"+user.services.twitter.screenName;
           insertOpts.twitter_id = user.services.twitter.id;
           user.twitter_id = user.services.twitter.id;
         }

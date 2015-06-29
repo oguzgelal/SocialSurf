@@ -80,7 +80,7 @@
     <!-- avatar -->
     <div class="msgbox-avatar">
       {{#if hasUser}}
-      <img src="{{hasUser.avatar}}" alt="Avatar of {{hasUser.name}}">
+      <img src="{{getAvatar}}" alt="Avatar of {{hasUser.name}}">
       {{else}}
       <img src="/assets/anon.png" alt="Avatar of anon user {{nick}}">
       {{/if}}
@@ -106,10 +106,4 @@
     </div>    
   </div>
 </template>
-
-
-
-
-
-
 

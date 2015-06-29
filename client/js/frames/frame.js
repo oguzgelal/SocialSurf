@@ -50,7 +50,8 @@ Template.frame.helpers({
   getAvatar: function(){
     if (Meteor.user()){
       var userCurrent = Members.findOne({_id: Meteor.user()._id});
-      return userCurrent.avatar;
+      var securedAvatar = userCurrent.avatar.replace("http://", "https://");
+      return securedAvatar;
     }
   }
 });
@@ -62,40 +63,22 @@ Template.messageBox.helpers({
     return Utils.mstostr(diff);
   },
   hasUser: function(){ return this.user; },
+  getAvatar: function(){
+    if (Meteor.user()){
+      var userCurrent = Members.findOne({_id: Meteor.user()._id});
+      var securedAvatar = userCurrent.avatar.replace("http://", "https://");
+      return securedAvatar;
+    }
+  },
   msgid: function(){ return this._id; },
   msgtime: function(){ return this.date.getTime(); },
   displayable: function(){ return MessageUtils.getDisplayable(this); },
   displayable_enc: function(){ return encodeURIComponent(MessageUtils.getDisplayable(this)); },
-
-  // if the previous message belongs to the same user,
-  // merge the message with the line above
-  mergeLastMessage: function(){
-    var currentUser = this.user;
-    var currentNick = this.nick;
-    var messagesArray = Messages.find({}).fetch();
-    // !!!!!! TODO !!!!!!!
-    // Create a field in rooms table and store the latest id or nickname ???
-    // !!!!!! TODO !!!!!!!
-    for(var i = 0; i < messagesArray.length; i++){
-      if (messagesArray[i]._id == this._id){
-        if (!messagesArray[i-1]){ return false; }
-        else{
-          if (messagesArray[i-1].user){
-            if (!currentUser){ return false; }
-            return messagesArray[i-1].user._id == currentUser._id;
-          }
-          else{
-            if (currentUser){ return false; }
-            return messagesArray[i-1].nick == currentNick;
-          }
-        }
-      }
-    }
-    return false;
-  }
 });
 
-$(window).resize(function(event){ $(".nano").nanoScroller({ scroll: 'bottom' }); });
+$(window).resize(function(event){
+  $(".nano").nanoScroller({ scroll: 'bottom' });
+});
 
 Template.messageBox.rendered = function(){
   if (this.data.concat){
