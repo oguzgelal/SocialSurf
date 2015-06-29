@@ -1,13 +1,28 @@
 Meteor.methods({
+  clientJoin: function(urlVar){
+    var connectionID = this.connection.id;
+    var connUserID = this.userId;
+    var connUserIP = this.connection.clientAddress;
+    var connHeaders = this.connection.httpHeaders;
+    /********************************/
+    /*** Blocked connections here ***/
+    /********************************/
+    console.log("Connection ID : "+connectionID);
+    console.log("Connected User ID : "+connUserID);
+    console.log("Connected User IP : "+connUserIP);
+    console.log("Connected User Headers : "+connHeaders);
 
-  clientJoin: function(clientID, urlVar){
-    var occurance = Online.find({client: clientID}).count();
+    var occurance = Online.find({client: connectionID}).count();
     // prevent duplicate
     if (occurance == 0){
       Online.insert({
-        client: clientID,
-        url: urlVar
-      }, function(err){
+        client: connectionID,
+        url: urlVar,
+        userID: connUserID,
+        userIP: connUserIP,
+        headers: connHeaders
+      },
+      function(err){
         if (err) throw err;
         console.log("Client joined...");
       });
@@ -15,8 +30,8 @@ Meteor.methods({
     return true;
   },
   // Remove disconnected client from the Online collection
-  clientLeave: function(clientID){
-    Online.remove({client: clientID}, function(err){
+  clientLeave: function(connectionID){
+    Online.remove({client: connectionID}, function(err){
       if (err) throw err;
       console.log("Client removed from online...");
       return true;

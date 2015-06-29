@@ -1,11 +1,9 @@
-// TODO : visits from direct link doesn't increase the online count !!! 
-
 Meteor.onConnection(function(conn){
-  console.log("Client ["+conn.id+"] Connected...");
+  var clientID = conn.id;
+  var clientIP = conn.clientAddress;
+  var clientHeaders = conn.httpHeaders;
 
-  // Client join is allways handled by the clients once connected.
-  // Client leave is handled by the server because the clients might
-  // quit and disconnect unexpectedly.
+  //console.log("Client "+clientID+" ("+clientIP+") connected.");
 
   conn.onClose(function(){
     Meteor.call("clientLeave", conn.id, function(){
