@@ -6,6 +6,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,.3);
+	z-index: 999999999999;
 }
 .activateFrameButton {
 	position: fixed;
@@ -23,6 +24,7 @@
 	font-weight: bolder;
 	line-height: 30px;
 	text-align: center;
+	z-index: 99999999999;
 }
 .activateFrameButton:hover{
 	cursor: pointer;
@@ -62,6 +64,7 @@
 	-moz-animation-duration: 0.2s;
 	-o-animation-duration: 0.2s;
 	animation-duration: 0.2s;
+	z-index: 9999999999999;
 }
 .frameContainer iframe {
 	background-color: white;

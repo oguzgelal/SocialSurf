@@ -1,3 +1,4 @@
+// TODO : code duplicate (same codes appear on the client) !! fix this.
 Meteor.methods({
   getPrefix: function(url){
     var match = url.match(/(\w)*:\/\//gi);

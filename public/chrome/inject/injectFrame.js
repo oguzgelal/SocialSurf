@@ -9,10 +9,14 @@ if (local){ endpoint="ws://localhost:3000/websocket"; }
 else{ endpoint="wss://"+domain+"/websocket"; }
 var ddp = new MeteorDdp(endpoint);
 ddp.connect().done(function(res) {
-	$(document).ready(function(){ updateOnlineBadge(ddp,url); });
-	ddp.subscribe('online', [url]).done(function(){
-		ddp.watch('online', function(changedDoc, message) {
-			updateOnlineBadge(ddp,url);
+	ddp.call('cleanURL', [url]).done(function(url){
+		console.log(url);
+		init(url);
+		$(document).ready(function(){ updateOnlineBadge(ddp,url); });
+		ddp.subscribe('online', [url]).done(function(){
+			ddp.watch('online', function(changedDoc, message) {
+				updateOnlineBadge(ddp,url);
+			});
 		});
 	});
 });

@@ -3,7 +3,7 @@
 
   "name": "Social Web",
   "description": "This extension allows you to chat with people that are browsing the same page.",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "icons": {
     "16": "assets/img/icon.png",
     "48": "assets/img/icon.png",
@@ -15,7 +15,7 @@
       "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "exclude_matches": ["*://socialweb.meteor.com/*"],
+        "exclude_matches": ["*://socialweb.io/*"],
         "run_at": "document_start",
         "css": ["inject/tp/animate.css", "inject/injectFrame.css"],
         "js": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "inject/injectFrame.js"]
