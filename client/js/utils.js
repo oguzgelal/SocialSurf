@@ -40,7 +40,7 @@ Utils = {
 		var temp = Math.floor(milliseconds / 1000);
 		var years = Math.floor(temp / 31536000);
 		if (years && years>=0) {
-			return years + ' year' + numberEnding(years) + ' ago';
+			return years + ' yr' + numberEnding(years) + ' ago';
 		}
 		var days = Math.floor((temp %= 31536000) / 86400);
 		if (days && days>=0) {
@@ -48,15 +48,15 @@ Utils = {
 		}
 		var hours = Math.floor((temp %= 86400) / 3600);
 		if (hours && hours>=0) {
-			return hours + ' hour' + numberEnding(hours) + ' ago';
+			return hours + ' hr' + numberEnding(hours) + ' ago';
 		}
 		var minutes = Math.floor((temp %= 3600) / 60);
 		if (minutes && minutes>=0) {
-			return minutes + ' minute' + numberEnding(minutes) + ' ago';
+			return minutes + ' min' + numberEnding(minutes) + ' ago';
 		}
 		var seconds = temp % 60;
 		if (seconds && seconds>=0) {
-			return seconds + ' second' + numberEnding(seconds) + ' ago';
+			return seconds + ' sec' + numberEnding(seconds) + ' ago';
 		}
 		return 'just now';
 	}
