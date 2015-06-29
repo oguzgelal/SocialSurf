@@ -64,9 +64,8 @@ Template.messageBox.helpers({
   },
   hasUser: function(){ return this.user; },
   getAvatar: function(){
-    if (Meteor.user()){
-      var userCurrent = Members.findOne({_id: Meteor.user()._id});
-      var securedAvatar = userCurrent.avatar.replace("http://", "https://");
+    if (this.user){
+      var securedAvatar = this.user.avatar.replace("http://", "https://");
       return securedAvatar;
     }
   },
