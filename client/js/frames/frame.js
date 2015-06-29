@@ -4,6 +4,10 @@ Meteor.startup(function() {
   }, 1000);
 });
 
+$(document).ready(function(){
+  $(".nano").nanoScroller({ iOSNativeScrolling: true });
+});
+
 Template.frame.created = function(){
   this.lastMsgTime = new ReactiveVar(-1);
   this.lastMsgDisplayable = new ReactiveVar(-1);
