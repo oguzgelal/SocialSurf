@@ -1,14 +1,14 @@
-Change localhost URL's:
-/chrome/popup/popup.js
-/chrome/background/bg.js
-/chrome/inject/inject.js
+-- before publish --
+TODO : "nano scroll bottom" doesn't work. Problem is not race condition !!!!
+TODO : update chrome extension
+TODO : landing page
+	(injectable script for web developers sooner)
+	(other browsers: soon)
+	(wordpress drupal joomla plugin arastir - a little later)
+	(android ios later)
+	(** get notified **)
 
-DDP : https://github.com/eddflrs/meteor-ddp
+-- 1 after publish --
+TODO : private conversations
+TODO : profile page
 
-TODO : Custom chat room idea ?
-TODO : Use content-length header for backcheck algorithm
-
-
-@text-primary: rgb(90,103,114);
-@text-secondary: rgb(140,152,158);
-@text-third: rgb(193,215,220);

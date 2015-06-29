@@ -8,7 +8,7 @@ $(document).ready(function(){
   $(".nano").nanoScroller({ iOSNativeScrolling: true });
 });
 
-// TODO : debug & fix this
+// TODO : debug & fix this !!!! scroll bottom doesn't work, problem isn't race condition!
 // temp workaround for scroll to bottom bug
 $(document).on('keydown', '.messageInputText', function(){
   $(".nano").nanoScroller({ scroll: 'bottom' });
