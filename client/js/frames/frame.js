@@ -88,9 +88,13 @@ Template.messageBox.rendered = function(){
     var message = this.data.message;
     this.firstNode.remove();
     $('.msgbox#'+prevID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
+    $(".nano").nanoScroller({ scroll: 'bottom' });
   }
-  $(".nano").nanoScroller({ scroll: 'bottom' });
 }
+
+Template.messageBox.onRendered(function(){
+  $(".nano").nanoScroller({ scroll: 'bottom' });
+});
 
 Template.frame.rendered = function() {
   var ths = this;
@@ -196,8 +200,8 @@ function setNickname(str) {
 function sendMessage(ths, message){
   if (message.length > 0){
     // animate send icon
-    var sendButtonBottom = $('.sendButton').css("bottom");
-    var sendButtonRight = $('.sendButton').css("right");
+    var sendButtonRight = "18px";
+    var sendButtonBottom = "-3px";
     $('.sendButton').css("bottom", "48px");
     $('.sendButton').css("right", "-23px");
     $('.sendButton').css("text-shadow", "0 5px 5px gray");
