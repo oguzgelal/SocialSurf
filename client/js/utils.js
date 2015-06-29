@@ -27,6 +27,13 @@ Login = {
 	}
 }
 
+MessageUtils = {
+	getDisplayable: function(msg){
+		if (msg.user){ return msg.user.name; }
+		else{ return msg.nick; }
+	}
+}
+
 Utils = {
 	mstostr: function(milliseconds){
 		function numberEnding (number) {

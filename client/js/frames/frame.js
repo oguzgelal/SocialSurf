@@ -4,7 +4,40 @@ Meteor.startup(function() {
   }, 1000);
 });
 
+Template.frame.created = function(){
+  this.lastMsgTime = new ReactiveVar(-1);
+  this.lastMsgDisplayable = new ReactiveVar(-1);
+  this.lastMsgID = new ReactiveVar(-1);
+}
+
 Template.frame.helpers({
+  concat: function(msg){
+    var lastMsgTime = Template.instance().lastMsgTime;
+    var lastMsgDisplayable = Template.instance().lastMsgDisplayable;
+    var lastMsgID = Template.instance().lastMsgID;
+
+    if (lastMsgTime.curValue==-1 || lastMsgDisplayable.curValue==-1 || lastMsgID.curValue==-1){
+      lastMsgTime.set(msg.date.getTime());
+      lastMsgDisplayable.set(MessageUtils.getDisplayable(msg));
+      lastMsgID.set(msg._id);
+      return false;
+    }
+    else{
+      // TODO : set other rules for concatanation
+      var concatResult = lastMsgDisplayable.curValue===MessageUtils.getDisplayable(msg);
+      lastMsgTime.set(msg.date.getTime());
+      if (!concatResult){
+        lastMsgDisplayable.set(MessageUtils.getDisplayable(msg));
+        lastMsgID.set(msg._id);
+      }
+      return concatResult;
+    }
+  },
+  append: function(ths, concat){
+    ths["concat"] = concat;
+    ths["prevID"] = Template.instance().lastMsgID.curValue;
+    return ths;
+  },
   messages: function(){ return Messages.find({},{sort:{date:1}}); },
   nickname: function(){ return amplify.store("nickname"); },
   online: function(){ return Online.find().count(); },
@@ -23,12 +56,16 @@ Template.frame.helpers({
 });
 
 Template.messageBox.helpers({
-  timePassed: function(date){
+  timePassed: function(){
     var now = Session.get('time') || new Date;
-    var diff = now.getTime() - date.getTime();
+    var diff = now.getTime() - this.date.getTime();
     return Utils.mstostr(diff);
   },
   hasUser: function(){ return this.user; },
+  msgid: function(){ return this._id; },
+  msgtime: function(){ return this.date.getTime(); },
+  displayable: function(){ return MessageUtils.getDisplayable(this); },
+  displayable_enc: function(){ return encodeURIComponent(MessageUtils.getDisplayable(this)); },
 
   // if the previous message belongs to the same user,
   // merge the message with the line above
@@ -61,6 +98,12 @@ Template.messageBox.helpers({
 $(window).resize(function(event){ $(".nano").nanoScroller({ scroll: 'bottom' }); });
 
 Template.messageBox.rendered = function(){
+  if (this.data.concat){
+    var prevID = this.data.prevID;
+    var message = this.data.message;
+    this.firstNode.remove();
+    $('.msgbox#'+prevID).find('.msgbox-text').append("<div>"+message+"</div>");
+  }
   $(".nano").nanoScroller({ scroll: 'bottom' });
 }
 

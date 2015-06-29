@@ -44,7 +44,11 @@
     <div class="messageScrollable nano clearfix">
       <div class="messageArea overthrow nano-content">
         {{#each messages}}
-        {{>messageBox this}}
+        {{#if concat this}}
+        {{>messageBox append this true}}
+        {{else}}
+        {{>messageBox append this false}}
+        {{/if}}
         {{/each}}
       </div>
     </div>
@@ -72,38 +76,34 @@
 
 <!-- Message Box Template -->
 <template name="messageBox">
-  <div class="universal-msgbox-container frame">
-    <div class="msgbox">
-      <!-- avatar -->
-      <div class="msgbox-avatar">
-        {{#if hasUser}}
-        <img src="{{hasUser.avatar}}" alt="Avatar of {{hasUser.name}}">
-        {{else}}
-        <img src="/assets/anon.png" alt="Avatar of anon user {{nick}}">
-        {{/if}}
-      </div>
-      <!-- bubble -->
-      <div class="msgbox-bubble-cont">
-        <div class="msgbox-bubble">
-          <div class="msgbox-arrow"></div>
-          <!-- bubble title -->
-          <div class="msgbox-title">
-            <div class="msgbox-title-left">
-              <span class="msgbox-username"> {{#if hasUser}} {{hasUser.name}} {{else}} {{nick}} {{/if}} </span>
-            </div>
-            <div class="msgbox-title-right">
-              <span class="msgbox-time">{{timePassed date}}</span>
-            </div>
+  <div class="msgbox universal-msgbox-container frame" id="{{msgid}}" data-msgtime="{{msgtime}}" data-displayable="{{displayable_enc}}">
+    <!-- avatar -->
+    <div class="msgbox-avatar">
+      {{#if hasUser}}
+      <img src="{{hasUser.avatar}}" alt="Avatar of {{hasUser.name}}">
+      {{else}}
+      <img src="/assets/anon.png" alt="Avatar of anon user {{nick}}">
+      {{/if}}
+    </div>
+    <!-- bubble -->
+    <div class="msgbox-bubble-cont">
+      <div class="msgbox-bubble">
+        <div class="msgbox-arrow"></div>
+        <!-- bubble title -->
+        <div class="msgbox-title">
+          <div class="msgbox-title-left">
+            <span class="msgbox-username">{{displayable}}</span>
           </div>
-          <!-- bubble message -->
-          <div class="msgbox-text">
-            {{message}}  
+          <div class="msgbox-title-right">
+            <span class="msgbox-time">{{timePassed}}</span>
           </div>
         </div>
+        <!-- bubble message -->
+        <div class="msgbox-text">
+          <div>{{message}}</div>
+        </div>
       </div>
-
     </div>    
-
   </div>
 </template>
 
