@@ -36,9 +36,7 @@ MessageUtils = {
 
 Utils = {
 	mstostr: function(milliseconds){
-		function numberEnding (number) {
-			return (number > 1) ? 's' : '';
-		}
+		function numberEnding (number){ return (number > 1) ? 's' : ''; }
 		var temp = Math.floor(milliseconds / 1000);
 		var years = Math.floor(temp / 31536000);
 		if (years && years>=0) {

@@ -24,7 +24,11 @@ Template.frame.helpers({
     }
     else{
       // TODO : set other rules for concatanation
-      var concatResult = lastMsgDisplayable.curValue===MessageUtils.getDisplayable(msg);
+      var maxGapTime = 120000;
+      var concatDisplayable = lastMsgDisplayable.curValue===MessageUtils.getDisplayable(msg);
+      var concatTime = msg.date.getTime() - lastMsgTime.curValue <= maxGapTime;
+      var concatResult = concatDisplayable & concatTime;
+
       lastMsgTime.set(msg.date.getTime());
       if (!concatResult){
         lastMsgDisplayable.set(MessageUtils.getDisplayable(msg));
@@ -84,7 +88,7 @@ Template.messageBox.rendered = function(){
     var prevID = this.data.prevID;
     var message = this.data.message;
     this.firstNode.remove();
-    $('.msgbox#'+prevID).find('.msgbox-text').append("<div>"+message+"</div>");
+    $('.msgbox#'+prevID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
   }
   $(".nano").nanoScroller({ scroll: 'bottom' });
 }
