@@ -8,6 +8,12 @@ $(document).ready(function(){
   $(".nano").nanoScroller({ iOSNativeScrolling: true });
 });
 
+// TODO : debug & fix this
+// temp workaround for scroll to bottom bug
+$(document).on('keydown', '.messageInputText', function(){
+  $(".nano").nanoScroller({ scroll: 'bottom' });
+});
+
 Template.frame.created = function(){
   this.lastMsgTime = new ReactiveVar(-1);
   this.lastMsgDisplayable = new ReactiveVar(-1);
