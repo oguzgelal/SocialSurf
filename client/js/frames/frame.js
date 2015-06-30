@@ -4,9 +4,8 @@ Meteor.startup(function() {
   }, 1000);
 });
 
-$(document).ready(function(){
-  $(".nano").nanoScroller({ iOSNativeScrolling: true });
-});
+
+
 
 // TODO : debug & fix this !!!! scroll bottom doesn't work, problem isn't race condition!
 // temp workaround for scroll to bottom bug
@@ -19,6 +18,18 @@ Template.frame.created = function(){
   this.lastMsgDisplayable = new ReactiveVar(-1);
   this.lastMsgID = new ReactiveVar(-1);
 }
+
+Template.frame.onRendered(function(){
+  $(".nano").nanoScroller();
+  $(".nano").nanoScroller({ iOSNativeScrolling: true });
+  $(".nano").on("update", function(event, val){
+    var scrollPercentRaw = val.position / val.maximum;
+    var scrollPercent = Math.floor(scrollPercentRaw*100);
+    if (scrollPercent <= 10){
+      console.log("LOAD NEW CONTENT");
+    }
+  });
+});
 
 Template.frame.helpers({
   concat: function(msg){
@@ -233,4 +244,8 @@ function sendMessage(ths, message){
     Meteor.call("addMessage", ths._id, message, nick, userSent);
     $('.messageInputText').val("");
   }
+}
+
+function loadNewContent(){
+
 }
