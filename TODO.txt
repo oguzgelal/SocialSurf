@@ -1,5 +1,6 @@
 -- before publish --
 TODO : "nano scroll bottom" doesn't work. Problem is not race condition !!!!
+TODO : scroll to load more
 TODO : landing page
 	(injectable script for web developers sooner)
 	(other browsers: soon)
