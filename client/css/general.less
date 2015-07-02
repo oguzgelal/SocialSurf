@@ -1,6 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,cyrillic-ext,latin-ext);
-@import 'prefixer.import.less';
 @import 'config.import.less';
+@import 'tp/prefixer.import.less';
+@import 'tp/animate.import.less';
+@import 'tp/scroller.import.less';
 @import 'loading.import.less';
 
 /* GENERAL */
@@ -15,6 +17,10 @@ body, html {
 	height: 100% !important;
 	color: @text-dark;
 	overflow: hidden !important;
+}
+body.landingPage {
+	background-color: white;
+	overflow: auto !important;
 }
 .universal-container {
 	height: 100% !important;
@@ -48,5 +54,7 @@ a.link-light:hover{
 }
 }
 
-@import 'pages/landing.import.less';
+/* frames */
 @import 'frames/frame.import.less';
+/* pages */
+@import 'pages/landing.import.less';
