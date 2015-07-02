@@ -1,3 +1,5 @@
+window.loadedMessages = {};
+
 Meteor.startup(function() {
   Meteor.setInterval(function(){
     Session.set('time', new Date);
@@ -5,7 +7,8 @@ Meteor.startup(function() {
 });
 
 
-
+$(document).ready(function(){
+});
 
 // TODO : debug & fix this !!!! scroll bottom doesn't work, problem isn't race condition!
 // temp workaround for scroll to bottom bug
@@ -19,50 +22,77 @@ Template.frame.created = function(){
   this.lastMsgID = new ReactiveVar(-1);
 }
 
+Template.frame.onCreated(function(){
+  var instance = this;
+  var roomID = instance.data._id;
+
+  instance.currentData = new ReactiveVar();
+  instance.loaded = new ReactiveVar(30);
+  instance.limit = new ReactiveVar(30);
+  instance.loadCount = new ReactiveVar(20);
+  
+  instance.autorun(function(){
+
+    var limit = instance.limit.get();
+    var loaded = instance.loaded.get();
+    var subscription = instance.subscribe('messages', roomID, limit);
+    if (subscription.ready()){
+      instance.loaded.set(limit);
+    }
+  });
+  instance.posts = function(){
+    return Messages.find({},{limit: instance.limit.get(), sort:{date:1}}).map(function(message, index){
+      message.seqID = index;
+      loadedMessages[index] = message;
+      return message
+    });
+  }
+});
+
+
 Template.frame.onRendered(function(){
+  var instance = this;
   $(".nano").nanoScroller();
   $(".nano").nanoScroller({ iOSNativeScrolling: true });
+  $(".nano").nanoScroller({ scroll: 'bottom' });
+  // scroll up to load more
   $(".nano").on("update", function(event, val){
     var scrollPercentRaw = val.position / val.maximum;
     var scrollPercent = Math.floor(scrollPercentRaw*100);
-    if (scrollPercent <= 10){
-      console.log("LOAD NEW CONTENT");
+    if (scrollPercent == 0 && val.direction=="up"){
+      $(".nano").nanoScroller({ scrollTop: 100 });
+      var limit = instance.loaded.get();
+      var loadCount = instance.loadCount.get();
+      limit += loadCount;
+      instance.limit.set(limit);
     }
   });
 });
 
 Template.frame.helpers({
   concat: function(msg){
-    var lastMsgTime = Template.instance().lastMsgTime;
-    var lastMsgDisplayable = Template.instance().lastMsgDisplayable;
-    var lastMsgID = Template.instance().lastMsgID;
-
-    if (lastMsgTime.curValue==-1 || lastMsgDisplayable.curValue==-1 || lastMsgID.curValue==-1){
-      lastMsgTime.set(msg.date.getTime());
-      lastMsgDisplayable.set(MessageUtils.getDisplayable(msg));
-      lastMsgID.set(msg._id);
-      return false;
-    }
-    else{
-      // rules for concatanation
+    var seqID = msg.seqID;
+    var lastMsg = loadedMessages[seqID-1];
+    if (lastMsg){  
       var maxGapTime = 120000;
-      var concatDisplayable = lastMsgDisplayable.curValue===MessageUtils.getDisplayable(msg);
-      var concatTime = msg.date.getTime() - lastMsgTime.curValue <= maxGapTime;
+      var currentDisplayable = MessageUtils.getDisplayable(msg);
+      var currentTime = msg.date.getTime();
+      var lastMsgDisplayable = MessageUtils.getDisplayable(lastMsg);
+      var lastTime = lastMsg.date.getTime();
+
+      var concatDisplayable = currentDisplayable===lastMsgDisplayable;
+      var concatTime = currentTime - lastTime <= maxGapTime;
       var concatResult = concatDisplayable & concatTime;
-      lastMsgTime.set(msg.date.getTime());
-      if (!concatResult){
-        lastMsgDisplayable.set(MessageUtils.getDisplayable(msg));
-        lastMsgID.set(msg._id);
-      }
+
       return concatResult;
     }
+    return false;
   },
   append: function(ths, concat){
     ths["concat"] = concat;
-    ths["prevID"] = Template.instance().lastMsgID.curValue;
     return ths;
   },
-  messages: function(){ return Messages.find({},{sort:{date:1}}); },
+  messages: function (){ return Template.instance().posts(); },
   nickname: function(){ return amplify.store("nickname"); },
   online: function(){ return Online.find().count(); },
   getName: function(){
@@ -103,27 +133,37 @@ $(window).resize(function(event){
   $(".nano").nanoScroller({ scroll: 'bottom' });
 });
 
+
 Template.messageBox.rendered = function(){
   if (this.data.concat){
-    var prevID = this.data.prevID;
+    var seqID = this.data.seqID;
+    var prevSeqID = 0;
+    for(var i=seqID; i>=0; i--){
+      var prevMsg = loadedMessages[i];
+      if(!prevMsg.concat){
+        prevSeqID=prevMsg.seqID;
+        break;
+      }
+    }
     var message = this.data.message;
+    $('.msgbox#'+prevSeqID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
     this.firstNode.remove();
-    $('.msgbox#'+prevID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
-    $(".nano").nanoScroller({ scroll: 'bottom' });
   }
+  
 }
 
 Template.messageBox.onRendered(function(){
+  $(".nano").nanoScroller();
   $(".nano").nanoScroller({ scroll: 'bottom' });
 });
 
-Template.frame.rendered = function() {
+Template.frame.rendered = function(){
   var ths = this;
   // Move the settings bar upside of the screen according to its height
   var h = $('.settingsBar').height();
   $('.settingsBar').css("margin-top", -h + "px");
   // scroll to the bottom
-  $(".nano").nanoScroller({ scroll: 'bottom' });
+  //$(".nano").nanoScroller({ scroll: 'bottom' });
 }
 
 Template.frame.events({
@@ -244,8 +284,4 @@ function sendMessage(ths, message){
     Meteor.call("addMessage", ths._id, message, nick, userSent);
     $('.messageInputText').val("");
   }
-}
-
-function loadNewContent(){
-
 }

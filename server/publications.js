@@ -2,8 +2,8 @@ Meteor.publish('rooms', function(url){
 	return Rooms.find({url: url});
 });
 
-Meteor.publish('messages', function(roomid, limit, skip){
-	return Messages.find({roomid: roomid},{limit : limit, skip: skip, sort: {date: -1}});
+Meteor.publish('messages', function(roomid, limit){
+	return Messages.find({roomid: roomid},{limit: limit, sort: {date: -1}});
 });
 
 Meteor.publish('online', function(urlVar){

@@ -43,6 +43,8 @@
     <!-- Messages -->
     <div class="messageScrollable nano clearfix">
       <div class="messageArea overthrow nano-content">
+
+      
         {{#each messages}}
         {{#if concat this}}
         {{>messageBox append this true}}
@@ -50,33 +52,42 @@
         {{>messageBox append this false}}
         {{/if}}
         {{/each}}
-      </div>
-    </div>
-    
-    <!-- Message Input -->
-    <div class="messageInputArea">
-      <div class="onlineData clearfix">
-        <div class="onlineDataLeft">
-          <i class="onlineIcon fa fa-user"></i>
-          <span class="onlineDataText"><a href="#" class="link-dark">{{online}} Online</a></span>  
-        </div>
-        <div class="onlineDataRight">
-          <span class="noticeLabel">powered by <b><a href="#">SocialSurf</a></b></span>
-        </div>
-      </div>
-      <div class="messageInputCont">
-        <input type="text" class="messageInputText" placeholder="Enter message...">
-        <i class="fa fa-send sendButton"></i>
-      </div>
-    </div>
+      
+      <!--
+        {{#each messages}}
+        {{>messageBox}}
+        {{/each}}
+      -->
+      
 
+
+    </div>
   </div>
+
+  <!-- Message Input -->
+  <div class="messageInputArea">
+    <div class="onlineData clearfix">
+      <div class="onlineDataLeft">
+        <i class="onlineIcon fa fa-user"></i>
+        <span class="onlineDataText"><a href="#" class="link-dark">{{online}} Online</a></span>  
+      </div>
+      <div class="onlineDataRight">
+        <span class="noticeLabel">powered by <b><a href="#">SocialSurf</a></b></span>
+      </div>
+    </div>
+    <div class="messageInputCont">
+      <input type="text" class="messageInputText" placeholder="Enter message...">
+      <i class="fa fa-send sendButton"></i>
+    </div>
+  </div>
+
+</div>
 </template>
 
 
 <!-- Message Box Template -->
 <template name="messageBox">
-  <div class="msgbox universal-msgbox-container frame" id="{{msgid}}" data-msgtime="{{msgtime}}" data-displayable="{{displayable_enc}}">
+  <div class="msgbox universal-msgbox-container frame" data-id="{{msgid}}" id="{{seqID}}" data-msgtime="{{msgtime}}" data-displayable="{{displayable_enc}}">
     <!-- avatar -->
     <div class="msgbox-avatar">
       {{#if hasUser}}

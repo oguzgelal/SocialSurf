@@ -16,5 +16,9 @@ Meteor.methods({
       message: message,
       date: new Date()
     });
+  },
+  getOldMessages: function(roomid, limit, skip){
+    var res = Messages.find({roomid: roomid},{limit: limit, skip: skip, sort: {date: -1}}).fetch();
+    return res;
   }
 });
