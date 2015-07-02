@@ -7,11 +7,7 @@ Meteor.startup(function() {
 });
 
 
-$(document).ready(function(){
-});
-
 // TODO : debug & fix this !!!! scroll bottom doesn't work, problem isn't race condition!
-// temp workaround for scroll to bottom bug
 $(document).on('keydown', '.messageInputText', function(){
   $(".nano").nanoScroller({ scroll: 'bottom' });
 });
@@ -62,10 +58,11 @@ Template.frame.onRendered(function(){
   $(".nano").nanoScroller({ scroll: 'bottom' });
   // scroll up to load more
   $(".nano").on("update", function(event, val){
+    Session.set("position", val.position);
+    Session.set("maximum", val.maximum);
     var scrollPercentRaw = val.position / val.maximum;
     var scrollPercent = Math.floor(scrollPercentRaw*100);
     if (scrollPercent == 0 && val.direction=="up"){
-      //$(".nano").nanoScroller({ scrollTop: 100 });
       $('.loadingBar').slideDown();
       var limit = instance.loaded.get();
       var loadCount = instance.loadCount.get();
@@ -158,10 +155,19 @@ Template.messageBox.rendered = function(){
 }
 
 Template.messageBox.onRendered(function(){
+  // only scroll down when scroll percent below 85
   $(".nano").nanoScroller();
-  // TODO : only scroll bottom when close to the end
-  //$(".nano").nanoScroller({ scrollTo: $('#a_node') });
-  //$(".nano").nanoScroller({ scroll: 'bottom' });
+  var currentPosition = Session.get("position");
+  var currentMaximum = Session.get("maximum");
+  if (!currentPosition || !currentMaximum){ $(".nano").nanoScroller({ scroll: 'bottom' }); }
+  else{
+    var scrollDownLimit = 85;
+    var currentPercent = Math.floor((currentPosition / currentMaximum) * 100);
+    if (currentPercent >= scrollDownLimit){
+      $(".nano").nanoScroller({ scroll: 'bottom' });
+    }
+  }
+
 });
 
 Template.frame.events({
