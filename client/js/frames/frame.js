@@ -27,7 +27,7 @@ Template.frame.onCreated(function(){
   var roomID = instance.data._id;
 
   instance.currentData = new ReactiveVar();
-  instance.loaded = new ReactiveVar(30);
+  instance.loaded = new ReactiveVar(0);
   instance.limit = new ReactiveVar(30);
   instance.loadCount = new ReactiveVar(20);
   
@@ -38,6 +38,7 @@ Template.frame.onCreated(function(){
     var subscription = instance.subscribe('messages', roomID, limit);
     if (subscription.ready()){
       instance.loaded.set(limit);
+      $('.loadingBar').slideUp();
     }
   });
   instance.posts = function(){
@@ -49,6 +50,10 @@ Template.frame.onCreated(function(){
   }
 });
 
+Template.frame.rendered = function(){
+  var h = $('.settingsBar').height();
+  $('.settingsBar').css("margin-top", -h + "px");
+}
 
 Template.frame.onRendered(function(){
   var instance = this;
@@ -60,7 +65,8 @@ Template.frame.onRendered(function(){
     var scrollPercentRaw = val.position / val.maximum;
     var scrollPercent = Math.floor(scrollPercentRaw*100);
     if (scrollPercent == 0 && val.direction=="up"){
-      $(".nano").nanoScroller({ scrollTop: 100 });
+      //$(".nano").nanoScroller({ scrollTop: 100 });
+      $('.loadingBar').slideDown();
       var limit = instance.loaded.get();
       var loadCount = instance.loadCount.get();
       limit += loadCount;
@@ -149,22 +155,14 @@ Template.messageBox.rendered = function(){
     $('.msgbox#'+prevSeqID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
     this.firstNode.remove();
   }
-  
 }
 
 Template.messageBox.onRendered(function(){
   $(".nano").nanoScroller();
-  $(".nano").nanoScroller({ scroll: 'bottom' });
-});
-
-Template.frame.rendered = function(){
-  var ths = this;
-  // Move the settings bar upside of the screen according to its height
-  var h = $('.settingsBar').height();
-  $('.settingsBar').css("margin-top", -h + "px");
-  // scroll to the bottom
+  // TODO : only scroll bottom when close to the end
+  //$(".nano").nanoScroller({ scrollTo: $('#a_node') });
   //$(".nano").nanoScroller({ scroll: 'bottom' });
-}
+});
 
 Template.frame.events({
   // SETTINGS BAR EVENTS ------------------------------------
