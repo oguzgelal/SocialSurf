@@ -159,7 +159,7 @@ Template.messageBox.onRendered(function(){
   $(".nano").nanoScroller();
   var currentPosition = Session.get("position");
   var currentMaximum = Session.get("maximum");
-  if (!currentPosition || !currentMaximum){ $(".nano").nanoScroller({ scroll: 'bottom' }); }
+  if (currentPosition==undefined || currentMaximum==undefined){ $(".nano").nanoScroller({ scroll: 'bottom' }); }
   else{
     var scrollDownLimit = 85;
     var currentPercent = Math.floor((currentPosition / currentMaximum) * 100);
