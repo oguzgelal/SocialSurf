@@ -25,7 +25,7 @@ Template.frame.onCreated(function(){
   instance.currentData = new ReactiveVar();
   instance.loaded = new ReactiveVar(0);
   instance.limit = new ReactiveVar(30);
-  instance.loadCount = new ReactiveVar(20);
+  instance.loadCount = new ReactiveVar(10);
   
   instance.autorun(function(){
 
