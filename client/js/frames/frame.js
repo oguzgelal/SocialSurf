@@ -12,6 +12,18 @@ $(document).on('keydown', '.messageInputText', function(){
   $(".nano").nanoScroller({ scroll: 'bottom' });
 });
 
+$(window).resize(function(event){
+  $(".nano").nanoScroller({ scroll: 'bottom' });
+});
+
+
+
+
+/**************************** FRAME ****************************/
+
+
+
+
 Template.frame.created = function(){
   this.lastMsgTime = new ReactiveVar(-1);
   this.lastMsgDisplayable = new ReactiveVar(-1);
@@ -97,28 +109,6 @@ Template.frame.onRendered(function(){
 });
 
 Template.frame.helpers({
-  concat: function(msg){
-    var seqID = msg.seqID;
-    var lastMsg = loadedMessages[seqID-1];
-    if (lastMsg){  
-      var maxGapTime = 120000;
-      var currentDisplayable = MessageUtils.getDisplayable(msg);
-      var currentTime = msg.date.getTime();
-      var lastMsgDisplayable = MessageUtils.getDisplayable(lastMsg);
-      var lastTime = lastMsg.date.getTime();
-
-      var concatDisplayable = currentDisplayable===lastMsgDisplayable;
-      var concatTime = currentTime - lastTime <= maxGapTime;
-      var concatResult = concatDisplayable & concatTime;
-
-      return concatResult;
-    }
-    return false;
-  },
-  append: function(ths, concat){
-    ths["concat"] = concat;
-    return ths;
-  },
   messages: function (){ return Template.instance().posts(); },
   nickname: function(){ return amplify.store("nickname"); },
   online: function(){ return Online.find().count(); },
@@ -135,56 +125,6 @@ Template.frame.helpers({
       return securedAvatar;
     }
   }
-});
-
-Template.messageBox.helpers({
-  timePassed: function(){
-    var now = Session.get('time') || new Date;
-    var diff = now.getTime() - this.date.getTime();
-    return Utils.mstostr(diff);
-  },
-  hasUser: function(){ return this.user; },
-  getAvatar: function(){
-    if (this.user){
-      var securedAvatar = this.user.avatar.replace("http://", "https://");
-      return securedAvatar;
-    }
-  },
-  msgid: function(){ return this._id; },
-  msgtime: function(){ return this.date.getTime(); },
-  displayable: function(){ return MessageUtils.getDisplayable(this); },
-  displayable_enc: function(){ return encodeURIComponent(MessageUtils.getDisplayable(this)); },
-});
-
-$(window).resize(function(event){
-  $(".nano").nanoScroller({ scroll: 'bottom' });
-});
-
-
-Template.messageBox.rendered = function(){
-  if (this.data.concat){
-    var seqID = this.data.seqID;
-    var concatSeqID = this.data.concatSeqID;
-    var message = this.data.message;
-    $('.msgbox#'+concatSeqID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
-    this.firstNode.remove();
-  }
-}
-
-Template.messageBox.onRendered(function(){
-  // only scroll down when scroll percent below 85
-  $(".nano").nanoScroller();
-  var currentPosition = Session.get("position");
-  var currentMaximum = Session.get("maximum");
-  if (currentPosition==undefined || currentMaximum==undefined){ $(".nano").nanoScroller({ scroll: 'bottom' }); }
-  else{
-    var scrollDownLimit = 85;
-    var currentPercent = Math.floor((currentPosition / currentMaximum) * 100);
-    if (currentPercent >= scrollDownLimit){
-      $(".nano").nanoScroller({ scroll: 'bottom' });
-    }
-  }
-
 });
 
 Template.frame.events({
@@ -219,6 +159,72 @@ Template.frame.events({
     }
   }
 });
+
+
+
+
+
+/**************************** MSGBOX ****************************/
+
+
+
+
+
+Template.messageBox.helpers({
+  timePassed: function(){
+    var now = Session.get('time') || new Date;
+    var diff = now.getTime() - this.date.getTime();
+    return Utils.mstostr(diff);
+  },
+  hasUser: function(){ return this.user; },
+  getAvatar: function(){
+    if (this.user){
+      var securedAvatar = this.user.avatar.replace("http://", "https://");
+      return securedAvatar;
+    }
+  },
+  msgid: function(){ return this._id; },
+  msgtime: function(){ return this.date.getTime(); },
+  displayable: function(){ return MessageUtils.getDisplayable(this); },
+  displayable_enc: function(){ return encodeURIComponent(MessageUtils.getDisplayable(this)); },
+});
+
+Template.messageBox.rendered = function(){
+  if (this.data.concat){
+    var seqID = this.data.seqID;
+    var concatSeqID = this.data.concatSeqID;
+    var message = this.data.message;
+    $('.msgbox#'+concatSeqID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
+    this.firstNode.remove();
+  }
+}
+
+Template.messageBox.onRendered(function(){
+  // only scroll down when scroll percent below 85
+  $(".nano").nanoScroller();
+  var currentPosition = Session.get("position");
+  var currentMaximum = Session.get("maximum");
+  if (currentPosition==undefined || currentMaximum==undefined){ $(".nano").nanoScroller({ scroll: 'bottom' }); }
+  else{
+    var scrollDownLimit = 85;
+    var currentPercent = Math.floor((currentPosition / currentMaximum) * 100);
+    if (currentPercent >= scrollDownLimit){
+      $(".nano").nanoScroller({ scroll: 'bottom' });
+    }
+  }
+});
+
+
+
+
+
+/**************************** METHODS ****************************/
+
+
+
+
+
+
 
 // Slight move of the settingsBarLine and settingsBarToggle
 function settingsBarAnimate(str) {

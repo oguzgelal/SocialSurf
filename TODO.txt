@@ -1,14 +1,13 @@
 -- before publish --
-TODO : "nano scroll bottom" doesn't work. Problem is not race condition !!!! ?fixed?
-TODO : scroll to load more
 TODO : landing page
 	(injectable script for web developers sooner)
 	(other browsers: soon)
 	(wordpress drupal joomla plugin arastir - a little later)
 	(android ios later)
 	(** get notified **)
+TODO : private beta system
 
 -- 1 after publish --
+TODO : "nano scroll bottom" doesn't work ?fixed?
 TODO : private conversations
 TODO : profile page
-
