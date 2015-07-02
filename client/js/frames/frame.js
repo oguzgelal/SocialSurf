@@ -38,12 +38,36 @@ Template.frame.onCreated(function(){
     }
   });
   instance.posts = function(){
-    return Messages.find({},{limit: instance.limit.get(), sort:{date:1}}).map(function(message, index){
-      message.seqID = index;
-      loadedMessages[index] = message;
+    return Messages.find({},{limit: instance.limit.get(), sort:{date:1}}).map(function(message, seqID){
+      message.seqID = seqID;
+      message.concat = false;
+      message.concatSeqID = -1;
+      // concat
+      if (loadedMessages[seqID-1]){
+        var lastMsg = loadedMessages[seqID-1];
+        var maxGapTime = 120000;
+        var currentDisplayable = MessageUtils.getDisplayable(message);
+        var currentTime = message.date.getTime();
+        var lastMsgDisplayable = MessageUtils.getDisplayable(lastMsg);
+        var lastTime = lastMsg.date.getTime();
+        var concatDisplayable = currentDisplayable===lastMsgDisplayable;
+        var concatTime = currentTime - lastTime <= maxGapTime;
+        var concatResult = concatDisplayable & concatTime;
+        message.concat = concatResult;
+        if (concatResult){
+          for(var i=seqID-1; i>=0; i--){
+            var prevMsg = loadedMessages[i];
+            if(!prevMsg.concat){
+              message.concatSeqID=prevMsg.seqID;
+              break;
+            }
+          }
+        }
+      }
+      loadedMessages[seqID] = message;
       return message
     });
-  }
+}
 });
 
 Template.frame.rendered = function(){
@@ -140,16 +164,9 @@ $(window).resize(function(event){
 Template.messageBox.rendered = function(){
   if (this.data.concat){
     var seqID = this.data.seqID;
-    var prevSeqID = 0;
-    for(var i=seqID; i>=0; i--){
-      var prevMsg = loadedMessages[i];
-      if(!prevMsg.concat){
-        prevSeqID=prevMsg.seqID;
-        break;
-      }
-    }
+    var concatSeqID = this.data.concatSeqID;
     var message = this.data.message;
-    $('.msgbox#'+prevSeqID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
+    $('.msgbox#'+concatSeqID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
     this.firstNode.remove();
   }
 }
