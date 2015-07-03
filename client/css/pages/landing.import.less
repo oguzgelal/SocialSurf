@@ -79,13 +79,14 @@ body.landingPage {
 .landing-animation {
 	width: 100%;
 	position: relative;
-	margin-bottom: 30px;
+	//margin-bottom: 30px;
 	.landing-br-inline {
 		display: inline-block;
 		float: left;
 	}
 	.landing-br-text {
 		width: 50%;
+		height: 300px;
 		padding: 30px;
 		padding-right: 30px;
 		padding-left: 60px;
@@ -147,6 +148,10 @@ body.landingPage {
 
 .landing-timeline-container {
 	position: relative;
+	padding-top: 30px;
+	text-align: left;
+	width: 900px;
+	margin: auto;
 	.clearfix();
 
 	.landing-timeline {
@@ -156,7 +161,7 @@ body.landingPage {
 
 		.landing-timeline-title {
 			width: 100%;
-			border-bottom: 2px solid @background;
+			margin-bottom: 5px;
 			color: @text-med;
 			font-size: 20px;
 		}
@@ -174,14 +179,20 @@ body.landingPage {
 					height: 200px;
 					padding: 15px;
 					padding-top: 10px;
-					background-color: @background;
+					border: 2px solid @background;
+					background-color: white;
 					.landing-tile-row {
+						padding-top: 5px;
 						img {
 							width: 100%;
 							height: auto;
 							margin-bottom: 5px;
 						}
 					}
+				}
+				.landing-product-tile:hover {
+					cursor: pointer;
+					background-color: @background;
 				}
 			}
 		}
@@ -190,7 +201,9 @@ body.landingPage {
 }
 
 
-
+.landing-download {
+	margin-bottom: 0;
+}
 
 
 
