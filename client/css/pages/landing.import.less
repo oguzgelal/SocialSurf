@@ -4,6 +4,9 @@ body.landingPage {
 	overflow-y: auto !important;
 }
 
+.sweetblue{ color: @lightblue; }
+.reveal-arrow:hover { cursor: pointer; }
+
 .landing-container {
 	width: 100%;
 	background-color: white;
@@ -41,6 +44,7 @@ body.landingPage {
 .landing-chat-container {
 	width: 100%;
 	height: auto;
+	margin-bottom: 60px;
 	
 	.landing-chat {
 		position: relative;
@@ -63,10 +67,8 @@ body.landingPage {
 	padding: 15px;
 	color: white;
 	margin-top: 30px;
-	margin-bottom: 30px;
-	.landing-info-text {
-		margin-top: 30px;
-	}
+	margin-bottom: 60px;
+	.landing-info-text { margin-top: 30px; }
 	.line1 { font-size: 22px; }
 	.line2 {
 		font-size: 35px;
@@ -78,45 +80,113 @@ body.landingPage {
 	width: 100%;
 	position: relative;
 	margin-bottom: 30px;
-	.landing-br-container {
-		position: relative;
-		text-align: center;
-		width: 70%;
-		max-width: 600px;
-		height: auto;
-		margin: auto;
-		.anim-br {
-			width: 100%;
+	.landing-br-inline {
+		display: inline-block;
+		float: left;
+	}
+	.landing-br-text {
+		width: 50%;
+		padding: 30px;
+		padding-right: 30px;
+		padding-left: 60px;
+		padding-top: 0;
+		font-size: 30px;
+		line-height: 50px;
+		color: @text-dark;
+		box-sizing: border-box !important;
+		.landing-br-f2 { display: none; }
+		.landing-text-gap { margin-top: 20px; }
+	}
+	.landing-br-sidepane {
+		width: 50%;
+		text-align: left;
+		.landing-br-container {
+			overflow: hidden !important;
+			position: relative;
+			text-align: left;
+			width: 80%;
 			height: auto;
-			display: none;
-			margin: auto;
-		}
-		.anim-br-light {
-			display: block;
-		}
-		.anim-br-button {
-			position: absolute;
-			bottom: 20px;
-			right: 20px;
-			width: 30px;
-			height: auto;
-		}
-		.anim-br-button:hover {
-			cursor: pointer;
-		}
-		.anim-arrow {
-			display: none;
-			position: absolute;
-			bottom: 32px;
-			right: 60px;
-			width: 60px;
-			height: auto;
+			.anim-br {
+				width: 100%;
+				height: auto;
+				display: none;
+				margin: auto;
+			}
+			.anim-br-light {
+				display: block;
+			}
+			.anim-br-button {
+				position: absolute;
+				bottom: 20px;
+				right: 20px;
+				width: 30px;
+				height: auto;
+			}
+			.anim-br-button:hover {
+				cursor: pointer;
+			}
+			.anim-arrow {
+				display: none;
+				position: absolute;
+				bottom: 32px;
+				right: 60px;
+				width: 60px;
+				height: auto;
+			}
+			.anim-ss-wireframe {
+				position: absolute;
+				//bottom: 6px;
+				bottom: -200px;
+				right: 15px;
+				width: auto;
+				height: 200px;
+			}
 		}
 	}
 }
 
-.landing-timeline {
-	margin-bottom: 50px;
+.landing-timeline-container {
+	position: relative;
+	.clearfix();
+
+	.landing-timeline {
+		padding: 20px;
+		width: auto;
+		float: left;
+
+		.landing-timeline-title {
+			width: 100%;
+			border-bottom: 2px solid @background;
+			color: @text-med;
+			font-size: 20px;
+		}
+
+		.landing-product-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			text-align: left;
+			.landing-product {
+				display: inline-block;
+				text-align: center;
+				.landing-product-tile {
+					width: 150px;
+					height: 200px;
+					padding: 15px;
+					padding-top: 10px;
+					background-color: @background;
+					.landing-tile-row {
+						img {
+							width: 100%;
+							height: auto;
+							margin-bottom: 5px;
+						}
+					}
+				}
+			}
+		}
+
+	}
 }
 
 
