@@ -1,20 +1,37 @@
 <template id="landing" name="landing">
-		
+
 	<div class="landing-line"></div>
-	<div class="landing-title">
-		<div class="title-img">
-			<img src="/assets/logo-icon.png" class="animated infinite pulse" alt="SocialSurf Icon">
+	<div class="landing-container">
+		<!-- title -->
+		<div class="landing-title">
+			<div class="title-img"><img src="/assets/logo-icon.png" class="animated infinite pulse" alt="SocialSurf Icon"></div>
+			<div class="title-text">Chat with people on this page</div>
+			<div class="title-desc">Just type your message and hit enter</div>
 		</div>
-		<div class="title-text">Chat with people browsing this page</div>
-		<div class="title-desc">Just type your message and hit enter</div>
-		
+		<!-- chat -->
+		<div class="landing-chat-container"><div class="landing-chat">{{>frame}}</div></div>
+		<!-- info -->
+		<div class="landing-info">
+			<div class="landing-info-text">
+				<div class="line1">you can do this</div>
+				<div class="line2">for every website</div>
+			</div>
+		</div>
+		<!-- animation -->
+		<div class="landing-animation">
+			<div class="landing-br-container">
+				<img class="anim-br anim-br-light" src="/assets/landing/browser-light.png">
+				<img class="anim-br anim-br-dark" src="/assets/landing/browser-dark.png">
+				<img class="anim-br-button animated infinite pulse" src="/assets/landing/browser-button.png">	
+				<img class="anim-arrow" src="/assets/landing/arrow.png">
+			</div>
+		</div>
+		<!-- timeline -->
+		<div class="landing-timeline">
+			
+		</div>
 	</div>
-	<div class="landing-chat-container">
-		<div class="landing-chat">{{>frame}}</div>	
-	</div>
-	<div class="landing-contents">
-		
-	</div>
+	
 
 	
 </template>
