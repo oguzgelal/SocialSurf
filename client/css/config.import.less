@@ -1,4 +1,4 @@
-// Typography
+// Colors
 @text-dark: rgb(90,103,114);
 @text-med: rgb(140,152,158);
 @text-light: rgb(193,215,220);
@@ -8,3 +8,23 @@
 @link-color: #2980B9;
 @online-color: #27ae60;
 @online-data-bg: #F4F4F4;
+
+//Viewport size
+
+@tt-width: 450px;
+@sm-width: 750px;
+@md-width: 970px;
+@lg-width: 1170px;
+
+@tt-display: ~"only screen and (max-width: @{tt-width})";
+@xs-display: ~"only screen and (max-width: @{sm-width})";
+@sm-display: ~"only screen and (max-width: @{md-width})";
+@md-display: ~"only screen and (max-width: @{lg-width})";
+@lg-display: ~"only screen and (min-width: @{lg-width})";
+
+@products-width-wide: 824px;
+@products-width-compressed: 524px;
+@products-wide-display: ~"only screen and (min-width: @{products-width-wide})";
+@products-compressed-display: ~"only screen and (max-width: @{products-width-wide})";
+@products-tiny-display: ~"only screen and (max-width: @{products-width-compressed})";
+

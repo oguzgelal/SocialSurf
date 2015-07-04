@@ -23,16 +23,25 @@ body.landingPage {
 	text-align: center;
 	.title-img {
 		padding-top: 40px;
+		@media @md-display { padding-top: 35px; }
+		@media @sm-display { padding-top: 30px; }
 		img {
 			width: 70px;
-			height: auto;	
+			height: auto;
+			@media @md-display { width: 60px; }
+			@media @sm-display { width: 50px; }	
+			@media @xs-display { width: 40px; }	
 		}
 	}
 	.title-text {
-		padding-top: 20px;
-		padding-bottom: 15px;
+		padding-top: 15px;
+		padding-bottom: 10px;
 		font-size: 35px;
 		font-weight: bolder;
+		line-height: 30px;
+		@media @md-display { font-size: 30px; }
+		@media @sm-display { font-size: 28px; padding-top: 5px; padding-bottom: 6px; }	
+		@media @xs-display { font-size: 25px; }	
 	}
 	.title-desc {
 		font-size: 18px;
@@ -55,24 +64,36 @@ body.landingPage {
 		overflow: hidden;
 		box-shadow: 0 0 5px #8C989E;
 		background-color: @background;
+
+		@media @md-display { width: 70%; }
+		@media @sm-display { width: 80%; }
+		@media @xs-display { width: 90%; }
 	}	
 }
 
 .landing-info {
 	width: 100%;
 	height: 150px;
-	line-height: 35px;
+	line-height: 40px;
 	text-align: center;
 	background-color: @lightblue;
-	padding: 15px;
+	padding: 15px 0;
+	@media @md-display { padding-top: 30px; }
 	color: white;
 	margin-top: 30px;
 	margin-bottom: 60px;
+	@media @md-display { margin-bottom: 40px; }
 	.landing-info-text { margin-top: 30px; }
-	.line1 { font-size: 22px; }
+	.line1 {
+		font-size: 28px;
+		@media @md-display { font-size: 26px; line-height: 33px; }
+		@media @sm-display { font-size: 22px; line-height: 28px; }
+	}
 	.line2 {
-		font-size: 35px;
+		font-size: 40px;
 		font-weight: bolder;
+		@media @md-display { font-size: 38px; line-height: 38px; }
+		@media @sm-display { font-size: 33px; line-height: 33px; }
 	}
 }
 
@@ -83,30 +104,60 @@ body.landingPage {
 	.landing-br-inline {
 		display: inline-block;
 		float: left;
+		@media @md-display { width: 100% !important; }
 	}
 	.landing-br-text {
 		width: 50%;
 		height: 300px;
 		padding: 30px;
-		padding-right: 30px;
-		padding-left: 60px;
+		padding-left: 10px;
+		padding-right: 60px;
 		padding-top: 0;
 		font-size: 30px;
 		line-height: 50px;
+		@media @md-display { font-size: 28px; line-height: 40px; }
+		@media @sm-display { font-size: 25px; line-height: 35px; }
+		@media @xs-display { font-size: 22px; line-height: 30px; }
+
 		color: @text-dark;
 		box-sizing: border-box !important;
 		.landing-br-f2 { display: none; }
-		.landing-text-gap { margin-top: 20px; }
+		.landing-text-gap {
+			margin-top: 20px;
+			@media @md-display { display: none; }
+		}
+		@media @md-display {
+			height: auto !important;
+			padding: 20px !important;
+			width: 100% !important;
+			margin: auto !important;
+			margin-bottom: 20px !important;
+			margin-top: 20px !important;
+		}
+		.landing-br-f {
+			@media @md-display {
+				text-align: center;
+				width: 80% !important;
+				margin: auto !important;
+			}	
+		}
 	}
 	.landing-br-sidepane {
 		width: 50%;
-		text-align: left;
+		text-align: right;
 		.landing-br-container {
 			overflow: hidden !important;
 			position: relative;
-			text-align: left;
+			text-align: right;
 			width: 80%;
 			height: auto;
+			margin: auto;
+			@media @md-display {
+				width: 60%;
+				text-align: center !important;
+				margin: auto;
+				margin-top: 20px;
+			}
 			.anim-br {
 				width: 100%;
 				height: auto;
@@ -120,7 +171,11 @@ body.landingPage {
 				position: absolute;
 				bottom: 20px;
 				right: 20px;
-				width: 30px;
+				width: 60px;
+				@media @md-display{ width: 55px; }
+				@media @sm-display{ width: 50px; }
+				@media @xs-display{ width: 40px; }
+				@media @tt-display{ width: 30px; }
 				height: auto;
 			}
 			.anim-br-button:hover {
@@ -129,18 +184,26 @@ body.landingPage {
 			.anim-arrow {
 				display: none;
 				position: absolute;
-				bottom: 32px;
-				right: 60px;
-				width: 60px;
+				bottom: 48px;
+				right: 93px;
+				width: 90px;
 				height: auto;
+				@media @md-display{ bottom: 48px; right: 93px; }
+				@media @sm-display{ bottom: 42px; right: 88px; }
+				@media @xs-display{ bottom: 34px; right: 73px; }
+				@media @tt-display{ bottom: 30px; right: 65px; }
 			}
 			.anim-ss-wireframe {
 				position: absolute;
 				//bottom: 6px;
-				bottom: -200px;
 				right: 15px;
 				width: auto;
 				height: 200px;
+				bottom: -200px;
+				@media @md-display{ height: 190px; bottom: -190px }
+				@media @sm-display{ height: 170px; bottom: -170px }
+				@media @xs-display{ height: 120px; bottom: -120px }
+				@media @tt-display{ height: 60px; bottom: -60px }
 			}
 		}
 	}
@@ -150,7 +213,10 @@ body.landingPage {
 	position: relative;
 	padding-top: 30px;
 	text-align: left;
-	width: 900px;
+	width: 824px;
+	@media @products-compressed-display { width: 524px; }
+	@media @products-tiny-display { width: 100%; text-align: center; }
+	
 	margin: auto;
 	.clearfix();
 
@@ -158,6 +224,7 @@ body.landingPage {
 		padding: 20px;
 		width: auto;
 		float: left;
+		@media @products-tiny-display { float: none; }
 
 		.landing-timeline-title {
 			width: 100%;
@@ -171,24 +238,34 @@ body.landingPage {
 			padding: 0;
 			margin: 0;
 			text-align: left;
+
 			.landing-product {
 				display: inline-block;
 				text-align: center;
+				@media @products-tiny-display { width: 100%; }
 				.landing-product-tile {
+					@media @products-tiny-display { box-sizing: border-box; }
 					width: 150px;
-					height: 200px;
+					height: auto;
 					padding: 15px;
 					padding-top: 10px;
 					border: 2px solid @background;
 					background-color: white;
+					
 					.landing-tile-row {
 						padding-top: 5px;
 						img {
 							width: 100%;
 							height: auto;
 							margin-bottom: 5px;
+							@media @products-tiny-display { width: 100px; }
 						}
 					}
+					@media @products-compressed-display {
+						width: 75px;
+						height: auto;
+					}
+					@media @products-tiny-display { width: 100%; }
 				}
 				.landing-product-tile:hover {
 					cursor: pointer;
