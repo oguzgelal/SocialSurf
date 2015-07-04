@@ -47,20 +47,10 @@
     <!-- Messages -->
     <div class="messageScrollable nano clearfix">
       <div class="messageArea overthrow nano-content">
-      <!--
-        {{#each messages}}
-        {{#if concat this}}
-        {{>messageBox append this true}}
-        {{else}}
-        {{>messageBox append this false}}
-        {{/if}}
-        {{/each}}
-      -->
       
         {{#each messages}}
         {{>messageBox}}
         {{/each}}
-      
 
     </div>
   </div>

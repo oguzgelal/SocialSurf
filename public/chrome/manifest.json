@@ -1,9 +1,10 @@
 {
   "manifest_version": 2,
 
-  "name": "Social Web",
+  "name": "SocialSurf",
   "description": "This extension allows you to chat with people that are browsing the same page.",
   "version": "2.0.0",
+  /*
   "icons": [
   {
     "src": "assets/img/android-chrome-36x36.png?v=rMwkW3ob3J",
@@ -42,9 +43,11 @@
               "density": "4.0"
             }
             ],
+
             "browser_action": {
               "default_icon" : "assets/img/icon.png"
               },
+              */
               "content_scripts": [
               {
                 "matches": ["<all_urls>"],

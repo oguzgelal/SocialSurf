@@ -1,5 +1,6 @@
+var chromeAppID = "EYhO79iz2o";
 var url = window.location.href;
-var local = false;
+var local = true;
 var domain = "socialsurf.io";
 var baseUrl = "";
 if (local){ baseUrl = "http://localhost:3000/frame"; }
@@ -9,9 +10,8 @@ if (local){ endpoint="ws://localhost:3000/websocket"; }
 else{ endpoint="wss://"+domain+"/websocket"; }
 var ddp = new MeteorDdp(endpoint);
 ddp.connect().done(function(res) {
-	ddp.call('cleanURL', [url]).done(function(url){
-		console.log(url);
-		init(url);
+	ddp.call('requestToken', [chromeAppID, url]).done(function(token){
+		init(url, token);
 		$(document).ready(function(){ updateOnlineBadge(ddp,url); });
 		ddp.subscribe('online', [url]).done(function(){
 			ddp.watch('online', function(changedDoc, message) {
@@ -27,13 +27,13 @@ function updateOnlineBadge(ddp, url){
 }
 
 /****** Injection control ******/
-function init(url){
+function init(url, token){
 	$(document).ready(function(){
 
 		var html = "\
 		<div class='backgroundFilter'></div>\
 		<div class='activateFrameButton animated infinite pulse'></div>\
-		<div class='frameContainer'><iframe src='"+baseUrl+"/"+encodeURIComponent(url)+"'></iframe></div>";
+		<div class='frameContainer'><iframe src='"+baseUrl+"/"+encodeURIComponent(url)+"/?aid="+chromeAppID+"&token="+token+"'></iframe></div>";
 		$('body').append(html);
 
 		$(document).on('mouseenter', '.activateFrameButton', function(){

@@ -1,5 +1,7 @@
 Meteor.methods({
-  clientJoin: function(urlVar){
+  // Allways called from own client (router). Connection ID belongs to the frame.
+  clientJoin: function(urlRaw){
+    var urlVar = Meteor.call("cleanURL", urlRaw);
     var connectionID = this.connection.id;
     var connUserID = this.userId;
     var connUserIP = this.connection.clientAddress;
@@ -29,16 +31,24 @@ Meteor.methods({
     }
     return true;
   },
-  // Remove disconnected client from the Online collection
+  // Called when any connection is lost. connectionID could belong to frame
+  // or to the browser extension's ddp connection.
   clientLeave: function(connectionID){
+    // connectionID belongs to browser extension's ddp connection.
+    Tokens.remove({connectionID: connectionID}, function(err){
+      if (err) throw err;
+      console.log("Token removed...");
+    });
+    // connectionID belongs to connection from own client (frame)
     Online.remove({client: connectionID}, function(err){
       if (err) throw err;
       console.log("Client removed from online...");
-      return true;
     });
+    return true;
   },
   // Get how many clients are connected to an URL
-  getOnlineCount: function(urlVar){
+  getOnlineCount: function(urlRaw){
+    var urlVar = Meteor.call("cleanURL", urlRaw);
     return Online.find({url: urlVar}).count();
   }
 });
