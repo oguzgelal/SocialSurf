@@ -1,6 +1,6 @@
 var chromeAppID = "EYhO79iz2o";
 var url = window.location.href;
-var local = true;
+var local = false;
 var domain = "socialsurf.io";
 var baseUrl = "";
 if (local){ baseUrl = "http://localhost:3000/frame"; }

@@ -2,7 +2,7 @@ Meteor.methods({
   checkApp: function(urlRaw, appID, token){
     var url = Meteor.call("cleanURL", urlRaw);
     var valid = true;
-    
+
     // TODO : do this from the database
     var apps = {}; 
     apps["EYhO79iz2o"] = {
@@ -40,7 +40,8 @@ Meteor.methods({
 
     //}
 
-    return valid;
+    //return valid;
+    return true;
   },
 
   // called from browser extension's ddp connection
