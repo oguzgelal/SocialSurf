@@ -29,7 +29,6 @@ Meteor.methods({
     }
 
     return valid;
-    //return true;
   },
 
   // called from browser extension's ddp connection
