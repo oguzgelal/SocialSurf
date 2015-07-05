@@ -35,7 +35,7 @@ Meteor.methods({
   // or to the browser extension's ddp connection.
   clientLeave: function(connectionID){
     // connectionID belongs to browser extension's ddp connection.
-    Tokens.remove({connectionID: connectionID}, function(err){
+    Tokens.remove({appConnectionID: connectionID}, function(err){
       if (err) throw err;
       console.log("Token removed...");
     });

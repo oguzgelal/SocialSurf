@@ -9,6 +9,7 @@ Meteor.methods({
       if (app.type==="official"){ valid=false; }
       else{
         //check the permissions of 'app'
+        valid = false;
       }
     }
     else{ valid = false; }
@@ -34,9 +35,9 @@ Meteor.methods({
   // called from browser extension's ddp connection
   requestToken: function(appID, urlRaw){
     var appConnectionID = this.connection.id;
-    /********************************/
-    /*** Blocked connections here ***/
-    /********************************/
+    /**********************************/
+    /*** Block app connections here ***/
+    /**********************************/
     var url = Meteor.call("cleanURL", urlRaw);
     var token = "";
     var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
