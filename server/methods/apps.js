@@ -2,20 +2,13 @@ Meteor.methods({
   checkApp: function(urlRaw, appID, token){
     var url = Meteor.call("cleanURL", urlRaw);
     var valid = true;
+    var app = Apps.find({appID: "EYhO79iz2o"}).fetch()[0];
 
-    // TODO : do this from the database
-    var apps = {}; 
-    apps["EYhO79iz2o"] = {
-      type: "official",
-      name: "SocialSurf Chrome App"
-    }
-    //-------------------
-
-    if (apps[appID]){
-      var currentApp = apps[appID]
-      if (currentApp.type==="official"){ valid=false; }
+    if (app){
+      // official apps needs a token because they are allowed on every domain.
+      if (app.type==="official"){ valid=false; }
       else{
-        //check the permissions of 'currentApp'
+        //check the permissions of 'app'
       }
     }
     else{ valid = false; }
@@ -34,14 +27,9 @@ Meteor.methods({
         
       }
     }
-    // TODO : implement this...
-    // var appsRec = Apps.find({appID: appID});
-    // if (appsRec.count() > 0){
 
-    //}
-
-    //return valid;
-    return true;
+    return valid;
+    //return true;
   },
 
   // called from browser extension's ddp connection

@@ -3,6 +3,16 @@ Meteor.startup(function() {
 	// If no data present, add initial rooms
 	if (Rooms.find({}).count() == 0){ Meteor.call("bootstrap"); }
 
+	// Init the official apps
+	if (Apps.find({appID: "EYhO79iz2o"}).count()==0){
+		Apps.insert({
+			appID: "EYhO79iz2o",
+			type: "official",
+			name: "SocialSurf Chrome Extension"
+		},
+		function(err){ if (err){ throw err; } });
+	}
+
 	// Configure services automatically on db resets
 	ServiceConfiguration.configurations.remove({ service: "facebook" });
 	ServiceConfiguration.configurations.insert({
