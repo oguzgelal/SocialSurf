@@ -96,7 +96,7 @@ Template.landing.rendered = function(){
 		function emailButtonClicked(){
 			var email = $('.landing-notify-txt').val();
 			var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-			var clickElemCurText = $('.landing-notify-btn').val();
+			var clickElemCurText = $('.landing-notify-btn').text();
 			var clickElem = $('.landing-notify-btn');
 			if (email.length>0 && re.test(email)){
 				clickElem.html("<i class='fa fa-spin fa-spinner'></i> Sending");
