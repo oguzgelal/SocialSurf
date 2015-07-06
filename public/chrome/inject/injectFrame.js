@@ -1,3 +1,4 @@
+var ssOn, ssOff, ssClick;
 var chromeAppID = "EYhO79iz2o";
 var url = window.location.href;
 var local = false;
@@ -22,8 +23,16 @@ ddp.connect().done(function(res) {
 });
 function updateOnlineBadge(ddp, url){
 	ddp.call('getOnlineCount', [url]).done(function(onlineres){
-		if (onlineres > 0){ $('.activateFrameButton').show(); }
-		console.log(onlineres);
+		if (onlineres > 1){
+			ssOn.play();
+			$('.activateFrameButton').removeClass('bounceOutDown');
+			$('.activateFrameButton').addClass('bounceInUp');
+			$('.activateFrameButton').show();
+		}
+		else{
+			$('.activateFrameButton').removeClass('bounceInUp');
+			$('.activateFrameButton').addClass('bounceOutDown');
+		}
 	});
 }
 
@@ -34,14 +43,22 @@ function init(url, token){
 		var dismissed = false;
 		var iconHover = false;
 
-		var absUrl = chrome.extension.getURL('/assets/ssicn.png');
+		var absUrlIcn = chrome.extension.getURL('/assets/ssicn.png');
+		var absUrlSoundOn = chrome.extension.getURL('/assets/ss_on.mp3');
+		var absUrlSoundOff = chrome.extension.getURL('/assets/ss_off.mp3');
+		var absUrlSoundClick = chrome.extension.getURL('/assets/ss_click.mp3');
+		ssOn = new Audio(absUrlSoundOn);
+		ssOff = new Audio(absUrlSoundOff);
+		ssClick = new Audio(absUrlSoundClick);
+
 		var html = "\
 		<div class='backgroundFilter'></div>\
-		<div class='activateFrameButton animated bounceInUp'><img src='"+absUrl+"'/></div>\
+		<div class='activateFrameButton animated bounceInUp'><img src='"+absUrlIcn+"'/></div>\
 		<div class='frameContainer'><iframe src='"+baseUrl+"/"+encodeURIComponent(url)+"/?aid="+chromeAppID+"&token="+token+"'></iframe></div>";
 		$('body').append(html);
 
 		$(document).on('click', '.activateFrameButton', function(){
+			ssClick.play();
 			$('.backgroundFilter').show();
 			$('.frameContainer').show();
 			$('.frameContainer').removeClass('animated slideInUp slideOutDown');
@@ -62,6 +79,7 @@ function init(url, token){
 
 		$(document).keyup(function(e){
 			if (e.keyCode==27 && iconHover){
+				ssOff.play();
 				$('.activateFrameButton').removeClass('bounceInUp');
 				$('.activateFrameButton').addClass('bounceOutDown');
 				dismissed = true;
