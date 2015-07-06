@@ -87,7 +87,7 @@ Template.landing.rendered = function(){
 			},300);
 		});
 
-		
+
 		$(document).on(click, '.landing-notify-btn', function(){ emailButtonClicked(); });
 		$(document).on('keydown', '.landing-notify-txt', function(e){
 			if (e.keyCode==13){ emailButtonClicked(); }
@@ -96,24 +96,31 @@ Template.landing.rendered = function(){
 		function emailButtonClicked(){
 			var email = $('.landing-notify-txt').val();
 			var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+			var clickElemCurText = $('.landing-notify-btn').val();
 			var clickElem = $('.landing-notify-btn');
 			if (email.length>0 && re.test(email)){
 				clickElem.html("<i class='fa fa-spin fa-spinner'></i> Sending");
 				Meteor.call('addEmail', email, function(err, res){
 					console.log(res);
 					if (res){
-						flastEmailInput("#3c763d", "#dff0d8");
+						flashEmailInput("#3c763d", "#dff0d8");
 						clickElem.html("You'll hear from us");
 						clickElem.prop("disabled",true);
 						clickElem.addClass('disabled');
 					}
-					else{ flastEmailInput("#a94442", "#f2dede"); }
+					else{
+						flashEmailInput("#a94442", "#f2dede");
+						clickElem.html(clickElemCurText);
+					}
 				});
 			}
-			else{ flastEmailInput("#a94442", "#f2dede"); }
+			else{
+				flashEmailInput("#a94442", "#f2dede");
+				clickElem.html(clickElemCurText);
+			}
 		}
 
-		function flastEmailInput(textColor, bgColor){
+		function flashEmailInput(textColor, bgColor){
 			var currentBgColor = 'whitesmoke';
 			var currentColor = 'rgb(140,152,158)';
 			$('.landing-notify-txt').css("background-color", bgColor);
