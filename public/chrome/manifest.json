@@ -4,62 +4,18 @@
   "name": "SocialSurf",
   "description": "This extension allows you to chat with people that are browsing the same page.",
   "version": "2.0.0",
-  /*
-  "icons": [
+  "content_scripts": [
   {
-    "src": "assets/img/android-chrome-36x36.png?v=rMwkW3ob3J",
-    "sizes": "36x36",
-    "type": "image\/png",
-    "density": "0.75"
-    },
-    {
-      "src": "assets/img/android-chrome-48x48.png?v=rMwkW3ob3J",
-      "sizes": "48x48",
-      "type": "image\/png",
-      "density": "1.0"
-      },
-      {
-        "src": "assets/img/android-chrome-72x72.png?v=rMwkW3ob3J",
-        "sizes": "72x72",
-        "type": "image\/png",
-        "density": "1.5"
-        },
-        {
-          "src": "assets/img/android-chrome-96x96.png?v=rMwkW3ob3J",
-          "sizes": "96x96",
-          "type": "image\/png",
-          "density": "2.0"
-          },
-          {
-            "src": "assets/img/android-chrome-144x144.png?v=rMwkW3ob3J",
-            "sizes": "144x144",
-            "type": "image\/png",
-            "density": "3.0"
-            },
-            {
-              "src": "assets/img/android-chrome-192x192.png?v=rMwkW3ob3J",
-              "sizes": "192x192",
-              "type": "image\/png",
-              "density": "4.0"
-            }
-            ],
-
-            "browser_action": {
-              "default_icon" : "assets/img/icon.png"
-              },
-              */
-              "content_scripts": [
-              {
-                "matches": ["<all_urls>"],
-                "exclude_matches": ["*://socialsurf.io/*"],
-                "run_at": "document_start",
-                "css": ["inject/tp/animate.css", "inject/injectFrame.css"],
-                "js": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "inject/injectFrame.js"]
-              }
-              ],
-              "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-              "web_accessible_resources": [
-              "assets/img/icon.png",
-              "assets/*"
-              ]
-            }
+    "matches": ["<all_urls>"],
+    "exclude_matches": ["*://socialsurf.io/*"],
+    "run_at": "document_start",
+    "css": ["inject/tp/animate.css", "inject/injectFrame.css"],
+    "js": ["assets/thirdParty/jquery/jquery.min.js", "assets/thirdParty/ddp/ddp.js", "inject/injectFrame.js"]
+  }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "web_accessible_resources": [
+  "assets/img/icon.png",
+  "assets/*"
+  ]
+}

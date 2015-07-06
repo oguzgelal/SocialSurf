@@ -84,6 +84,33 @@ body.landingPage {
 	margin-bottom: 60px;
 	@media @md-display { margin-bottom: 40px; }
 	.landing-info-text { margin-top: 30px; }
+	.line-video {
+		color: white;
+		margin-top: 40px;
+		.line-video-thumb {
+			padding: 25px;
+			margin: auto;
+			width: 90%;
+			@media @sm-display { width: 70%; }
+			height: auto;
+			background-color: rgba(0,0,0,.2);
+			.border-radius(5px);
+			border: 1px dashed white;
+		}
+		.line-video-thumb:hover {
+			cursor: pointer;
+			background-color: rgba(0,0,0,.3);
+		}
+		.line-video-icon {
+			font-size: 100px;
+			@media @sm-display { font-size: 60px; }
+		}
+		.line-video-text {
+			margin-top: 3px;
+			font-size: 30px;
+			@media @sm-display { font-size: 20px; margin-top: -5px; }
+		}
+	}
 	.line1 {
 		font-size: 28px;
 		@media @md-display { font-size: 26px; line-height: 33px; }
@@ -95,6 +122,13 @@ body.landingPage {
 		@media @md-display { font-size: 38px; line-height: 38px; }
 		@media @sm-display { font-size: 33px; line-height: 33px; }
 	}
+}
+.line-info-video {
+	height: auto !important;
+	padding: 15px 0;
+	padding-bottom: 50px;
+	@media @md-display { padding-top: 15px; }
+
 }
 
 .landing-animation {
@@ -350,6 +384,14 @@ body.landingPage {
 			line-height: 25px;
 			vertical-align: middle;
 		}
+		.landing-notify-btn:hover {
+			cursor: pointer;
+			background-color: @lightblue-hover;
+		}
+		.landing-notify-btn.disabled, .landing-notify-btn.disabled:hover {
+			background-color: @lightblue-hover;
+			color: white;
+		}
 	}
 	.landing-footer-cont-left {
 		padding: 20px;
@@ -378,6 +420,48 @@ body.landingPage {
 	}
 }
 
+.landing-video-player {
+	display: none;
+	z-index: 9999999999999999999999999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding-top: 100px;
+	background-color: rgba(0,0,0,.7);
+	@media @video-toggle-display{ padding: 0; }
+	.landing-video-container {
+		@media @video-toggle-display{ width: 100%; height: 100%; }
+	}
+	iframe {
+		.border-radius(5px);
+		border: 10px solid black;
+		background-color: black;
+		width: 560px;
+		height: 315px;
+		.box-shadow(0 0 10px black);
+		.animation-duration(.5s);
+		@media @video-toggle-display {
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
+		
+	}
+	.landing-video-close {
+		color: white;
+		font-size: 20px;
+		position: fixed;
+		top: 20px;
+		left: 20px;
+		z-index: 999999999999999999999999999999;
+	}
+	.landing-video-close:hover {
+		cursor: pointer;
+	}
+}
 
 
 
