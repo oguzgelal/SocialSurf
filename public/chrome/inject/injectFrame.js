@@ -22,7 +22,8 @@ ddp.connect().done(function(res) {
 });
 function updateOnlineBadge(ddp, url){
 	ddp.call('getOnlineCount', [url]).done(function(onlineres){
-		$('.activateFrameButton').html(onlineres);
+		if (onlineres > 0){ $('.activateFrameButton').show(); }
+		console.log(onlineres);
 	});
 }
 
@@ -30,18 +31,15 @@ function updateOnlineBadge(ddp, url){
 function init(url, token){
 	$(document).ready(function(){
 
+		var dismissed = false;
+		var iconHover = false;
+
+		var absUrl = chrome.extension.getURL('/assets/ssicn.png');
 		var html = "\
 		<div class='backgroundFilter'></div>\
-		<div class='activateFrameButton animated infinite pulse'></div>\
+		<div class='activateFrameButton animated bounceInUp'><img src='"+absUrl+"'/></div>\
 		<div class='frameContainer'><iframe src='"+baseUrl+"/"+encodeURIComponent(url)+"/?aid="+chromeAppID+"&token="+token+"'></iframe></div>";
 		$('body').append(html);
-
-		$(document).on('mouseenter', '.activateFrameButton', function(){
-			$(this).removeClass('animated infinite pulse');
-		});
-		$(document).on('mouseleave', '.activateFrameButton', function(){
-			$(this).addClass('animated infinite pulse');
-		});
 
 		$(document).on('click', '.activateFrameButton', function(){
 			$('.backgroundFilter').show();
@@ -57,6 +55,17 @@ function init(url, token){
 			$('.frameContainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 				$('.frameContainer').hide();
 			});
+		});
+
+		$(document).on('mouseenter', '.activateFrameButton', function(){ iconHover=true; });
+		$(document).on('mouseleave', '.activateFrameButton', function(){ iconHover=false; });
+
+		$(document).keyup(function(e){
+			if (e.keyCode==27 && iconHover){
+				$('.activateFrameButton').removeClass('bounceInUp');
+				$('.activateFrameButton').addClass('bounceOutDown');
+				dismissed = true;
+			}
 		});
 	});
 }
