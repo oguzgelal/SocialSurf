@@ -62,7 +62,7 @@ Template.landing.rendered = function(){
 			$('.landing-video-container').html("");
 
 			$('.landing-video-player').show();
-			var embedHtml = "<iframe class='animated zoomIn' src='https://www.youtube.com/embed/IJNR2EpS0jw?rel=0&amp;showinfo=0&autoplay=1&fs=0' frameborder='0' allowfullscreen></iframe>";
+			var embedHtml = "<iframe class='animated zoomIn' src='https://www.youtube.com/embed/Z0WgLjzhsGk?rel=0&amp;showinfo=0&autoplay=1&fs=0' frameborder='0' allowfullscreen></iframe>";
 			$('.landing-video-container').show();
 			$('.landing-video-container').append(embedHtml);
 			e.preventDefault();

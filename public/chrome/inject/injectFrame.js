@@ -54,7 +54,7 @@ function init(url, token){
 		var html = "\
 		<div class='backgroundFilter'></div>\
 		<div class='activateFrameButton animated bounceInUp'><img src='"+absUrlIcn+"'/></div>\
-		<div class='frameContainer'><iframe src='"+baseUrl+"/"+encodeURIComponent(url)+"/"+chromeAppID+"/"+token+"'></iframe></div>";
+		<div class='frameContainer'><iframe src='"+baseUrl+"/"+encodeURIComponent(url)+"/?aid="+chromeAppID+"&token="+token+"'></iframe></div>";
 		$('body').append(html);
 
 		$(document).on('click', '.activateFrameButton', function(){

@@ -1,7 +1,7 @@
 -- before publish --
 TODO : private beta system
-TODO : change extension icon to logo avatar.
-TODO : logo avatar appears only when there are people online.
+TODO : Better icon (chrome app)
+TODO : add hello@socialsurf.io mail to landing
 
 
 -- 1 after publish --
