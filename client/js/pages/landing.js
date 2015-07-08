@@ -130,49 +130,49 @@ Template.landing.rendered = function(){
 
 
 		// product actions
-		$(document).on(click, '.landing-product-chrome', function(){
+		$(document).on("click", '.landing-product-chrome', function(){
 			var modalTitle = "Link will be updated...";
 			var modalDesc = "Our Chrome Application link will be updated as soon as we launch officially. Which is very soon. Drop your mail, we'll update you when we are ready.";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
 			$('body').append(modal);
 		});
-		$(document).on(click, '.landing-product-firefox', function(){
+		$(document).on("click", '.landing-product-firefox', function(){
 			var modalTitle = "Firefox Extension will soon be ready.";
 			var modalDesc = "Our team is working hard to make this available to you. Drop your email, we'll let you know as soon as it is out.";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
 			$('body').append(modal);
 		});
-		$(document).on(click, '.landing-product-safari', function(){
+		$(document).on("click", '.landing-product-safari', function(){
 			var modalTitle = "Safari Extension will soon be ready.";
 			var modalDesc = "Our team is working hard to make this available to you. Drop your email, we'll let you know as soon as it is out.";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
 			$('body').append(modal);
 		});
-		$(document).on(click, '.landing-product-opera', function(){
+		$(document).on("click", '.landing-product-opera', function(){
 			var modalTitle = "Opera Extension will soon be ready.";
 			var modalDesc = "Our team is working hard to make this available to you. Drop your email, we'll let you know as soon as it is out.";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
 			$('body').append(modal);
 		});
-		$(document).on(click, '.landing-product-web', function(){
+		$(document).on("click", '.landing-product-web', function(){
 			var modalTitle = "Our web interface will soon be ready.";
 			var modalDesc = "You will be able to use Social Surf from this website. But not now, very soon. Drop your mail and we'll let you know when it is ready.";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
 			$('body').append(modal);
 		});
-		$(document).on(click, '.landing-product-dev', function(){
+		$(document).on("click", '.landing-product-dev', function(){
 			var modalTitle = "Upcoming awesomeness";
 			var modalDesc = "Developers! Not only you'll be able to integrate our chat console to your website, but you'll also be able to send each user private messages and use this as a feedback tool. Drop your mail and we'll update you when this is ready!";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
 			$('body').append(modal);
 		});
-		$(document).on(click, '.landing-product-android', function(){
+		$(document).on("click", '.landing-product-android', function(){
 			var modalTitle = "Mobile revolution...";
 			var modalDesc = "How would you like to use Social Surf from your Android ? Drop your email and we'll let you know when you can.";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
 			$('body').append(modal);
 		});
-		$(document).on(click, '.landing-product-ios', function(){
+		$(document).on("click", '.landing-product-ios', function(){
 			var modalTitle = "Mobile revolution...";
 			var modalDesc = "How would you like to use Social Surf from your iPhone or iPad ? Drop your email and we'll let you know when you can.";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
