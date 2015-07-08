@@ -183,6 +183,13 @@ Template.landing.rendered = function(){
 		});
 
 
+
+		// setting bar events
+		$(document).on('mouseenter', '.landingBarToggle', function(){ settingsBarAnimate("down"); });
+		$(document).on('mouseleave', '.landingBarToggle', function(){ settingsBarAnimate("up"); });
+		$(document).on(click, '.landingBarToggle', function(){ settingsBarToggle(); });
+
+
 		function emailButtonClicked(landingNotifyText, landingNotifyButton){
 			var email = landingNotifyText.val();
 			var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
@@ -220,6 +227,57 @@ Template.landing.rendered = function(){
 				landingNotifyText.css("color", currentColor);
 			},500);
 		}
+
+
+
+		// settings bar functions ----------------------------------
+		function settingsBarAnimate(str) {
+			if (str == "down" && !isSettingBarOpen()) {
+				$('.landingBarToggle').css("padding-top", "17px");
+				$('.landingBarLine').height(12);
+			} else if (str == "up" && !isSettingBarOpen()) {
+				$('.landingBarToggle').css("padding-top", "10px");
+				$('.landingBarLine').height(10);
+			}
+		}
+		function settingsBarToggle() {
+			if (isSettingBarOpen()) { setSettingsBarState("close"); }
+			else { setSettingsBarState("open"); }
+		}
+		function setSettingsBarState(str) {
+			if (str == "open" && !isSettingBarOpen()) {
+				toggleSettingsBarIconTo("close");
+				$('.landingBarToggle').addClass('active');
+				$('.landingBar').addClass('active');
+				$('.landingBarLine').fadeOut('fast');
+				$('.landingBar').css("margin-top", "0px");
+			} else if (str == "close" && isSettingBarOpen()) {
+				toggleSettingsBarIconTo("settings");
+				$('.landingBarToggle').removeClass('active');
+				$('.landingBar').removeClass('active');
+				$('.landingBarLine').show();
+				var h = $('.landingBar').height();
+				$('.landingBar').css("margin-top", -h + "px");
+			}
+		}
+		function isSettingBarOpen() { return $('.landingBar').hasClass('active'); }
+		function toggleSettingsBarIconTo(str) {
+			if (str == "close") {
+				$('.landingBarToggle .landingIcon').hide(0, function() {
+					$('.landingBarToggle .closeIcon').show('fast');
+					Session.set('frame-toggle-bg', $('.landingBarToggle').css('background-color'));
+					$('.landingBarToggle').css('background-color', 'transparent');
+				});
+			} else if (str == "settings") {
+				$('.landingBarToggle .closeIcon').hide(0, function() {
+					$('.landingBarToggle .landingIcon').show('fast');
+					$('.landingBarToggle').css('background-color', Session.get('frame-toggle-bg'));
+				});
+			}
+		}
+		// -----------------------------------------------
+
+
 
 	});
 }
