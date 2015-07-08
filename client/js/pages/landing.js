@@ -122,9 +122,12 @@ Template.landing.rendered = function(){
 		});
 
 		$(document).on(click, '.landing-modal', function(e){ modalClose($('.landing-modal-close')); });
+		$(document).on(click, '.landing-notify-txt-modal', function(e){
+			$(this).focus();
+		});
 		$(document).on(click, '.landing-modal-content', function(e){
 			e.preventDefault();
-			return false;	
+			return false;
 		});
 		
 
