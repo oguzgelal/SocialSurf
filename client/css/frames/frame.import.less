@@ -29,20 +29,56 @@
     z-index: 1999999997;
     .transition(all 0.2s ease);
   }
+  .settingsBarFeedback {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 20px;
+    height: 25px;
+    background-color: @lightblue;
+    font-size: 22px;
+    color: white;
+    padding: 8px;
+    padding-left: 13px;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    -o-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    -o-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    z-index: 199999999;
+    .transition(all 0.2s ease);
+  }
+  .settingsBarFeedback:hover {
+    cursor: pointer;
+    padding-right: 80px;
+    .transition(all 0.2s ease);
+    i:after {
+      content: "Feedback";
+      font-size: 16px;
+      margin-left: 8px;
+      height: 23px;
+      line-height: 23px;
+      vertical-align: top;
+    }
+  }
   .settingsBarToggle {
     position: absolute;
     top: 0;
     right: 0;
-    width: 25px;
-    height: 30px;
-    padding: 10px;
+    width: 20px;
+    height: 25px;
+    padding: 8px;
     padding-left: 13px;
     background-color: @lightblue;
-    font-size: 30px;
+    font-size: 22px;
     color: white;
     z-index: 1999999999;
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-bottom-left-radius: 5px;
+    -o-border-bottom-left-radius: 5px;
     border-bottom-left-radius: 5px;
     .transition(all 0.2s ease);
   }
