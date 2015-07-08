@@ -29,6 +29,8 @@
     z-index: 1999999997;
     .transition(all 0.2s ease);
   }
+
+  /*** buttons ***/
   .settingsBarFeedback {
     position: absolute;
     top: 55px;
@@ -64,6 +66,43 @@
       vertical-align: top;
     }
   }
+  .settingsBarContact {
+    position: absolute;
+    top: 109px;
+    right: 0;
+    width: 20px;
+    height: 25px;
+    background-color: @lightblue;
+    font-size: 22px;
+    color: white;
+    padding: 8px 10px;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    -o-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    -o-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    z-index: 199999999;
+    .transition(all 0.2s ease);
+  }
+  .settingsBarContact:hover {
+    cursor: pointer;
+    padding-right: 162px;
+    .transition(all 0.2s ease);
+    i:after {
+      content: "hello@socialsurf.io";
+      font-size: 16px;
+      margin-left: 8px;
+      height: 23px;
+      line-height: 23px;
+      vertical-align: top;
+    }
+  }
+  /*** buttons ***/
+  
+
   .settingsBarToggle {
     position: absolute;
     top: 0;
