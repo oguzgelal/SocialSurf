@@ -88,46 +88,122 @@ Template.landing.rendered = function(){
 		});
 
 
-		$(document).on(click, '.landing-notify-btn', function(){ emailButtonClicked(); });
-		$(document).on('keydown', '.landing-notify-txt', function(e){
-			if (e.keyCode==13){ emailButtonClicked(); }
+		// email click listener - footer
+		$(document).on(click, '.landing-notify-btn-footer', function(){
+			emailButtonClicked($('.landing-notify-txt-footer'),$('.landing-notify-btn-footer'));
+		});
+		$(document).on('keydown', '.landing-notify-txt-footer', function(e){
+			if (e.keyCode==13){
+				emailButtonClicked($('.landing-notify-txt-footer'),$('.landing-notify-btn-footer'));
+			}
 		});
 
-		function emailButtonClicked(){
-			var email = $('.landing-notify-txt').val();
+		// email click listener - modal
+		$(document).on(click, '.landing-notify-btn-modal', function(){
+			emailButtonClicked($('.landing-notify-txt-modal'),$('.landing-notify-btn-modal'));
+		});
+		$(document).on('keydown', '.landing-notify-txt-modal', function(e){
+			if (e.keyCode==13){
+				emailButtonClicked($('.landing-notify-txt-modal'),$('.landing-notify-btn-modal'));
+			}
+		});
+
+		$(document).on(click, '.landing-modal-close', function(){
+			var ths = $(this);
+			ths.parent().removeClass('fadeInUp');
+			ths.parent().addClass('fadeOutUp');
+			setTimeout(function(){
+				ths.parent().parent().remove();
+			},500);
+		});
+
+
+		// product actions
+		$(document).on(click, '.landing-product-chrome', function(){
+			var modalTitle = "Link will be updated...";
+			var modalDesc = "Our Chrome Application link will be updated as soon as we launch officially. Which is very soon. Drop your mail, we'll update you when we are ready.";
+			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
+			$('body').append(modal);
+		});
+		$(document).on(click, '.landing-product-firefox', function(){
+			var modalTitle = "Firefox Extension will soon be ready.";
+			var modalDesc = "Our team is working hard to make this available to you. Drop your email, we'll let you know as soon as it is out.";
+			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
+			$('body').append(modal);
+		});
+		$(document).on(click, '.landing-product-safari', function(){
+			var modalTitle = "Safari Extension will soon be ready.";
+			var modalDesc = "Our team is working hard to make this available to you. Drop your email, we'll let you know as soon as it is out.";
+			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
+			$('body').append(modal);
+		});
+		$(document).on(click, '.landing-product-opera', function(){
+			var modalTitle = "Opera Extension will soon be ready.";
+			var modalDesc = "Our team is working hard to make this available to you. Drop your email, we'll let you know as soon as it is out.";
+			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
+			$('body').append(modal);
+		});
+		$(document).on(click, '.landing-product-web', function(){
+			var modalTitle = "Our web interface will soon be ready.";
+			var modalDesc = "You will be able to use Social Surf from this website. But not now, very soon. Drop your mail and we'll let you know when it is ready.";
+			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
+			$('body').append(modal);
+		});
+		$(document).on(click, '.landing-product-dev', function(){
+			var modalTitle = "Upcoming awesomeness";
+			var modalDesc = "Developers! Not only you'll be able to integrate our chat console to your website, but you'll also be able to send each user private messages and use this as a feedback tool. Drop your mail and we'll update you when this is ready!";
+			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
+			$('body').append(modal);
+		});
+		$(document).on(click, '.landing-product-android', function(){
+			var modalTitle = "Mobile revolution...";
+			var modalDesc = "How would you like to use Social Surf from your Android ? Drop your email and we'll let you know when you can.";
+			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
+			$('body').append(modal);
+		});
+		$(document).on(click, '.landing-product-ios', function(){
+			var modalTitle = "Mobile revolution...";
+			var modalDesc = "How would you like to use Social Surf from your iPhone or iPad ? Drop your email and we'll let you know when you can.";
+			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
+			$('body').append(modal);
+		});
+
+
+		function emailButtonClicked(landingNotifyText, landingNotifyButton){
+			var email = landingNotifyText.val();
 			var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-			var clickElemCurText = $('.landing-notify-btn').text();
-			var clickElem = $('.landing-notify-btn');
+			var clickElemCurText = landingNotifyButton.text();
+			var clickElem = landingNotifyButton;
 			if (email.length>0 && re.test(email)){
 				clickElem.html("<i class='fa fa-spin fa-spinner'></i> Sending");
 				Meteor.call('addEmail', email, function(err, res){
 					console.log(res);
 					if (res){
-						flashEmailInput("#3c763d", "#dff0d8");
+						flashEmailInput("#3c763d", "#dff0d8", landingNotifyText);
 						clickElem.html("You'll hear from us");
 						clickElem.prop("disabled",true);
 						clickElem.addClass('disabled');
 					}
 					else{
-						flashEmailInput("#a94442", "#f2dede");
+						flashEmailInput("#a94442", "#f2dede", landingNotifyText);
 						clickElem.html(clickElemCurText);
 					}
 				});
 			}
 			else{
-				flashEmailInput("#a94442", "#f2dede");
+				flashEmailInput("#a94442", "#f2dede", landingNotifyText);
 				clickElem.html(clickElemCurText);
 			}
 		}
 
-		function flashEmailInput(textColor, bgColor){
+		function flashEmailInput(textColor, bgColor, landingNotifyText){
 			var currentBgColor = 'whitesmoke';
 			var currentColor = 'rgb(140,152,158)';
-			$('.landing-notify-txt').css("background-color", bgColor);
-			$('.landing-notify-txt').css("color", textColor);
+			landingNotifyText.css("background-color", bgColor);
+			landingNotifyText.css("color", textColor);
 			setTimeout(function(){
-				$('.landing-notify-txt').css("background-color", currentBgColor);
-				$('.landing-notify-txt').css("color", currentColor);
+				landingNotifyText.css("background-color", currentBgColor);
+				landingNotifyText.css("color", currentColor);
 			},500);
 		}
 

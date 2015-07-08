@@ -463,5 +463,113 @@ body.landingPage {
 	}
 }
 
+.landing-modal {
+	.box-sizing(border-box) !important;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999999999999999999999999;
+	padding-top: 120px;
+	@media @md-display{ padding-top: 80px; }
+	@media @sm-display{ padding-top: 40px; }
+	.landing-modal-content {
+		.box-sizing(border-box) !important;
+		position: relative;
+		background-color: @background;
+		.border-radius(5px);
+		@media @xs-display{ .border-radius(0px); }
+		width: 60%;
+		padding: 20px;
+		@media @md-display{ width: 70%; }
+		@media @sm-display{ width: 90%; }
+		@media @xs-display{ width: 100%; }
+		height: auto;
+		.box-shadow(1px 1px 5px gray);
+		margin: auto;
+
+		.landing-modal-close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			color: @text-med;
+			font-size: 18px;
+		}
+		.landing-modal-close:hover {
+			cursor: pointer;
+			color: @lightblue;
+		}
+
+		// drop mail style for modal
+		.modal-dropmail {
+			padding: 50px 0;
+			@media @md-display{ padding: 40px 0; }
+			@media @sm-display{ padding: 30px 0; }
+			@media @xs-display{ padding: 20px 0; }
+			.landing-notify-label {
+				width: 100%;
+				font-size: 35px;
+				color: @text-dark;
+				font-weight: bolder;
+				padding: 0 50px;
+				padding-bottom: 30px;
+				@media @md-display{ font-size: 30px; padding: 0 45px; padding-bottom: 25px; }
+				@media @sm-display{ font-size: 25px; padding: 0 40px; padding-bottom: 20px; }
+				@media @xs-display{ font-size: 20px; padding: 0 35px; padding-bottom: 10px; }
+			}
+			.landing-maillabel, .landing-mailinput {
+				margin-top: 20px;
+				font-size: 18px;
+				color: @text-med;
+				padding: 0 50px;
+				@media @md-display{ padding: 0 45px; }
+				@media @sm-display{ font-size: 17px;  padding: 0 40px; }
+				@media @xs-display{ font-size: 16px; padding: 0 35px; }
+			}
+			.landing-mailinput {
+				.box-sizing(border-box);
+			}
+			.landing-notify-txt {
+				width: 50%;
+				height: 40px;
+				line-height: 40px;
+				box-sizing: border-box;
+				vertical-align: middle;
+				margin: 0;
+			}
+			.landing-notify-btn {
+				font-size: 17px;
+				height: 40px;
+				line-height: 30px;
+				margin-left: 10px;
+				padding: 5px 13px;
+				@media @md-display{ font-size: 15px; padding: 5px 11px; }
+				@media @xs-display{ font-size: 12px; padding: 5px 8px; }
+				box-sizing: border-box;
+				vertical-align: middle;
+				display: inline-block;
+				background-color: @lightblue;
+				.border-radius(5px);
+				color: white;
+				width: auto;
+				vertical-align: middle;
+			}
+			.landing-notify-btn:hover {
+				cursor: pointer;
+				background-color: @lightblue-hover;
+			}
+			.landing-notify-btn.disabled, .landing-notify-btn.disabled:hover {
+				background-color: @lightblue-hover;
+				color: white;
+			}
+		}
+		// /drop-mail
+
+
+
+	}
+}
+
 
 
