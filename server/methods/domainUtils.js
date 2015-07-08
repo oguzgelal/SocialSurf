@@ -30,6 +30,7 @@ Meteor.methods({
     else{ return null; }
   },
   cleanURL: function(url){
+    url = decodeURIComponent(url);
     // remove http htpps ftp or whatever
     url = Meteor.call("removePrefix", url);
     // remove whatever is after the hash

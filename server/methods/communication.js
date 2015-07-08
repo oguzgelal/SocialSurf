@@ -1,6 +1,7 @@
 Meteor.methods({
   // Allways called from own client (router). Connection ID belongs to the frame.
   clientJoin: function(urlRaw){
+    urlRaw = decodeURIComponent(urlRaw);
     var urlVar = Meteor.call("cleanURL", urlRaw);
     var connectionID = this.connection.id;
     var connUserID = this.userId;
@@ -48,6 +49,7 @@ Meteor.methods({
   },
   // Get how many clients are connected to an URL
   getOnlineCount: function(urlRaw){
+    urlRaw = decodeURIComponent(urlRaw);
     var urlVar = Meteor.call("cleanURL", urlRaw);
     return Online.find({url: urlVar}).count();
   }

@@ -1,5 +1,6 @@
 Meteor.methods({
   checkApp: function(urlRaw, appID, token){
+    urlRaw = decodeURIComponent(urlRaw);
     var url = Meteor.call("cleanURL", urlRaw);
     var valid = true;
     var app = Apps.find({appID: "EYhO79iz2o"}).fetch()[0];
@@ -38,7 +39,11 @@ Meteor.methods({
     /**********************************/
     /*** Block app connections here ***/
     /**********************************/
+    urlRaw = decodeURIComponent(urlRaw);
     var url = Meteor.call("cleanURL", urlRaw);
+    console.log("writing token: -------");
+    console.log(url);
+    console.log("-------");
     var token = "";
     var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for(var i=0; i<10; i++){

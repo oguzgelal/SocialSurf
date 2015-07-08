@@ -1,7 +1,7 @@
 var ssOn, ssOff, ssClick;
 var chromeAppID = "EYhO79iz2o";
 var url = window.location.href;
-var local = false;
+var local = true;
 var domain = "socialsurf.io";
 var baseUrl = "";
 if (local){ baseUrl = "http://localhost:3000/frame"; }
@@ -54,7 +54,7 @@ function init(url, token){
 		var html = "\
 		<div class='backgroundFilter'></div>\
 		<div class='activateFrameButton animated bounceInUp'><img src='"+absUrlIcn+"'/></div>\
-		<div class='frameContainer'><iframe src='"+baseUrl+"/"+encodeURIComponent(url)+"/?aid="+chromeAppID+"&token="+token+"'></iframe></div>";
+		<div class='frameContainer'><iframe src='"+baseUrl+"/?url="+encodeURIComponent(url)+"&aid="+chromeAppID+"&token="+token+"'></iframe></div>";
 		$('body').append(html);
 
 		$(document).on('click', '.activateFrameButton', function(){

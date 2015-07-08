@@ -1,4 +1,5 @@
 Meteor.publish('rooms', function(urlRaw){
+	urlRaw = decodeURIComponent(urlRaw);
 	var url = Meteor.call("cleanURL", urlRaw);
 	return Rooms.find({url: url});
 });
@@ -8,6 +9,7 @@ Meteor.publish('messages', function(roomid, limit){
 });
 
 Meteor.publish('online', function(urlRaw){
+	urlRaw = decodeURIComponent(urlRaw);
 	var urlVar = Meteor.call("cleanURL", urlRaw);
 	return Online.find({url: urlVar});
 });
@@ -18,6 +20,7 @@ Meteor.publish("members", function() {
 
 // only for the chrome extension
 Meteor.publish('onlineCount', function(urlRaw){
+	urlRaw = decodeURIComponent(urlRaw);
 	var urlVar = Meteor.call("cleanURL", urlRaw);
 	return Online.find({url: urlVar}).count();
 });

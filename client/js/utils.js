@@ -93,6 +93,7 @@ Domain = {
 		else{ return null; }
 	},
 	cleanURL: function(url){
+		url = decodeURIComponent(url);
     	// remove http htpps ftp or whatever
     	url = Domain.removePrefix(url);
     	// remove whatever is after the hash
