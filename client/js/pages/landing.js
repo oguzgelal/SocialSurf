@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 Template.landing.rendered = function(){
 	$(document).ready(function(){
-		var click =((document.ontouchstart!==null)?'click':'touchstart');
+		var click =((document.ontouchstart!==null)?'click':'touchend');
 
 		$('body').addClass('landingPage');
 
@@ -108,14 +108,25 @@ Template.landing.rendered = function(){
 			}
 		});
 
-		$(document).on(click, '.landing-modal-close', function(){
-			var ths = $(this);
+		function modalClose(ths){
 			ths.parent().removeClass('fadeInUp');
 			ths.parent().addClass('fadeOutUp');
 			setTimeout(function(){
 				ths.parent().parent().remove();
 			},500);
+		}
+
+		$(document).on(click, '.landing-modal-close', function(){
+			var ths = $(this);
+			modalClose(ths);
 		});
+
+		$(document).on(click, '.landing-modal', function(e){ modalClose($('.landing-modal-close')); });
+		$(document).on(click, '.landing-modal-content', function(e){
+			e.preventDefault();
+			return false;	
+		});
+		
 
 
 		// product actions
