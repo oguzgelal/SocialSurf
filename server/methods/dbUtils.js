@@ -9,13 +9,18 @@ Meteor.methods({
       });
     }
   },
-  addMessage: function(roomid, message, nick, user){
+  addMessage: function(roomid, message, nick, user, sentTime){
     Messages.insert({
       roomid: roomid,
       nick: nick,
       user: user,
       message: message,
-      date: new Date()
+      date: sentTime
+    },
+    function(err){
+      if (err){ return false; }
+      console.log("Message sent...");
+      return true;
     });
   },
   addEmail: function(email){

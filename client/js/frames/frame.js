@@ -196,6 +196,8 @@ Template.messageBox.rendered = function(){
     $('.msgbox#'+concatSeqID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
     this.firstNode.remove();
   }
+  var matchID = this.data.nick+""+this.data.date.getTime();
+  $('.msgbox[data-matchID="'+matchID+'"]').remove();
 }
 
 Template.messageBox.onRendered(function(){
@@ -285,6 +287,8 @@ function setNickname(str) {
 
 // Send the message
 function sendMessage(ths, message){
+  var sentTime = new Date();
+  var sentMS = sentTime.getTime();
   if (message.length > 0){
     // animate send icon
     var sendButtonRight = "18px";
@@ -303,11 +307,27 @@ function sendMessage(ths, message){
         $('.sendButton').css("text-shadow", "none");
       },200);
     },200);
-    // send message
+    
     var nick = amplify.store("nickname");
     var userSent = null;
     if (Meteor.user()){ userSent = Members.findOne({_id: Meteor.user()._id}); }
-    Meteor.call("addMessage", ths._id, message, nick, userSent);
+    
+    // generate a unique ID to match when data comes from the server
+    var matchID = nick+""+sentMS;
+    
+    var data = {
+      roomid: ths.room._id,
+      nick: nick,
+      user: userSent,
+      message: message,
+      date: new Date(),
+      matchID: matchID,
+      loadingBar: true
+    };
+    var preMessageHTML = Blaze.toHTMLWithData(Template.messageBox, data);
+    $('.messageArea').append(preMessageHTML);
+
+    Meteor.call("addMessage", ths.room._id, message, nick, userSent, sentTime);
     $('.messageInputText').val("");
   }
 }

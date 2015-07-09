@@ -96,7 +96,7 @@
 
 <!-- Message Box Template -->
 <template name="messageBox">
-  <div class="msgbox universal-msgbox-container frame" data-id="{{msgid}}" id="{{seqID}}" data-msgtime="{{msgtime}}" data-displayable="{{displayable_enc}}">
+  <div class="msgbox universal-msgbox-container frame" data-matchID="{{matchID}}" data-id="{{msgid}}" id="{{seqID}}" data-msgtime="{{msgtime}}" data-displayable="{{displayable_enc}}">
     <!-- avatar -->
     <div class="msgbox-avatar">
       {{#if hasUser}}
@@ -109,7 +109,12 @@
     <!-- bubble -->
     <div class="msgbox-bubble-cont">
       <div class="msgbox-bubble">
+        <div class="msgbox-loading"><i class="fa fa-spin fa-spinner"></i></div>
+        {{#if loadingBar}}
+        <div class="msgbox-loading"><i class="fa fa-spin fa-spinner"></i></div>
+        {{else}}
         <div class="msgbox-arrow"></div>
+        {{/if}}
         <!-- bubble title -->
         <div class="msgbox-title">
           <div class="msgbox-title-left">

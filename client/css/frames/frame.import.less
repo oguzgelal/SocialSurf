@@ -303,6 +303,7 @@
   .messageArea {
     padding-top: 30px;
     margin-bottom: 70px;
+    outline: none;
   }
 
   /* MESSAGES */
@@ -310,7 +311,6 @@
     .box-sizing(border-box) !important;
   }
   .msgbox {
-
     position: relative;
     width: 90%;
     max-width: 800px;
@@ -345,6 +345,28 @@
         .border-radius(5px);
         padding: 10px;
         .box-shadow(1px 1px 1px 0px rgba(119,119,119,0.22));
+
+
+        .msgbox-loading {
+          position: absolute;
+          top: 0;
+          left: 75px;
+          width: 93%;
+          @media @md-display { width: 93% }
+          @media @sm-display { width: 93% }
+          @media @xs-display { width: 90% }
+          @media @tt-display { width: 85% }
+          height: 100%;
+          z-index: 99999999;
+          text-align: center;
+          color: @text-med;
+          background-color: rgba(236,240,241,.8);
+          i { margin-top: 25px; }
+          font-size: 15px;
+          margin-left: 5px;
+          .border-radius(5px);
+        }
+
         
         .msgbox-arrow {
           position: absolute;
