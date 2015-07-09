@@ -314,7 +314,7 @@ function sendMessage(ths, message){
     
     // generate a unique ID to match when data comes from the server
     var matchID = nick+""+sentMS;
-    
+
     var data = {
       roomid: ths.room._id,
       nick: nick,
@@ -325,8 +325,10 @@ function sendMessage(ths, message){
       loadingBar: true
     };
     var preMessageHTML = Blaze.toHTMLWithData(Template.messageBox, data);
+    console.log(preMessageHTML);
     $('.messageArea').append(preMessageHTML);
-
+    $(".nano").nanoScroller({ scroll: 'bottom' });
+    
     Meteor.call("addMessage", ths.room._id, message, nick, userSent, sentTime);
     $('.messageInputText').val("");
   }
