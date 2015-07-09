@@ -325,10 +325,11 @@ function sendMessage(ths, message){
       loadingBar: true
     };
     var preMessageHTML = Blaze.toHTMLWithData(Template.messageBox, data);
-    console.log(preMessageHTML);
     $('.messageArea').append(preMessageHTML);
+    $(".nano").nanoScroller();
     $(".nano").nanoScroller({ scroll: 'bottom' });
-    
+    setTimeout(function(){ $(".nano").nanoScroller(); $(".nano").nanoScroller({ scroll: 'bottom' }); },100);
+
     Meteor.call("addMessage", ths.room._id, message, nick, userSent, sentTime);
     $('.messageInputText').val("");
   }

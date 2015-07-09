@@ -19,7 +19,6 @@ Meteor.methods({
     },
     function(err){
       if (err){ return false; }
-      console.log("Message sent...");
       return true;
     });
   },
