@@ -32,7 +32,7 @@ Template.frame.created = function(){
 
 Template.frame.onCreated(function(){
   var instance = this;
-  var roomID = instance.data._id;
+  var roomID = instance.data.room._id;
   instance.currentData = new ReactiveVar();
   instance.loaded = new ReactiveVar(0);
   instance.limit = new ReactiveVar(30);
