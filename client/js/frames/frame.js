@@ -314,7 +314,6 @@ function sendMessage(ths, message){
     
     // generate a unique ID to match when data comes from the server
     var matchID = nick+""+sentMS;
-
     var data = {
       roomid: ths.room._id,
       nick: nick,
