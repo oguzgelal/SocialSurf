@@ -7,7 +7,8 @@
       <div class="settingsRow">
         <div class="settingsSubRow clearfix">
           <div class="userDataCont">
-            <img class="avatar-sm" src="{{getAvatar}}" alt="Profile picture of {{getName}}">
+            <!--<img class="avatar-sm" src="{{getAvatar}}" alt="Profile picture of {{getName}}">-->
+            <object class="avatar-sm" data="{{getAvatar}}" type="image/png"><img class="avatar-sm" src="/assets/anon.png" alt="{{displayable}}"></object>
           </div>
           <div class="userDataCont userDataTxt">
             <div class="settingsSubRow settingsLabel userDataTxtHello">Hello,</div>
@@ -40,10 +41,22 @@
       <i class="settingsIcon fa fa-bars"></i>
       <i class="closeIcon fa fa-times"></i>
     </div>
-    <!-- feedback -->
-    <div class="settingsBarFeedback"><i class="fa fa-question" onClick="window.open('http://socialsurf.io/feedback')"></i></div>
-    <!-- contact -->
-    <div class="settingsBarContact"><i class="fa fa-envelope" onClick="window.open('mailto:hello@socialsurf.io')"></i></div>
+    
+    <div class="settingsBarMenuItems">
+      <!-- feedback -->
+      {{#if showFeedback}}
+      <div class="settingsBarMenuItemCont settingsBarFeedbackCont">
+        <div class="settingsBarMenuItem settingsBarFeedback"><i class="fa fa-question" onClick="window.open('http://socialsurf.io/feedback')"></i></div>  
+      </div>
+      {{/if}}
+      <!-- contact -->
+      {{#if showContact}}
+      <div class="settingsBarMenuItemCont settingsBarContactCont">
+        <div class="settingsBarMenuItem settingsBarContact"><i class="fa fa-envelope" onClick="window.open('mailto:hello@socialsurf.io')"></i></div>  
+      </div>
+      {{/if}}  
+    </div>
+    
 
     <div class="loadingBar">
       <i class="fa fa-spin fa-spinner"></i>
@@ -52,32 +65,32 @@
     <!-- Messages -->
     <div class="messageScrollable nano clearfix">
       <div class="messageArea overthrow nano-content">
-      
+
         {{#each messages}}
         {{>messageBox}}
         {{/each}}
 
-    </div>
-  </div>
-
-  <!-- Message Input -->
-  <div class="messageInputArea">
-    <div class="onlineData clearfix">
-      <div class="onlineDataLeft">
-        <i class="onlineIcon fa fa-user"></i>
-        <span class="onlineDataText"><!--<a href="#" class="link-dark">-->{{online}} Online<!--</a>--></span>  
-      </div>
-      <div class="onlineDataRight">
-        <span class="noticeLabel">powered by <b><a href="#" onClick="window.open('http://socialsurf.io')">SocialSurf</a></b></span>
       </div>
     </div>
-    <div class="messageInputCont">
-      <input type="text" class="messageInputText" placeholder="Enter message...">
-      <i class="fa fa-send sendButton"></i>
-    </div>
-  </div>
 
-</div>
+    <!-- Message Input -->
+    <div class="messageInputArea">
+      <div class="onlineData clearfix">
+        <div class="onlineDataLeft">
+          <i class="onlineIcon fa fa-user"></i>
+          <span class="onlineDataText"><!--<a href="#" class="link-dark">-->{{online}} Online<!--</a>--></span>  
+        </div>
+        <div class="onlineDataRight">
+          <span class="noticeLabel">powered by <b><a href="#" onClick="window.open('http://socialsurf.io')">SocialSurf</a></b></span>
+        </div>
+      </div>
+      <div class="messageInputCont">
+        <input type="text" class="messageInputText" placeholder="Enter message...">
+        <i class="fa fa-send sendButton"></i>
+      </div>
+    </div>
+
+  </div>
 </template>
 
 
@@ -87,7 +100,8 @@
     <!-- avatar -->
     <div class="msgbox-avatar">
       {{#if hasUser}}
-      <img src="{{getAvatar}}" alt="Avatar of {{hasUser.name}}">
+      <!--<img src="{{getAvatar}}" alt="Avatar of {{hasUser.name}}">-->
+      <object data="{{getAvatar}}" type="image/png"><img src="/assets/anon.png" alt="{{displayable}}"></object>
       {{else}}
       <img src="/assets/anon.png" alt="Avatar of anon user {{nick}}">
       {{/if}}

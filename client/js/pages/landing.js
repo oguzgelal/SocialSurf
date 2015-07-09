@@ -56,7 +56,7 @@ Template.landing.rendered = function(){
 			});
 		});
 
-		$(document).on(click, '.line-video-thumb', function(e){
+		$(document).on("click", '.line-video-thumb', function(e){
 			$('.landing-video-player').hide();
 			$('.landing-video-container').hide();
 			$('.landing-video-container').html("");
