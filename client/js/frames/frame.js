@@ -7,7 +7,6 @@ Meteor.startup(function(){
 });
 
 
-// TODO : debug & fix this !!!! scroll bottom doesn't work, problem isn't race condition!
 $(document).on('keydown', '.messageInputText', function(){
   $(".nano").nanoScroller({ scroll: 'bottom' });
 });
@@ -293,7 +292,6 @@ function sendMessage(ths, message){
     if (Meteor.user()){ userSent = Members.findOne({_id: Meteor.user()._id}); }
     // set current user properties for stats
     if (userSent){ amplitude.setUserProperties(userSent); }
-
     // generate a unique ID to match when data comes from the server
     var matchID = nick+""+sentMS;
     var data = {
@@ -305,10 +303,8 @@ function sendMessage(ths, message){
       matchID: matchID,
       loadingBar: true
     };
-
     // log message for stats
     amplitude.logEvent("Message Sent", data);
-
     // render messageBox template and add the message in loading form to the DOM
     var preMessageHTML = Blaze.toHTMLWithData(Template.messageBox, data);
     $('.messageArea').append(preMessageHTML);
