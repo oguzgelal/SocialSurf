@@ -22,6 +22,8 @@ Template.frame.created = function(){
   this.lastMsgTime = new ReactiveVar(-1);
   this.lastMsgDisplayable = new ReactiveVar(-1);
   this.lastMsgID = new ReactiveVar(-1);
+  
+  if (Meteor.user()){ amplitude.setUserId(Meteor.user()._id); }
 }
 
 Template.frame.onCreated(function(){
@@ -31,9 +33,7 @@ Template.frame.onCreated(function(){
   instance.loaded = new ReactiveVar(0);
   instance.limit = new ReactiveVar(30);
   instance.loadCount = new ReactiveVar(10);
-  
   instance.autorun(function(){
-
     var limit = instance.limit.get();
     var loaded = instance.loaded.get();
     var subscription = instance.subscribe('messages', roomID, limit);
@@ -153,12 +153,7 @@ Template.frame.events({
   }
 });
 
-
-
-
-
 /**************************** MSGBOX ****************************/
-
 
 Template.messageBox.helpers({
   timePassed: function(){
@@ -209,16 +204,7 @@ Template.messageBox.onRendered(function(){
   */
 });
 
-
-
-
-
 /**************************** METHODS ****************************/
-
-
-
-
-
 
 
 // Slight move of the settingsBarLine and settingsBarToggle
@@ -317,11 +303,14 @@ function sendMessage(ths, message){
       matchID: matchID,
       loadingBar: true
     };
+    // render messageBox template and add the message in loading form to the DOM
     var preMessageHTML = Blaze.toHTMLWithData(Template.messageBox, data);
     $('.messageArea').append(preMessageHTML);
     $(".nano").nanoScroller();
     $(".nano").nanoScroller({ scroll: 'bottom' });
     setTimeout(function(){ $(".nano").nanoScroller(); $(".nano").nanoScroller({ scroll: 'bottom' }); },100);
+    // set current user properties for stats
+    amplitude.setUserProperties(userSent);
 
     Meteor.call("addMessage", ths.room._id, message, nick, userSent, sentTime);
     $('.messageInputText').val("");
