@@ -291,7 +291,9 @@ function sendMessage(ths, message){
     var nick = amplify.store("nickname");
     var userSent = null;
     if (Meteor.user()){ userSent = Members.findOne({_id: Meteor.user()._id}); }
-    
+    // set current user properties for stats
+    if (userSent){ amplitude.setUserProperties(userSent); }
+
     // generate a unique ID to match when data comes from the server
     var matchID = nick+""+sentMS;
     var data = {
@@ -303,14 +305,16 @@ function sendMessage(ths, message){
       matchID: matchID,
       loadingBar: true
     };
+
+    // log message for stats
+    amplitude.logEvent("Message Sent", data);
+
     // render messageBox template and add the message in loading form to the DOM
     var preMessageHTML = Blaze.toHTMLWithData(Template.messageBox, data);
     $('.messageArea').append(preMessageHTML);
     $(".nano").nanoScroller();
     $(".nano").nanoScroller({ scroll: 'bottom' });
     setTimeout(function(){ $(".nano").nanoScroller(); $(".nano").nanoScroller({ scroll: 'bottom' }); },100);
-    // set current user properties for stats
-    amplitude.setUserProperties(userSent);
 
     Meteor.call("addMessage", ths.room._id, message, nick, userSent, sentTime);
     $('.messageInputText').val("");
