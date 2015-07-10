@@ -1,6 +1,6 @@
 window.loadedMessages = {};
 
-Meteor.startup(function() {
+Meteor.startup(function(){
   Meteor.setInterval(function(){
     Session.set('time', new Date);
   }, 1000);
@@ -16,13 +16,7 @@ $(window).resize(function(event){
   $(".nano").nanoScroller({ scroll: 'bottom' });
 });
 
-
-
-
 /**************************** FRAME ****************************/
-
-
-
 
 Template.frame.created = function(){
   this.lastMsgTime = new ReactiveVar(-1);
@@ -166,9 +160,6 @@ Template.frame.events({
 /**************************** MSGBOX ****************************/
 
 
-
-
-
 Template.messageBox.helpers({
   timePassed: function(){
     var now = Session.get('time') || new Date;
@@ -203,6 +194,8 @@ Template.messageBox.rendered = function(){
 Template.messageBox.onRendered(function(){
   // only scroll down when scroll percent below 85
   $(".nano").nanoScroller();
+  $(".nano").nanoScroller({ scroll: 'bottom' });
+  /*
   var currentPosition = Session.get("position");
   var currentMaximum = Session.get("maximum");
   if (currentPosition==undefined || currentMaximum==undefined){ $(".nano").nanoScroller({ scroll: 'bottom' }); }
@@ -213,6 +206,7 @@ Template.messageBox.onRendered(function(){
       $(".nano").nanoScroller({ scroll: 'bottom' });
     }
   }
+  */
 });
 
 
