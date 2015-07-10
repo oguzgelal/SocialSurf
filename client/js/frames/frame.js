@@ -305,7 +305,9 @@ function sendMessage(ths, message){
     };
     // log message for stats
     amplitude.logEvent("Message Sent", data);
-    GAnalytics.event("Message Sent");
+    if (userSent){ GAnalytics.event("Message Sent", ths.room._id+"-"+userSent._id); }
+    else{ GAnalytics.event("Message Sent", ths.room._id+"-"+"anonymous"); }
+    
     // render messageBox template and add the message in loading form to the DOM
     var preMessageHTML = Blaze.toHTMLWithData(Template.messageBox, data);
     $('.messageArea').append(preMessageHTML);
