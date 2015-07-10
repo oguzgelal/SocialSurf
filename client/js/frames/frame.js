@@ -195,7 +195,7 @@ Template.messageBox.onRendered(function(){
   // only scroll down when scroll percent below 85
   $(".nano").nanoScroller();
   $(".nano").nanoScroller({ scroll: 'bottom' });
-  /*
+  /* TODO : fix this
   var currentPosition = Session.get("position");
   var currentMaximum = Session.get("maximum");
   if (currentPosition==undefined || currentMaximum==undefined){ $(".nano").nanoScroller({ scroll: 'bottom' }); }

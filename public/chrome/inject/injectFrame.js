@@ -30,6 +30,7 @@ function updateOnlineBadge(ddp, url){
 			$('.activateFrameButton').show();
 		}
 		else{
+			if ($('.activateFrameButton').hasClass('bounceInUp')){ ssOff.play(); }
 			$('.activateFrameButton').removeClass('bounceInUp');
 			$('.activateFrameButton').addClass('bounceOutDown');
 		}
@@ -53,24 +54,27 @@ function init(url, token){
 
 		var html = "\
 		<div class='backgroundFilter'></div>\
-		<div class='activateFrameButton animated bounceInUp'><img src='"+absUrlIcn+"'/></div>\
+		<div class='activateFrameButton animated'><img src='"+absUrlIcn+"'/></div>\
 		<div class='frameContainer'><iframe src='"+baseUrl+"/?url="+encodeURIComponent(url)+"&aid="+chromeAppID+"&token="+token+"'></iframe></div>";
 		$('body').append(html);
 
-		$(document).on('click', '.activateFrameButton', function(){
+		$(document).on('click', '.activateFrameButton', function(e){
 			ssClick.play();
 			$('.backgroundFilter').show();
 			$('.frameContainer').show();
-			$('.frameContainer').removeClass('animated slideInUp slideOutDown');
-			$('.frameContainer').addClass('animated slideInUp');
+			$('.frameContainer').removeClass('slideOutDown');
+			$('.frameContainer').addClass('slideInUp');
+			e.preventDefault();
+			return false;
 		});
 
-		$(document).on('click', '.backgroundFilter:not(.frameContainer)', function(){
+		$(document).on('click', '.backgroundFilter', function(){
+			var removingOnly = true;
 			$('.backgroundFilter').hide();
-			$('.frameContainer').removeClass('animated slideInUp');
-			$('.frameContainer').addClass('animated slideOutDown');
+			$('.frameContainer').removeClass('slideInUp');
+			$('.frameContainer').addClass('slideOutDown');
 			$('.frameContainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-				$('.frameContainer').hide();
+				if($('.frameContainer').hasClass('slideOutDown')){ $('.frameContainer').hide(); }
 			});
 		});
 
@@ -85,5 +89,6 @@ function init(url, token){
 				dismissed = true;
 			}
 		});
+
 	});
 }
