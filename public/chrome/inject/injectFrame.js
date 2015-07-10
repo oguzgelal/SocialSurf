@@ -24,6 +24,7 @@ ddp.connect().done(function(res) {
 function updateOnlineBadge(ddp, url){
 	ddp.call('getOnlineCount', [url]).done(function(onlineres){
 		if (onlineres > 1){
+			if (!$('.activateFrameButton').hasClass('bounceOutDown')){ ssOn.play(); }
 			ssOn.play();
 			$('.activateFrameButton').removeClass('bounceOutDown');
 			$('.activateFrameButton').addClass('bounceInUp');

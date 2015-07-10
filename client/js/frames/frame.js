@@ -281,6 +281,7 @@ function setNickname(str) {
 
 // Send the message
 function sendMessage(ths, message){
+  mixpanel.track("Message sent");
   var sentTime = new Date();
   var sentMS = sentTime.getTime();
   if (message.length > 0){
