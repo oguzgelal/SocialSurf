@@ -50,7 +50,7 @@ Meteor.methods({
       token += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     var nowDate = new Date();
-    var validFor = 60000; // 1 minute
+    var validFor = 10800000; // 3 hours
     var expiration = nowDate.getTime()+validFor;
 
     Tokens.insert({
