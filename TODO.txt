@@ -1,7 +1,7 @@
 -- before publish --
 TODO : private beta system
-TODO : Better icon (chrome app)
-TODO : add hello@socialsurf.io mail to landing
+
+!!!!!!!! TODO : MESSAGE CONCAT BUG: Message concats with the previous one after someone writes. !!!!!!!!
 
 
 -- 1 after publish --

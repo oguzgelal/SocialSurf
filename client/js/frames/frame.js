@@ -43,6 +43,23 @@ Template.frame.onCreated(function(){
   });
   instance.posts = function(){
     return Messages.find({},{limit: instance.limit.get(), sort:{date:1}}).map(function(message, seqID){
+
+      // TODO : this works but it gets re-rendered every time a message appears.
+      // Increase the limit by one each time a new message is received
+      if (!loadedMessages[message._id]){
+        loadedMessages[message._id] = message;
+        loadedMessages[message._id].limitUpdate = false;
+      }
+      var msgSentMs = message.date.getTime();
+      var currentDate = new Date();
+      var currentMs = currentDate.getTime();
+      var msgOffset = currentMs-msgSentMs;
+      var allowedOffset = 10000;
+      if (msgOffset<=allowedOffset && !loadedMessages[message._id].limitUpdate){
+        instance.limit.set(instance.limit.get()+1);
+        loadedMessages[message._id].limitUpdate = true;
+      }
+
       message.seqID = seqID;
       message.concat = false;
       message.concatSeqID = -1;
@@ -63,6 +80,7 @@ Template.frame.onCreated(function(){
             var prevMsg = loadedMessages[i];
             if(!prevMsg.concat){
               message.concatSeqID=prevMsg.seqID;
+              message.concatMsgID=prevMsg._id;
               break;
             }
           }
@@ -174,11 +192,15 @@ Template.messageBox.helpers({
 });
 
 Template.messageBox.rendered = function(){
+
+  //console.log(Template["frame"]);
+
   if (this.data.concat){
     var seqID = this.data.seqID;
     var concatSeqID = this.data.concatSeqID;
+    var concatMsgID = this.data.concatMsgID;
     var message = this.data.message;
-    $('.msgbox#'+concatSeqID).find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
+    $('.msgbox#'+concatSeqID+'[data-id="'+concatMsgID+'"]').find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
     this.firstNode.remove();
   }
   var matchID = this.data.nick+""+this.data.date.getTime();
