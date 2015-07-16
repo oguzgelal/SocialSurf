@@ -235,7 +235,8 @@
     height: 50px !important;
     line-height: 50px !important;
     overflow: hidden;
-    padding: 0 10px !important;
+    padding: 0 10px;
+    padding-right: 50px;
     margin: 0px !important;
     border: none !important; 
     font-size: 15px !important;
@@ -277,6 +278,7 @@
     line-height: 50px;
     color: white;
     .transition(all 0.2s ease);
+
   }
   .sendButton:hover {
     text-shadow: 0 0 3px lightgray;
@@ -407,6 +409,8 @@
           padding-top: 5px;
           color: @text-dark;
           font-size: 16px;
+          word-wrap: break-word !important;
+          word-break: break-all !important;
 
           .msgbox-appended {
             margin-top: 5px;

@@ -43,7 +43,6 @@ Template.frame.onCreated(function(){
   });
   instance.posts = function(){
     return Messages.find({},{limit: instance.limit.get(), sort:{date:1}}).map(function(message, seqID){
-
       // TODO : this works but it gets re-rendered every time a message appears.
       // Increase the limit by one each time a new message is received
       if (!loadedMessages[message._id]){
@@ -59,11 +58,10 @@ Template.frame.onCreated(function(){
         instance.limit.set(instance.limit.get()+1);
         loadedMessages[message._id].limitUpdate = true;
       }
-
+      // concat
       message.seqID = seqID;
       message.concat = false;
       message.concatSeqID = -1;
-      // concat
       if (loadedMessages[seqID-1]){
         var lastMsg = loadedMessages[seqID-1];
         var maxGapTime = 120000;
