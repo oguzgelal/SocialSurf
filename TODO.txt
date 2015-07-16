@@ -1,7 +1,8 @@
 -- before publish --
-TODO : private beta system
+TODO : private beta system ??
+TODO : token leakage !!!
 
-!!!!!!!! TODO : MESSAGE CONCAT BUG: Message concats with the previous one after someone writes. !!!!!!!!
+?? TODO : MESSAGE CONCAT BUG: Message concats with the previous one after someone writes. ??
 
 
 -- 1 after publish --

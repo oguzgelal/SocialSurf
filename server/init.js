@@ -34,7 +34,8 @@ Meteor.startup(function() {
 	});
 
 
-	// Reset online counts on server startup
+	// Reset onlines and tokens on server startup
 	Online.remove({});
+	Tokens.remove({});
 
 });

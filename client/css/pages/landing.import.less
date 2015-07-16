@@ -599,16 +599,15 @@ body.landingPage {
 }
 
 /*** buttons ***/
-.landingBarFeedback {
+.landingBarItem {
 	position: absolute;
-	top: 55px;
 	left: 0;
 	width: 20px;
 	height: 25px;
 	border: 1px solid white;
 	border-left: none;
-	background-color: @lightblue;
-	@media @xs-display{ background-color: rgba(41, 128, 185, .5); }
+	//background-color: @lightblue;
+	//@media @xs-display{ background-color: rgba(41, 128, 185, .5); }
 	font-size: 22px;
 	color: white;
 	padding: 10px;
@@ -621,16 +620,13 @@ body.landingPage {
 	-moz-border-bottom-right-radius: 5px;
 	-o-border-bottom-right-radius: 5px;
 	border-bottom-right-radius: 5px;
-	z-index: 199999999;
+	z-index: 199999999999;
 	.transition(all 0.2s ease);
 }
-.landingBarFeedback:hover {
+.landingBarItem:hover {
 	cursor: pointer;
-	padding-right: 80px;
 	.transition(all 0.2s ease);
-	background-color: rgb(41, 128, 185);
 	i:after {
-		content: "Feedback";
 		font-size: 16px;
 		margin-left: 8px;
 		height: 23px;
@@ -638,43 +634,56 @@ body.landingPage {
 		vertical-align: top;
 	}
 }
-.landingBarContact {
-	position: absolute;
-	top: 113px;
-	left: 0;
-	width: 20px;
-	height: 25px;
-	border: 1px solid white;
-	border-left: none;
+
+.landingBarFacebook {
+	top: 170px;
+	background-color: #3b5998;
+}
+.landingBarFacebook:hover {
+	padding-right: 125px;
+	i:after {
+		content: "/socialsurfapp";
+		margin-left: 5px;
+	}
+}
+
+.landingBarTwitter {
+	top: 227px;
+	background-color: #55acee;
+}
+.landingBarTwitter:hover {
+	padding-right: 130px;
+	i:after {
+		content: "/socialsurfapp";
+		margin-left: 5px;
+	}
+}
+
+.landingBarFeedback {
+	top: 55px;
 	background-color: @lightblue;
 	@media @xs-display{ background-color: rgba(41, 128, 185, .5); }
-	font-size: 22px;
-	color: white;
-	padding: 8px;
+}
+.landingBarFeedback:hover {
+	padding-right: 85px;
+	background-color: rgb(41, 128, 185);
+	i:after {
+		content: "Feedback";
+	}
+}
+
+.landingBarContact {
+	top: 113px;
+	background-color: @lightblue;
+	@media @xs-display{ background-color: rgba(41, 128, 185, .5); }
+	padding-left: 8px;
 	padding-right: 13px;
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-top-right-radius: 5px;
-	-o-border-top-right-radius: 5px;
-	border-top-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-bottom-right-radius: 5px;
-	-o-border-bottom-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-	z-index: 199999999;
-	.transition(all 0.2s ease);
 }
 .landingBarContact:hover {
-	cursor: pointer;
-	padding-right: 165px;
-	.transition(all 0.2s ease);
+	padding-right: 168px;
 	background-color: rgb(41, 128, 185);
 	i:after {
 		content: "hello@socialsurf.io";
-		font-size: 16px;
-		margin-left: 8px;
-		height: 23px;
-		line-height: 23px;
-		vertical-align: top;
 	}
 }
 /*** buttons ***/
