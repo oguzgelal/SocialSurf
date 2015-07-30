@@ -15,13 +15,12 @@ document.getElementsByTagName('head')[0].appendChild(injectFrameCSS);
 
 var MeteorDdp = function(wsUri) {
 	this.VERSIONS = ["pre1"];
-
 	this.wsUri = wsUri;
 	this.sock;
-  this.defs = {};         // { deferred_id => deferred_object }
-  this.subs = {};         // { pub_name => deferred_id }
-  this.watchers = {};     // { coll_name => [cb1, cb2, ...] }
-  this.collections = {};  // { coll_name => {docId => {doc}, docId => {doc}, ...} }
+	this.defs = {};
+	this.subs = {};
+	this.watchers = {};
+	this.collections = {};
 };
 
 MeteorDdp.prototype._Ids = function() {
@@ -62,56 +61,48 @@ MeteorDdp.prototype.connect = function() {
 			self._resolveCall(data);
 			break;
 			case 'updated':
-        // TODO method call was acked
-        break;
-        case 'changed':
-        self._changeDoc(data);
-        break;
-        case 'added':
-        self._addDoc(data);
-        break;
-        case 'removed':
-        self._removeDoc(data);
-        break;
-        case 'ready':
-        self._resolveSubs(data);
-        break;
-        case 'nosub':
-        self._resolveNoSub(data);
-        break;
-        case 'addedBefore':
-        self._addDoc(data);
-        break;
-        case 'movedBefore':
-        // TODO
-        break;
-    }
-};
-return conn.promise();
+			break;
+			case 'changed':
+			self._changeDoc(data);
+			break;
+			case 'added':
+			self._addDoc(data);
+			break;
+			case 'removed':
+			self._removeDoc(data);
+			break;
+			case 'ready':
+			self._resolveSubs(data);
+			break;
+			case 'nosub':
+			self._resolveNoSub(data);
+			break;
+			case 'addedBefore':
+			self._addDoc(data);
+			break;
+			case 'movedBefore':
+			break;
+		}
+	};
+	return conn.promise();
 };
 
 MeteorDdp.prototype._resolveNoSub = function(data) {
 	if (data.error) {
 		var error = data.error;
 		this.defs[data.id].reject(error.reason || 'Subscription not found');
-	} else {
-		this.defs[data.id].resolve();
 	}
+	else { this.defs[data.id].resolve(); }
 };
 
 MeteorDdp.prototype._resolveCall = function(data) {
-	if (data.error) {
-		this.defs[data.id].reject(data.error.reason);
-	} else if (typeof data.result !== 'undefined') {
-		this.defs[data.id].resolve(data.result);
-	}
+	if (data.error){ this.defs[data.id].reject(data.error.reason); }
+	else if (typeof data.result !== 'undefined'){ this.defs[data.id].resolve(data.result); }
 };
 
 MeteorDdp.prototype._resolveSubs = function(data) {
 	var subIds = data.subs;
-	for (var i = 0; i < subIds.length; i++) {
-		this.defs[subIds[i]].resolve();
-	}
+	for (var i = 0; i < subIds.length; i++){ this.defs[subIds[i]].resolve(); }
 };
 
 MeteorDdp.prototype._changeDoc = function(msg) {
@@ -120,18 +111,17 @@ MeteorDdp.prototype._changeDoc = function(msg) {
 	var fields = msg.fields;
 	var cleared = msg.cleared;
 	var coll = this.collections[collName];
-
-	if (fields) {
-		for (var k in fields) {
+	if (fields){
+		for (var k in fields){
 			coll[id][k] = fields[k];
 		}
-	} else if (cleared) {
+	}
+	else if (cleared) {
 		for (var i = 0; i < cleared.length; i++) {
 			var fieldName = cleared[i];
 			delete coll[id][fieldName];
 		}
 	}
-
 	var changedDoc = coll[id];
 	this._notifyWatchers(collName, changedDoc, id, msg.msg);
 };
@@ -142,57 +132,42 @@ MeteorDdp.prototype._addDoc = function(msg) {
 	if (!this.collections[collName]) {
 		this.collections[collName] = {};
 	}
-  /* NOTE: Ordered docs will have a 'before' field containing the id of
-   * the doc after it. If it is the last doc, it will be null.
-   */
-   this.collections[collName][id] = msg.fields;
-
-   var changedDoc = this.collections[collName][id];
-   this._notifyWatchers(collName, changedDoc, id, msg.msg);
+	this.collections[collName][id] = msg.fields;
+	var changedDoc = this.collections[collName][id];
+	this._notifyWatchers(collName, changedDoc, id, msg.msg);
 };
 
 MeteorDdp.prototype._removeDoc = function(msg) {
 	var collName = msg.collection;
 	var id = msg.id;
 	var doc = this.collections[collName][id];
-
 	var docCopy = JSON.parse(JSON.stringify(doc));
 	delete this.collections[collName][id];
 	this._notifyWatchers(collName, docCopy, id, msg.msg);
 };
 
 MeteorDdp.prototype._notifyWatchers = function(collName, changedDoc, docId, message) {
-  changedDoc = JSON.parse(JSON.stringify(changedDoc)); // make a copy
-  changedDoc._id = docId; // id might be useful to watchers, attach it.
-
-  if (!this.watchers[collName]) {
-  	this.watchers[collName] = [];
-  } else {
-  	for (var i = 0; i < this.watchers[collName].length; i++) {
-  		this.watchers[collName][i](changedDoc, message);
-  	}
-  }
+	changedDoc = JSON.parse(JSON.stringify(changedDoc));
+	changedDoc._id = docId;
+	if (!this.watchers[collName]) { this.watchers[collName] = []; }
+	else {
+		for (var i = 0; i < this.watchers[collName].length; i++) {
+			this.watchers[collName][i](changedDoc, message);
+		}
+	}
 };
 
 MeteorDdp.prototype._deferredSend = function(actionType, name, params) {
 	var id = this._Ids.next();
 	this.defs[id] = new $.Deferred();
-
 	var args = params || [];
-
 	var o = {
 		msg: actionType,
 		params: args,
 		id: id
 	};
-
-	if (actionType === 'method') {
-		o.method = name;
-	} else if (actionType === 'sub') {
-		o.name = name;
-		this.subs[name] = id;
-	}
-
+	if (actionType === 'method'){ o.method = name; }
+	else if (actionType === 'sub'){ o.name = name; this.subs[name] = id; }
 	this.send(o);
 	return this.defs[id].promise();
 };
@@ -207,23 +182,17 @@ MeteorDdp.prototype.subscribe = function(pubName, params) {
 
 MeteorDdp.prototype.unsubscribe = function(pubName) {
 	this.defs[id] = new $.Deferred();
-	if (!this.subs[pubName]) {
-		this.defs[id].reject(pubName + " was never subscribed");
-	} else {
+	if (!this.subs[pubName]) { this.defs[id].reject(pubName + " was never subscribed"); }
+	else {
 		var id = this.subs[pubName];
-		var o = {
-			msg: 'unsub',
-			id: id
-		};
+		var o = { msg: 'unsub', id: id };
 		this.send(o);
 	}
 	return this.defs[id].promise();
 };
 
 MeteorDdp.prototype.watch = function(collectionName, cb) {
-	if (!this.watchers[collectionName]) {
-		this.watchers[collectionName] = [];
-	}
+	if (!this.watchers[collectionName]){ this.watchers[collectionName] = []; }
 	this.watchers[collectionName].push(cb);
 };
 
@@ -275,6 +244,7 @@ ddp.connect().done(function(res) {
 		});
 	});
 });
+
 function updateOnlineBadge(ddp, url){
 	ddp.call('getOnlineCount', [url]).done(function(onlineres){
 		if (onlineres > 1){
@@ -291,7 +261,7 @@ function updateOnlineBadge(ddp, url){
 		}
 	});
 }
-/****** Injection control ******/
+
 function init(url, token){
 	$(document).ready(function(){
 		var dismissed = false;
