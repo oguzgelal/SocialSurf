@@ -1,13 +1,13 @@
 var animateCSS = document.createElement('link');
 animateCSS.setAttribute('rel', 'stylesheet');
 animateCSS.setAttribute('type', 'text/css');
-animateCSS.setAttribute('href', 'https://socialsurf.io/assets/embed/animate.css');
+animateCSS.setAttribute('href', 'https://socialsurf.io/embed/embed/animate.css');
 document.getElementsByTagName('head')[0].appendChild(animateCSS);
 
 var injectFrameCSS = document.createElement('link');
 injectFrameCSS.setAttribute('rel', 'stylesheet');
 injectFrameCSS.setAttribute('type', 'text/css');
-injectFrameCSS.setAttribute('href', 'https://socialsurf.io/assets/embed/injectFrame.css');
+injectFrameCSS.setAttribute('href', 'https://socialsurf.io/embed/embed/injectFrame.css');
 document.getElementsByTagName('head')[0].appendChild(injectFrameCSS);
 
 /*****************************DDP*CLIENT*********************************************/
@@ -296,10 +296,10 @@ function init(url, token){
 	$(document).ready(function(){
 		var dismissed = false;
 		var iconHover = false;
-		var absUrlIcn = 'https://socialsurf.io/assets/embed/ssicn.png';
-		var absUrlSoundOn = 'https://socialsurf.io/assets/embed/ss_on.mp3';
-		var absUrlSoundOff = 'https://socialsurf.io/assets/embed/ss_off.mp3';
-		var absUrlSoundClick = 'https://socialsurf.io/assets/embed/ss_click.mp3';
+		var absUrlIcn = 'https://socialsurf.io/embed/embed/ssicn.png';
+		var absUrlSoundOn = 'https://socialsurf.io/embed/embed/ss_on.mp3';
+		var absUrlSoundOff = 'https://socialsurf.io/embed/embed/ss_off.mp3';
+		var absUrlSoundClick = 'https://socialsurf.io/embed/embed/ss_click.mp3';
 		ssOn = new Audio(absUrlSoundOn);
 		ssOff = new Audio(absUrlSoundOff);
 		ssClick = new Audio(absUrlSoundClick);
