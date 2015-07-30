@@ -1,169 +1,207 @@
 <template id="landing" name="landing">
 	
 	<!--********* TOP MENU *********-->
-	<!-- landing bar toggle 
+	<!-- landing bar toggle -->
 	<div class="landingBar">
 		<div class="landingRow">
-			<div class="landingSubRow landingLabel">Nickname</div>
+			<div class="landingSubRow landingLabel">Get the extension</div>
 			<div class="landingSubRow">
-				Lorem Ipsum
+				<ul class="landingSubRowList">
+					<li><a href="#">Chrome Extension</a></li>
+					<li><a href="#">Firefox Extension</a></li>
+					<li><a href="#">Safari Extension</a></li>
+					<li><a href="#">Opera Extension</a></li>
+				</ul>
 			</div>
 		</div>
+
+		<div class="landingRow">
+			<div class="landingSubRow landingLabel">Get the app</div>
+			<div class="landingSubRow">
+				<ul class="landingSubRowList">
+					<li><a href="#">Android Application</a></li>
+					<li><a href="#">iOS Application</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="landingRow">
+			<div class="landingSubRow landingLabel">Developers</div>
+			<div class="landingSubRow">
+				<ul class="landingSubRowList">
+					<li><a href="#">Dev Login</a></li>
+					<li><a href="#">Register your site</a></li>
+					<li><a href="#">FAQ</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="landingRow">
+			<div class="landingSubRow landingLabel">About</div>
+			<div class="landingSubRow">
+				<ul class="landingSubRowList">
+					<li><a href="#">Get in touch</a></li>
+					<li><a href="#">Give us feedback</a></li>
+					<li><a href="#">Press release</a></li>
+					<li><a href="#">FAQ</a></li>
+				</ul>
+			</div>
+		</div>
+
 	</div>
 	<div class="landingBarLine"></div>
 	<div class="landingBarToggle">
 		<i class="landingIcon fa fa-bars"></i>
 		<i class="closeIcon fa fa-times"></i>
 	</div>
--->
-<!-- feedback -->
-<div class="landingBarItem landingBarFeedback"><i class="fa fa-smile-o" onClick="window.open('http://socialsurf.io/feedback')"></i></div>
-<!-- contact -->
-<div class="landingBarItem landingBarContact"><i class="fa fa-envelope" onClick="window.open('mailto:hello@socialsurf.io')"></i></div>
-<!-- facebook -->
-<div class="landingBarItem landingBarFacebook"><i class="fa fa-facebook" onClick="window.open('https://facebook.com/socialsurfapp')"></i></div>
-<!-- twitter -->
-<div class="landingBarItem landingBarTwitter"><i class="fa fa-twitter" onClick="window.open('https://twitter.com/socialsurfapp')"></i></div>
-<!--****************************-->
+	<!-- feedback -->
+	<div class="landingBarItem landingBarFeedback"><i class="fa fa-smile-o" onClick="window.open('http://socialsurf.io/feedback')"></i></div>
+	<!-- contact -->
+	<div class="landingBarItem landingBarContact"><i class="fa fa-envelope" onClick="window.open('mailto:hello@socialsurf.io')"></i></div>
+	<!-- facebook -->
+	<div class="landingBarItem landingBarFacebook"><i class="fa fa-facebook" onClick="window.open('https://facebook.com/socialsurfapp')"></i></div>
+	<!-- twitter -->
+	<div class="landingBarItem landingBarTwitter"><i class="fa fa-twitter" onClick="window.open('https://twitter.com/socialsurfapp')"></i></div>
+	<!--****************************-->
 
 
-<div class="landing-line"></div>
-<div class="landing-container">
-	<!-- title -->
-	<div class="landing-title">
-		<div class="title-img"><img src="/assets/logo-icon.png" class="animated infinite pulse" alt="SocialSurf Icon"></div>
-		<div class="title-text">Chat with people on this page</div>
-		<div class="title-desc">Just type your message and hit enter</div>
-	</div>
-	<!-- chat -->
-	<div class="landing-chat-container"><div class="landing-chat">{{>frame}}</div></div>
-	<!-- info -->
-	<div class="landing-info line-info-video">
-		<div class="landing-info-text">
-			<div class="line1">did you know that you can do this</div>
-			<div class="line2">for every website</div>
-			<div class="line-video">
-				<div class="line-video-thumb">
-					<div class="line-video-icon"><i class="fa fa-play-circle-o"></i></div>
-					<div class="line-video-text">Watch the video</div>	
+	<div class="landing-line"></div>
+	<div class="landing-container">
+		<!-- title -->
+		<div class="landing-title">
+			<div class="title-img"><img src="/assets/logo-icon.png" class="animated infinite pulse" alt="SocialSurf Icon"></div>
+			<div class="title-text">Chat with people on this page</div>
+			<div class="title-desc">Just type your message and hit enter</div>
+		</div>
+		<!-- chat -->
+		<div class="landing-chat-container"><div class="landing-chat">{{>frame}}</div></div>
+		<!-- info -->
+		<div class="landing-info line-info-video">
+			<div class="landing-info-text">
+				<div class="line1">did you know that you can do this</div>
+				<div class="line2">for every website</div>
+				<div class="line-video">
+					<div class="line-video-thumb">
+						<div class="line-video-icon"><i class="fa fa-play-circle-o"></i></div>
+						<div class="line-video-text">Watch the video</div>	
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- animation -->
-	<div class="landing-animation clearfix">
-		<div class="landing-br-inline landing-br-sidepane">
-			<div class="landing-br-container">
-				<img class="anim-br anim-br-light" src="/assets/landing/browser-light.png">
-				<img class="anim-br anim-br-dark" src="/assets/landing/browser-dark.png">
-				<img class="anim-br-button animated infinite pulse" src="/assets/landing/browser-button.png">	
-				<img class="anim-arrow" src="/assets/landing/arrow.png">
-				<img class="anim-ss-wireframe" src="/assets/landing/ss-wireframe.png">
+		<!-- animation -->
+		<div class="landing-animation clearfix">
+			<div class="landing-br-inline landing-br-sidepane">
+				<div class="landing-br-container">
+					<img class="anim-br anim-br-light" src="/assets/landing/browser-light.png">
+					<img class="anim-br anim-br-dark" src="/assets/landing/browser-dark.png">
+					<img class="anim-br-button animated infinite pulse" src="/assets/landing/browser-button.png">	
+					<img class="anim-arrow" src="/assets/landing/arrow.png">
+					<img class="anim-ss-wireframe" src="/assets/landing/ss-wireframe.png">
+				</div>
+			</div>
+			<div class="landing-br-inline landing-br-text">
+				<div class="landing-br-f landing-br-f1">We inject <b class="sweetblue reveal-arrow">a button</b> on your browser window with our extensions. It pops up if there are other people online on the page. <div class="landing-text-gap"></div> Clicking on it opens up the <b class="sweetblue">chat console</b>.</div>
+				<div class="landing-br-f landing-br-f2">The console connects you to people who are <b class="sweetblue">online</b>. <div class="landing-text-gap"></div> Use <b class="sweetblue">Social Surf</b> anonymously, or login with <i style="color: #3b5998;" class="fa fa-facebook-square"></i>, <i style="color: #55acee;" class="fa fa-twitter-square"></i> or <i style="color: #dd4b39;" class="fa fa-google-plus-square"></i></div>
 			</div>
 		</div>
-		<div class="landing-br-inline landing-br-text">
-			<div class="landing-br-f landing-br-f1">We inject <b class="sweetblue reveal-arrow">a button</b> on your browser window with our extensions. It pops up if there are other people online on the page. <div class="landing-text-gap"></div> Clicking on it opens up the <b class="sweetblue">chat console</b>.</div>
-			<div class="landing-br-f landing-br-f2">The console connects you to people who are <b class="sweetblue">online</b>. <div class="landing-text-gap"></div> Use <b class="sweetblue">Social Surf</b> anonymously, or login with <i style="color: #3b5998;" class="fa fa-facebook-square"></i>, <i style="color: #55acee;" class="fa fa-twitter-square"></i> or <i style="color: #dd4b39;" class="fa fa-google-plus-square"></i></div>
+		<!-- download -->
+		<div class="landing-info landing-download">
+			<div class="landing-info-text">
+				<div class="line1">get the extension</div>
+				<div class="line2">start using immediately</div>
+			</div>
 		</div>
-	</div>
-	<!-- download -->
-	<div class="landing-info landing-download">
-		<div class="landing-info-text">
-			<div class="line1">get the extension</div>
-			<div class="line2">start using immediately</div>
-		</div>
-	</div>
-	<!-- timeline -->
-	<div class="landing-timeline-container">
+		<!-- timeline -->
+		<div class="landing-timeline-container">
 
-		<div class="landing-timeline landing-timeline-available">
-			<div class="landing-timeline-title">Available</div>
-			<ul class="landing-product-list">
-				<li class="landing-product landing-product-chrome">
-					<div class="landing-product-tile">
-						<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/chrome.png"></div>
-						<div class="landing-tile-row landing-product-title">Chrome Extension</div>	
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="landing-timeline landing-timeline-verysoon">
-			<div class="landing-timeline-title">Very Soon</div>
-			<ul class="landing-product-list">
-				<li class="landing-product">
-					<div class="landing-product-tile landing-product-firefox">
-						<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/firefox.png"></div>
-						<div class="landing-tile-row landing-product-title">Firefox Extension</div>	
-					</div>
-				</li>
-				<li class="landing-product">
-					<div class="landing-product-tile landing-product-safari">
-						<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/safari.png"></div>
-						<div class="landing-tile-row landing-product-title">Safari Extension</div>	
-					</div>
-				</li>
-				<li class="landing-product landing-product-opera">
-					<div class="landing-product-tile">
-						<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/opera.png"></div>
-						<div class="landing-tile-row landing-product-title">Opera Extension</div>	
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="landing-timeline landing-timeline-sooner">
-			<div class="landing-timeline-title">Soon</div>
-			<ul class="landing-product-list">
-				<li class="landing-product landing-product-web">
-					<div class="landing-product-tile">
-						<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/ssweb.png"></div>
-						<div class="landing-tile-row landing-product-title">SS Web Interface</div>	
-					</div>
-				</li>
-				<li class="landing-product landing-product-dev">
-					<div class="landing-product-tile">
-						<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/ssdev.png"></div>
-						<div class="landing-tile-row landing-product-title">SS for Developers</div>	
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="landing-timeline landing-timeline-later">
-			<div class="landing-timeline-title">Later</div>
-			<ul class="landing-product-list">
-				<li class="landing-product landing-product-android">
-					<div class="landing-product-tile">
-						<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/android.png"></div>
-						<div class="landing-tile-row landing-product-title">SS for Android</div>	
-					</div>
-				</li>
-				<li class="landing-product landing-product-ios">
-					<div class="landing-product-tile">
-						<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/ios.png"></div>
-						<div class="landing-tile-row landing-product-title">SS for iPhone/iPad<br></div>	
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<!-- footer -->
-	<div class="landing-footer">
-		<div class="landing-footer-cont landing-footer-cont-left">
-			<div class="landing-notify-label">Would you like to get notified ?</div>
-			<div class="landing-mailinput">
-				<input class="landing-notify-txt landing-notify-txt-footer" type="text" placeholder="drop your email...">
-				<div class="landing-notify-btn landing-notify-btn-footer">get updated</div>
+			<div class="landing-timeline landing-timeline-available">
+				<div class="landing-timeline-title">Available</div>
+				<ul class="landing-product-list">
+					<li class="landing-product landing-product-chrome">
+						<div class="landing-product-tile">
+							<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/chrome.png"></div>
+							<div class="landing-tile-row landing-product-title">Chrome Extension</div>	
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="landing-timeline landing-timeline-verysoon">
+				<div class="landing-timeline-title">Very Soon</div>
+				<ul class="landing-product-list">
+					<li class="landing-product">
+						<div class="landing-product-tile landing-product-firefox">
+							<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/firefox.png"></div>
+							<div class="landing-tile-row landing-product-title">Firefox Extension</div>	
+						</div>
+					</li>
+					<li class="landing-product">
+						<div class="landing-product-tile landing-product-safari">
+							<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/safari.png"></div>
+							<div class="landing-tile-row landing-product-title">Safari Extension</div>	
+						</div>
+					</li>
+					<li class="landing-product landing-product-opera">
+						<div class="landing-product-tile">
+							<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/opera.png"></div>
+							<div class="landing-tile-row landing-product-title">Opera Extension</div>	
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="landing-timeline landing-timeline-sooner">
+				<div class="landing-timeline-title">Soon</div>
+				<ul class="landing-product-list">
+					<li class="landing-product landing-product-web">
+						<div class="landing-product-tile">
+							<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/ssweb.png"></div>
+							<div class="landing-tile-row landing-product-title">SS Web Interface</div>	
+						</div>
+					</li>
+					<li class="landing-product landing-product-dev">
+						<div class="landing-product-tile">
+							<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/ssdev.png"></div>
+							<div class="landing-tile-row landing-product-title">SS for Developers</div>	
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="landing-timeline landing-timeline-later">
+				<div class="landing-timeline-title">Later</div>
+				<ul class="landing-product-list">
+					<li class="landing-product landing-product-android">
+						<div class="landing-product-tile">
+							<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/android.png"></div>
+							<div class="landing-tile-row landing-product-title">SS for Android</div>	
+						</div>
+					</li>
+					<li class="landing-product landing-product-ios">
+						<div class="landing-product-tile">
+							<div class="landing-tile-row landing-product-visual"><img src="/assets/landing/support/ios.png"></div>
+							<div class="landing-tile-row landing-product-title">SS for iPhone/iPad<br></div>	
+						</div>
+					</li>
+				</ul>
 			</div>
 		</div>
-		<div class="landing-footer-cont landing-footer-cont-right">
-			<img class="landing-footer-logo" src="/assets/landing/logo.png" alt="Social Surf Logo">
+		<!-- footer -->
+		<div class="landing-footer">
+			<div class="landing-footer-cont landing-footer-cont-left">
+				<div class="landing-notify-label">Would you like to get notified ?</div>
+				<div class="landing-mailinput">
+					<input class="landing-notify-txt landing-notify-txt-footer" type="text" placeholder="drop your email...">
+					<div class="landing-notify-btn landing-notify-btn-footer">get updated</div>
+				</div>
+			</div>
+			<div class="landing-footer-cont landing-footer-cont-right">
+				<img class="landing-footer-logo" src="/assets/landing/logo.png" alt="Social Surf Logo">
+			</div>
+		</div>
+		<!-- video player -->
+		<div class="landing-video-player">
+			<i class="fa fa-times landing-video-close"></i>
+			<div class="landing-video-container"></div>
 		</div>
 	</div>
-	<!-- video player -->
-	<div class="landing-video-player">
-		<i class="fa fa-times landing-video-close"></i>
-		<div class="landing-video-container"></div>
-	</div>
-</div>
 
 
 

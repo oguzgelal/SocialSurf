@@ -583,7 +583,7 @@ body.landingPage {
 	left: 0px;
 	width: 100%;
 	background-color: @lightblue;
-	z-index: 1999999998;
+	z-index: 199999999999998;
 	padding-left: 40px;
 	.transition(all 0.2s ease);
 }
@@ -695,7 +695,7 @@ body.landingPage {
 	left: 0;
 	width: 20px;
 	height: 25px;
-	border: 1px solid white;
+	
 	border-left: none;
 	border-top: none;
 	padding: 8px;
@@ -704,7 +704,7 @@ body.landingPage {
 	background-color: @lightblue;
 	font-size: 22px;
 	color: white;
-	z-index: 1999999999;
+	z-index: 19999999999999999;
 	-webkit-border-bottom-right-radius: 5px;
 	-moz-border-bottom-right-radius: 5px;
 	-o-border-bottom-right-radius: 5px;
@@ -720,16 +720,33 @@ body.landingPage {
 .landingBarToggle .closeIcon {
 	display: none;
 }
+
+ul.landingSubRowList {
+	color: white;
+	margin: 0;
+	padding: 0;
+	li {
+		font-size: 12px;
+		list-style: none;
+		a{ color: white; }	
+	}
+}
+
 .landingRow {
 	padding-top: 20px;
-	margin-left: 20px;
+	margin-left: 30px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	display: inline-block;
+	vertical-align: top;
+
 }
 .landingRow:last-of-type {
 	padding-bottom: 30px;
 }
 .landingLabel {
 	color: white;
-	font-size: 13px;
-	font-weight: 300;
-	margin-bottom: 2px;
+	font-size: 15px;
+	font-weight: bolder;
+	margin-bottom: 4px;
 }

@@ -190,9 +190,7 @@ Template.messageBox.helpers({
 });
 
 Template.messageBox.rendered = function(){
-
   //console.log(Template["frame"]);
-
   if (this.data.concat){
     var seqID = this.data.seqID;
     var concatSeqID = this.data.concatSeqID;
@@ -229,10 +227,10 @@ Template.messageBox.onRendered(function(){
 // Slight move of the settingsBarLine and settingsBarToggle
 function settingsBarAnimate(str) {
   if (str == "down" && !isSettingBarOpen()) {
-    $('.settingsBarToggle').css("padding-top", "17px");
+    $('.settingsBarToggle').css("padding-top", "7px");
     $('.settingsBarLine').height(12);
   } else if (str == "up" && !isSettingBarOpen()) {
-    $('.settingsBarToggle').css("padding-top", "10px");
+    $('.settingsBarToggle').css("padding-top", "4px");
     $('.settingsBarLine').height(10);
   }
 }
