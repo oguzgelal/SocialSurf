@@ -34,14 +34,14 @@ console.log("de-jquerify...");
 		}
 	}
 })("docReady", window);
-function addClass(elm, className){
+function AAaddClass(elm, className){
 	elm.className = elm.className.replace(" "+className,"");
 	elm.className = elm.className+" "+className;
 }
-function removeClass(elm, className){
+function AAremoveClass(elm, className){
 	elm.className=elm.className.replace(" "+className,"");
 }
-function hasClass(elm, className){
+function AAhasClass(elm, className){
 	return ((" "+elm.className+" ").replace(/[\n\t]/g," ").indexOf(" "+className+" ") > -1); 
 }
 
@@ -272,16 +272,16 @@ function updateOnlineBadge(ddp, url){
 	ddp.call('getOnlineCount', [url]).done(function(onlineres){
 		var activateFrameButton = document.getElementById('activateFrameButton');
 		if (onlineres > 1){
-			if(!hasClass(activateFrameButton, 'bounceOutDown')){ ssOn.play(); }
+			if(!AAhasClass(activateFrameButton, 'bounceOutDown')){ ssOn.play(); }
 			ssOn.play();
-			removeClass(activateFrameButton, 'bounceOutDown');
-			addClass(activateFrameButton, 'bounceInUp');
-			activateFrameButton.style.display = "";
+			AAremoveClass(activateFrameButton, 'bounceOutDown');
+			AAaddClass(activateFrameButton, 'bounceInUp');
+			activateFrameButton.style.display = "block";
 		}
 		else{
-			if (hasClass(activateFrameButton, 'bounceInUp')){ ssOff.play(); }
-			removeClass(activateFrameButton, 'bounceInUp');
-			addClass(activateFrameButton, 'bounceOutDown');
+			if (AAhasClass(activateFrameButton, 'bounceInUp')){ ssOff.play(); }
+			AAremoveClass(activateFrameButton, 'bounceInUp');
+			AAaddClass(activateFrameButton, 'bounceOutDown');
 		}
 	});
 }
