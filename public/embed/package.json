@@ -1,7 +1,7 @@
 {
   "name": "embed",
-  "version": "1.0.0",
-  "versiondashed": "1-0-0",
+  "version": "1.0.1",
+  "versiondashed": "1-0-1",
   "description": "This script is executed to initialize socialsurf on a webpage",
   "author": "Oguz Gelal",
   "devDependencies": {
