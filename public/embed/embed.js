@@ -1,4 +1,3 @@
-console.log("Deferred in JS");
 /* some jQuery's functions in plain js */
 /* deferred */
 (function(global){
@@ -502,38 +501,39 @@ function init(url, token){
 		document.body.appendChild(backgroundFilter);
 		document.body.appendChild(activateFrameButton);
 		document.body.appendChild(frameContainer);
-		/*
-		var html = "\
-		<div class='backgroundFilter' id='backgroundFilter'></div>\
-		<div class='activateFrameButton animated' id='activateFrameButton'><img src='"+absUrlIcn+"'/></div>\
-		<div class='frameContainer' id='frameContainer'><iframe src='"+baseUrl+"/?url="+encodeURIComponent(url)+"&aid="+chromeAppID+"&token="+token+"'></iframe></div>";
-		$('body').append(html);
-		*/
-		$(document).on('click', '.activateFrameButton', function(e){
+		
+		document.getElementById('activateFrameButton').addEventListener("click", function(e){
 			ssClick.play();
-			$('.backgroundFilter').show();
-			$('.frameContainer').show();
-			$('.frameContainer').removeClass('slideOutDown');
-			$('.frameContainer').addClass('slideInUp');
+			document.getElementById('backgroundFilter').style.display = "block";
+			document.getElementById('frameContainer').style.display = "block";
+			removeClass(document.getElementById('frameContainer'), 'slideOutDown');
+			addClass(document.getElementById('frameContainer'), 'slideInUp');
 			e.preventDefault();
 			return false;
 		});
-		$(document).on('click', '.backgroundFilter', function(){
+
+		document.getElementById('backgroundFilter').addEventListener("click", function(e){
 			var removingOnly = true;
-			$('.backgroundFilter').hide();
-			$('.frameContainer').removeClass('slideInUp');
-			$('.frameContainer').addClass('slideOutDown');
-			$('.frameContainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-				if($('.frameContainer').hasClass('slideOutDown')){ $('.frameContainer').hide(); }
-			});
+			document.getElementById('backgroundFilter').style.display = "none";
+			removeClass(document.getElementById('frameContainer'), 'slideInUp');
+			addClass(document.getElementById('frameContainer'), 'slideOutDown');
+			function hideIfClosed(){ if(hasClass(document.getElementById('frameContainer'), 'slideOutDown')){ document.getElementById('frameContainer').style.display="none"; } }
+			document.getElementById('frameContainer').addEventListener("webkitAnimationEnd", hideIfClosed);
+			document.getElementById('frameContainer').addEventListener("mozAnimationEnd", hideIfClosed);
+			document.getElementById('frameContainer').addEventListener("MSAnimationEnd", hideIfClosed);
+			document.getElementById('frameContainer').addEventListener("oanimationend", hideIfClosed);
+			document.getElementById('frameContainer').addEventListener("animationend", hideIfClosed);
+			e.preventDefault();
+			return false;
 		});
-		$(document).on('mouseenter', '.activateFrameButton', function(){ iconHover=true; });
-		$(document).on('mouseleave', '.activateFrameButton', function(){ iconHover=false; });
-		$(document).keyup(function(e){
+
+		document.getElementById('activateFrameButton').addEventListener("mouseenter", function(){ iconHover=true; });
+		document.getElementById('activateFrameButton').addEventListener("mouseleave", function(){ iconHover=false; });
+		document.addEventListener("keyup", function(e){
 			if (e.keyCode==27 && iconHover){
 				ssOff.play();
-				$('.activateFrameButton').removeClass('bounceInUp');
-				$('.activateFrameButton').addClass('bounceOutDown');
+				removeClass(document.getElementById('activateFrameButton'), 'bounceInUp');
+				addClass(document.getElementById('activateFrameButton'), 'bounceOutDown');
 				dismissed = true;
 			}
 		});
