@@ -1,3 +1,40 @@
+console.log("doc ready added...");
+// jQuery's ready function in plain js
+(function(funcName, baseObj) {
+	"use strict";
+	funcName = funcName || "docReady";
+	baseObj = baseObj || window;
+	var readyList = [];
+	var readyFired = false;
+	var readyEventHandlersInstalled = false;
+	function ready(){
+		if (!readyFired) {
+			readyFired = true;
+			for (var i = 0; i < readyList.length; i++){
+				readyList[i].fn.call(window, readyList[i].ctx);
+			}
+			readyList = [];
+		}
+	}
+	function readyStateChange(){ if (document.readyState === "complete"){ ready(); }}
+	baseObj[funcName] = function(callback, context) {
+		if (readyFired){ setTimeout(function() {callback(context);}, 1); return; }
+		else{ readyList.push({fn: callback, ctx: context}); }
+		if (document.readyState === "complete" || (!document.attachEvent && document.readyState === "interactive")){ setTimeout(ready, 1); }
+		else if (!readyEventHandlersInstalled) {
+			if (document.addEventListener){
+				document.addEventListener("DOMContentLoaded", ready, false);
+				window.addEventListener("load", ready, false);
+			}
+			else{
+				document.attachEvent("onreadystatechange", readyStateChange);
+				window.attachEvent("onload", ready);
+			}
+			readyEventHandlersInstalled = true;
+		}
+	}
+})("docReady", window);
+
 var animateCSS = document.createElement('link');
 animateCSS.setAttribute('rel', 'stylesheet');
 animateCSS.setAttribute('type', 'text/css');
@@ -10,9 +47,7 @@ injectFrameCSS.setAttribute('type', 'text/css');
 injectFrameCSS.setAttribute('href', 'https://socialsurf.io/embed/injectFrame.css');
 document.getElementsByTagName('head')[0].appendChild(injectFrameCSS);
 
-/*****************************DDP*CLIENT*********************************************/
 /* MeteorDdp - a client for DDP version pre1 */
-
 var MeteorDdp = function(wsUri) {
 	this.VERSIONS = ["pre1"];
 	this.wsUri = wsUri;
@@ -22,7 +57,6 @@ var MeteorDdp = function(wsUri) {
 	this.watchers = {};
 	this.collections = {};
 };
-
 MeteorDdp.prototype._Ids = function() {
 	var count = 0;
 	return {
@@ -31,13 +65,10 @@ MeteorDdp.prototype._Ids = function() {
 		}
 	}
 }();
-
 MeteorDdp.prototype.connect = function() {
 	var self = this;
 	var conn = new $.Deferred();
-
 	self.sock = new WebSocket(self.wsUri);
-
 	self.sock.onopen = function() {
 		self.send({
 			msg: 'connect',
@@ -45,14 +76,9 @@ MeteorDdp.prototype.connect = function() {
 			support: self.VERSIONS
 		});
 	};
-
-	self.sock.onerror = function(err) {
-		conn.reject(err);
-	};
-
+	self.sock.onerror = function(err){ conn.reject(err); };
 	self.sock.onmessage = function(msg) {
 		var data = JSON.parse(msg.data);
-
 		switch (data.msg) {
 			case 'connected':
 			conn.resolve(data);
@@ -86,7 +112,6 @@ MeteorDdp.prototype.connect = function() {
 	};
 	return conn.promise();
 };
-
 MeteorDdp.prototype._resolveNoSub = function(data) {
 	if (data.error) {
 		var error = data.error;
@@ -94,17 +119,14 @@ MeteorDdp.prototype._resolveNoSub = function(data) {
 	}
 	else { this.defs[data.id].resolve(); }
 };
-
 MeteorDdp.prototype._resolveCall = function(data) {
 	if (data.error){ this.defs[data.id].reject(data.error.reason); }
 	else if (typeof data.result !== 'undefined'){ this.defs[data.id].resolve(data.result); }
 };
-
 MeteorDdp.prototype._resolveSubs = function(data) {
 	var subIds = data.subs;
 	for (var i = 0; i < subIds.length; i++){ this.defs[subIds[i]].resolve(); }
 };
-
 MeteorDdp.prototype._changeDoc = function(msg) {
 	var collName = msg.collection;
 	var id = msg.id;
@@ -125,7 +147,6 @@ MeteorDdp.prototype._changeDoc = function(msg) {
 	var changedDoc = coll[id];
 	this._notifyWatchers(collName, changedDoc, id, msg.msg);
 };
-
 MeteorDdp.prototype._addDoc = function(msg) {
 	var collName = msg.collection;
 	var id = msg.id;
@@ -136,7 +157,6 @@ MeteorDdp.prototype._addDoc = function(msg) {
 	var changedDoc = this.collections[collName][id];
 	this._notifyWatchers(collName, changedDoc, id, msg.msg);
 };
-
 MeteorDdp.prototype._removeDoc = function(msg) {
 	var collName = msg.collection;
 	var id = msg.id;
@@ -145,7 +165,6 @@ MeteorDdp.prototype._removeDoc = function(msg) {
 	delete this.collections[collName][id];
 	this._notifyWatchers(collName, docCopy, id, msg.msg);
 };
-
 MeteorDdp.prototype._notifyWatchers = function(collName, changedDoc, docId, message) {
 	changedDoc = JSON.parse(JSON.stringify(changedDoc));
 	changedDoc._id = docId;
@@ -156,7 +175,6 @@ MeteorDdp.prototype._notifyWatchers = function(collName, changedDoc, docId, mess
 		}
 	}
 };
-
 MeteorDdp.prototype._deferredSend = function(actionType, name, params) {
 	var id = this._Ids.next();
 	this.defs[id] = new $.Deferred();
@@ -171,15 +189,12 @@ MeteorDdp.prototype._deferredSend = function(actionType, name, params) {
 	this.send(o);
 	return this.defs[id].promise();
 };
-
 MeteorDdp.prototype.call = function(methodName, params) {
 	return this._deferredSend('method', methodName, params);
 };
-
 MeteorDdp.prototype.subscribe = function(pubName, params) {
 	return this._deferredSend('sub', pubName, params);
 };
-
 MeteorDdp.prototype.unsubscribe = function(pubName) {
 	this.defs[id] = new $.Deferred();
 	if (!this.subs[pubName]) { this.defs[id].reject(pubName + " was never subscribed"); }
@@ -190,27 +205,24 @@ MeteorDdp.prototype.unsubscribe = function(pubName) {
 	}
 	return this.defs[id].promise();
 };
-
 MeteorDdp.prototype.watch = function(collectionName, cb) {
 	if (!this.watchers[collectionName]){ this.watchers[collectionName] = []; }
 	this.watchers[collectionName].push(cb);
 };
-
 MeteorDdp.prototype.getCollection = function(collectionName) {
 	return this.collections[collectionName] || null;
 }
-
 MeteorDdp.prototype.getDocument = function(collectionName, docId) {
 	return this.collections[collectionName][docId] || null;
 }
-
 MeteorDdp.prototype.send = function(msg) {
 	this.sock.send(JSON.stringify(msg));
 };
-
 MeteorDdp.prototype.close = function() {
 	this.sock.close();
 };
+
+
 /**************************************************************************/
 // TODO : remove jQuery !!!
 /*********************************JQUERY*****************************************/
