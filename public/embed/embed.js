@@ -1,4 +1,4 @@
-console.log("de-jquerify...");
+console.log("DOM manipulation JS");
 /* some jQuery's functions in plain js */
 (function(funcName, baseObj){
 	"use strict";
@@ -34,14 +34,14 @@ console.log("de-jquerify...");
 		}
 	}
 })("docReady", window);
-function AAaddClass(elm, className){
+function addClass(elm, className){
 	elm.className = elm.className.replace(" "+className,"");
 	elm.className = elm.className+" "+className;
 }
-function AAremoveClass(elm, className){
+function removeClass(elm, className){
 	elm.className=elm.className.replace(" "+className,"");
 }
-function AAhasClass(elm, className){
+function hasClass(elm, className){
 	return ((" "+elm.className+" ").replace(/[\n\t]/g," ").indexOf(" "+className+" ") > -1); 
 }
 
@@ -272,22 +272,22 @@ function updateOnlineBadge(ddp, url){
 	ddp.call('getOnlineCount', [url]).done(function(onlineres){
 		var activateFrameButton = document.getElementById('activateFrameButton');
 		if (onlineres > 1){
-			if(!AAhasClass(activateFrameButton, 'bounceOutDown')){ ssOn.play(); }
+			if(!hasClass(activateFrameButton, 'bounceOutDown')){ ssOn.play(); }
 			ssOn.play();
-			AAremoveClass(activateFrameButton, 'bounceOutDown');
-			AAaddClass(activateFrameButton, 'bounceInUp');
+			removeClass(activateFrameButton, 'bounceOutDown');
+			addClass(activateFrameButton, 'bounceInUp');
 			activateFrameButton.style.display = "block";
 		}
 		else{
-			if (AAhasClass(activateFrameButton, 'bounceInUp')){ ssOff.play(); }
-			AAremoveClass(activateFrameButton, 'bounceInUp');
-			AAaddClass(activateFrameButton, 'bounceOutDown');
+			if (hasClass(activateFrameButton, 'bounceInUp')){ ssOff.play(); }
+			removeClass(activateFrameButton, 'bounceInUp');
+			addClass(activateFrameButton, 'bounceOutDown');
 		}
 	});
 }
 
 function init(url, token){
-	$(document).ready(function(){
+	docReady(function(){
 		var dismissed = false;
 		var iconHover = false;
 		var absUrlIcn = 'https://socialsurf.io/embed/ssicn.png';
@@ -297,11 +297,35 @@ function init(url, token){
 		ssOn = new Audio(absUrlSoundOn);
 		ssOff = new Audio(absUrlSoundOff);
 		ssClick = new Audio(absUrlSoundClick);
+		// create bg filter
+		var backgroundFilter = document.createElement("div");
+		backgroundFilter.setAttribute("class", "backgroundFilter");
+		backgroundFilter.setAttribute("id", "backgroundFilter");
+		// create button
+		var activateFrameButton = document.createElement("div");
+		activateFrameButton.setAttribute("class", "activateFrameButton animated");
+		activateFrameButton.setAttribute("id", "activateFrameButton");
+		var activateFrameButtonImg = document.createElement("img");
+		activateFrameButtonImg.setAttribute('src', absUrlIcn);
+		activateFrameButton.appendChild(activateFrameButtonImg);
+		// create frame
+		var frameContainer = document.createElement("div");
+		frameContainer.setAttribute("class", "frameContainer");
+		frameContainer.setAttribute("id", "frameContainer");
+		var frameContainerFrame = document.createElement("iframe");
+		frameContainerFrame.setAttribute("src", baseUrl+"/?url="+encodeURIComponent(url)+"&aid="+chromeAppID+"&token="+token);
+		frameContainer.appendChild(frameContainerFrame);
+		// add all to body
+		document.body.appendChild(backgroundFilter);
+		document.body.appendChild(activateFrameButton);
+		document.body.appendChild(frameContainer);
+		/*
 		var html = "\
 		<div class='backgroundFilter' id='backgroundFilter'></div>\
 		<div class='activateFrameButton animated' id='activateFrameButton'><img src='"+absUrlIcn+"'/></div>\
 		<div class='frameContainer' id='frameContainer'><iframe src='"+baseUrl+"/?url="+encodeURIComponent(url)+"&aid="+chromeAppID+"&token="+token+"'></iframe></div>";
 		$('body').append(html);
+		*/
 		$(document).on('click', '.activateFrameButton', function(e){
 			ssClick.play();
 			$('.backgroundFilter').show();
