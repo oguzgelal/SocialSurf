@@ -90,11 +90,6 @@ Template.frame.onCreated(function(){
 }
 });
 
-Template.frame.rendered = function(){
-  var h = $('.settingsBar').height();
-  $('.settingsBar').css("margin-top", -h + "px");
-}
-
 Template.frame.onRendered(function(){
   var instance = this;
   $(".nano").nanoScroller();
