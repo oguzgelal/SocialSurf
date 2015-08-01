@@ -1,0 +1,13 @@
+{
+  "name": "embed",
+  "version": "1.0.0",
+  "versiondashed": "1-0-0",
+  "description": "This script is executed to initialize socialsurf on a webpage",
+  "author": "Oguz Gelal",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1"
+  }
+}
