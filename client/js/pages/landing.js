@@ -165,7 +165,7 @@ Template.landing.rendered = function(){
 		});
 		$(document).on("click", '.landing-product-dev', function(){
 			var modalTitle = "Upcoming awesomeness";
-			var modalDesc = "Developers! Not only you'll be able to integrate our chat console to your website, but you'll also be able to send each user private messages and use this as a feedback tool. Drop your mail and we'll update you when this is ready!";
+			var modalDesc = "Developers! <br><br> Not only you'll be able to integrate our chat console to your website, but you'll also be able to send each user private messages and use this as a feedback tool. <br><br> Oh, and there will be a <b>Wordpress</b>, <b>Drupal</b> and <b>Joomla</b> plugins that will help you integrate without seeing a single line of code :)";
 			var modal = "<div class='landing-modal'><div class='landing-modal-content animated fadeInUp'><i class='fa fa-times landing-modal-close'></i><div class='modal-dropmail'><div class='landing-notify-label'>"+modalTitle+"</div><div class='landing-maillabel'>"+modalDesc+"</div><div class='landing-mailinput'><input class='landing-notify-txt landing-notify-txt-modal' type='text' placeholder='your email here...'><div class='landing-notify-btn landing-notify-btn-modal'>get updated</div></div></div></div></div>";
 			$('body').append(modal);
 		});
