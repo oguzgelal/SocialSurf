@@ -20,8 +20,8 @@ Meteor.methods({
     function replaceTag(tag){ return tagsToReplace[tag] || tag; }
     function safe_tags_replace(str){ return str.replace(/[&<>]/g, replaceTag); }
     if (message){ message = safe_tags_replace(message); }
-    if (nick){ nick = safe_tags_replace(nick); }
-    if (user){ user = safe_tags_replace(user); }
+    try { if (nick){ nick = safe_tags_replace(nick); } }
+    catch(e){ console.log("."); }
 
     Messages.insert({
       roomid: roomid,
