@@ -87,7 +87,7 @@ Template.frame.onCreated(function(){
       loadedMessages[seqID] = message;
       return message
     });
-}
+  }
 });
 
 Template.frame.onRendered(function(){
@@ -191,6 +191,14 @@ Template.messageBox.rendered = function(){
     var concatSeqID = this.data.concatSeqID;
     var concatMsgID = this.data.concatMsgID;
     var message = this.data.message;
+    var tagsToReplace = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;'
+    };
+    function replaceTag(tag){ return tagsToReplace[tag] || tag; }
+    function safe_tags_replace(str){ return str.replace(/[&<>]/g, replaceTag); }
+    if (message){ message = safe_tags_replace(message); }
     $('.msgbox#'+concatSeqID+'[data-id="'+concatMsgID+'"]').find('.msgbox-text').append("<div class='msgbox-appended'>"+message+"</div>");
     this.firstNode.remove();
   }

@@ -10,6 +10,19 @@ Meteor.methods({
     }
   },
   addMessage: function(roomid, message, nick, user, sentTime){
+
+    // Prevent XSS attacks
+    var tagsToReplace = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;'
+    };
+    function replaceTag(tag){ return tagsToReplace[tag] || tag; }
+    function safe_tags_replace(str){ return str.replace(/[&<>]/g, replaceTag); }
+    if (message){ message = safe_tags_replace(message); }
+    if (nick){ nick = safe_tags_replace(nick); }
+    if (user){ user = safe_tags_replace(user); }
+
     Messages.insert({
       roomid: roomid,
       nick: nick,
